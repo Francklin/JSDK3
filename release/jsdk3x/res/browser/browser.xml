@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Browsers>
+	<Browser Manufacturer="Microsoft" AppName="Microsoft Internet Explorer" AppCodeName="MSIE" ShortName="IE" AppVer="5;6;7;8;9;10;11">
+		Microsoft Internet Explorer
+	</Browser>
+	<Browser Manufacturer="Mozilla" AppName="Mozilla Firefox" AppCodeName="Firefox" ShortName="FF" AppVer="3-26">
+		Mozilla Firefox
+	</Browser>
+	<Browser Manufacturer="Opera Software ASA" AppName="Opera" AppCodeName="Opera" ShortName="Opera" AppVer="18" >
+		Opera
+	</Browser>
+	<Browser Manufacturer="Apple" AppName="Apple Safari" AppCodeName="Safari" ShortName="Safari" AppVer="5">
+		Apple Safari
+	</Browser>
+	<Browser Manufacturer="Google" AppName="Google Chrome" AppCodeName="Chrome" ShortName="Chrome" AppVer="">
+		Google Chrome
+	</Browser>
+	<Browser Manufacturer="Maxthon" AppName="Maxthon" AppCodeName="Maxthon" ShortName="Maxthon" AppVer="1;2;3">
+		Maxthon
+	</Browser>
+	<Browser Manufacturer="Tencent" AppName="Tencent Traveler" AppCodeName="Traveler" ShortName="TT" AppVer="3;4">
+		Tencent Traveler
+	</Browser>
+</Browsers>

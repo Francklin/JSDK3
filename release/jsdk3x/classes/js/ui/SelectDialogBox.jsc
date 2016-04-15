@@ -1,0 +1,21 @@
+
+$package("js.ui");js.ui.SelectDialogBox=function(){}
+var _$class=js.ui.SelectDialogBox;with(_$class){$name="SelectDialogBox";$extends("Object");_$class._styleLib={"std":Engine.runtimeEnvironment.getResPath("js.ui")+"/SelectDialogBox/"+(Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"std.IE.css":"std.css")}
+_$class._styleSkin="std";_$class._localeLang=Engine.runtimeEnvironment.getLocaleLanguage();addProperty(true,true,"localeLang",{"get":function(){return this._localeLang;}});addMethod(true,true,"show",function(oDspTexts,oPara,oViewData,vValues,fnGetItemData,fnCallBack){var _this=this;var _minCellWidth=100;var _minHeight=50;var pageName=(Global.Browser.Platform.ios?"index_for_ipad.htm":"index.htm")+"?seq="+(new js.lang.natives.Date()).getMilliseconds();oPara.opener=window;if(!oPara.icon){oPara.icon={}}
+if(oPara.cateDspMode==undefined){oPara.cateDspMode=0;}
+if(oPara.viewDspMode==undefined){oPara.viewDspMode=0;}
+oPara.width=oPara.width||650;oPara.height=oPara.height||450;if(Global.Browser.Platform.ios){pageName="index_for_ipad.htm";}else if(oPara.viewDspMode==0){if(Global.Browser.Engine.trident&&Global.Browser.Engine.version<=3){pageName="index_for_IE.htm";}else{pageName="index.htm";}}else{if(Global.Browser.Engine.trident&&Global.Browser.Engine.version<=3){pageName="index_tree_for_IE.htm";}else{pageName="index_tree.htm";}}
+var ret=window.$showModalDialog(Engine.runtimeEnvironment.getResPath("js.ui")+"/SelectDialogBox/"+pageName
+,{engineDir:Engine.runtimeEnvironment.getRootPath(),opener:window,oDspTexts:function(){if(!oDspTexts.button){switch(_this._localeLang){case"":case"zh-CN":oDspTexts.button={OK:"\u786e\u5b9a",Cancel:"\u53d6\u6d88"}
+break;case"zh-HK":oDspTexts.button={OK:"\u78ba\u5b9a",Cancel:"\u53d6\u6d88"}
+break;case"en":oDspTexts.button={OK:"OK",Cancel:"Cancel"}
+break;}}
+if(!oDspTexts.buttonTips){switch(_this._localeLang){case"":case"zh-CN":oDspTexts.buttonTips={add:"\u6dfb\u52a0",addAll:"\u6dfb\u52a0\u6240\u6709",remove:"\u5220\u9664",clear:"\u6e05\u7a7a",moveTop:"\u7f6e\u9876",moveUp:"\u5411\u4e0a\u79fb\u52a8",moveDown:"\u5411\u4e0b\u79fb\u52a8",moveBottom:"\u7f6e\u5e95"}
+break;case"zh-HK":oDspTexts.buttonTips={add:"\u6dfb\u52a0",addAll:"\u6dfb\u52a0\u6240\u6709",remove:"\u522a\u9664",clear:"\u6e05\u7a7a",moveTop:"\u7f6e\u9802",moveUp:"\u5411\u4e0a\u79fb\u52d5",moveDown:"\u5411\u4e0b\u79fb\u52d5",moveBottom:"\u7f6e\u5e95"}
+break;case"en":oDspTexts.buttonTips={add:"Add",addAll:"Add All",remove:"Remove",clear:"Clear Empty",moveTop:"Move to Top",moveUp:"Move Up",moveDown:"Move Down",moveBottom:"Move to Bottom"}
+break;}}
+switch(_this._localeLang){case"":case"zh-CN":oDspTexts.status={loadingData:"\u6b63\u5728\u52a0\u8f7d\u6570\u636e"}
+break;case"zh-HK":oDspTexts.status={loadingData:"\u6b63\u5728\u52a0\u8f09\u6578\u64da"}
+break;case"en":oDspTexts.status={loadingData:"Loading data"}
+break;}
+return oDspTexts;}(),oPara:oPara,oViewData:oViewData,vValues:vValues,fnGetItemData:fnGetItemData},"dialogWidth="+oPara.width+"px;dialogHeight="+oPara.height+"px;status:no",fnCallBack);return ret;});addMethod(true,true,"addStyleSkin",function(sName,sPath){this._styleLib[sName]=sPath;});}

@@ -1,0 +1,3 @@
+
+$package("js.ui");jui.DatePicker=function(){this._id="";this._htmlElement=null;this._DatePicker();}
+var _$class=jui.DatePicker;var _$proto=_$class.prototype;with(_$class){$name="DatePicker";$extends("Object");prototype._DatePicker=function(){}}
