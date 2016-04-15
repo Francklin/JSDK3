@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Class </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="common/loader.js">
+  $import("js.dom.DOMTemplate");
+  </script>
+  <style>
+  .label{
+	width: 200px;
+	font-weight: bold
+  }
+  .class .label{
+	background-color: #EDEDED
+  }
+  .table{
+	border-collapse:collapse;
+  }
+  .table td{
+	white-space: wrap;
+	word-break: break-all;
+  }
+  </style>
+  <script>
+  var classPath=jsdk.getURIPrmt(window.location,"class").replace(/\./g,"/");
+  document.title=classPath.word(classPath,"/",-1);
+  var classData={
+	data: jsdk.get((classPath.indexOf("/")>=0?"classes/":"base/")+classPath+".doc.js","",true,"","json")
+  };
+  window.onload=function(){
+		jsdk.DOMTemplate.parse(jsdk.dom("script[type='text/x-html-block']"));
+  }
+  </script>
+ </head>
+	
+ <body>
+	<script type="text/x-html-block" template="common/class.tpl.htm" data="${classData}"></script>
+ </body>
+</html>

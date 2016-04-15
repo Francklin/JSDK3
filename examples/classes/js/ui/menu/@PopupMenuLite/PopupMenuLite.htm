@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.ui.menu.PopupMenuLite </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.dom.HTML");
+  $import("js.ui.menu.PopupMenuLite");
+  </script>
+  <script src="../../../../example.js"></script>
+  <style>
+	.MainMenu{
+		line-height: 14px;
+		margin: 3px 3px;
+	}
+	.MainMenu a, .MainMenu a:link{
+		font-size: 9pt;
+		font-size: 宋体;
+		padding: 3px 5px;
+	}
+  </style>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<div style="height: 50px"></div>
+	<div>设置样式：<INPUT TYPE="text" NAME="" id="F_StyleSkin" ondblclick="mnuStyleSkin.show(event)">
+	<INPUT TYPE="button" value="设置" onclick="jsdk.PopupMenuLite.setStyleSkin(jsdk.dom('#F_StyleSkin').value)">
+	<INPUT TYPE="button" id="menuTest01" value="菜单测试(分割线)" onclick="mnuMenuTest01.show(event);">
+	</div>
+	<div style="width:600px;">
+		<div class="MainMenu">
+			<a id="itmFile" href="javascript:void(0)" onclick="mnuFile.show(event)">文件</a> | 
+			<a id="itmEdit" href="javascript:void(0)" onmouseover="mnuEdit.show(event)">编辑</a> | 
+			<a id="itmView" href="javascript:void(0)" onmouseover="mnuView.show(event)">查看</a> | 
+			<a id="itmHelp" href="javascript:void(0)" onclick="mnuHelp.show(event,200)">帮助</a>
+		</div>
+		<div id="MainBody" style="border:solid 1px gray;width:100%;height:300px;" oncontextmenu="menu.show(event);return false;"></div>
+	</div>
+	<script>
+	jsdk.PopupMenuLite.setStyleSkin("xp");
+	var mnuStyleSkin=new jsdk.PopupMenuLite(document.getElementById("F_StyleSkin"),1);
+	mnuStyleSkin.addItem("Classic","",function(){
+		this.getParentApp().getOwner().value="Classic";
+	});
+	mnuStyleSkin.addItem("XP","",function(){
+		this.getParentApp().getOwner().value="XP";
+	});
+	var mnuFile=new jsdk.PopupMenuLite(document.getElementById("itmFile"),1);
+	mnuFile.addItem("新建","new",function(){
+		alert(this.getData());
+	});
+	mnuFile.addItem("打开...");
+	mnuFile.addItem("关闭");
+	mnuFile.addItem("-");
+	mnuFile.addItem("保存");
+	mnuFile.addItem("另存为...");
+	mnuFile.addItem("-");
+	mnuFile.addItem("保存并退出");
+	mnuFile.addItem("退出");
+	var mnuEdit=new jsdk.PopupMenuLite(document.getElementById("itmEdit"),1);
+	mnuEdit.setIsHideOnMouseLeave(true);
+	mnuEdit.addItem("撤销");
+	mnuEdit.addItem("重做");
+	mnuEdit.addItem("-");
+	mnuEdit.addItem("剪切");
+	mnuEdit.addItem("复制");
+	mnuEdit.addItem("粘贴");
+	var mnuView=new jsdk.PopupMenuLite(document.getElementById("itmView"),1);
+	mnuView.setIsHideOnMouseLeave(true);
+	mnuView.addItem("全屏");
+	mnuView.addItem("在IE浏览器中查看");
+	mnuView.addItem("在Firefox浏览器中查看").setIsHidden(true);
+	var mnuHelp=new jsdk.PopupMenuLite(document.getElementById("itmHelp"),1);
+	mnuHelp.addItem("帮助主题");
+	mnuHelp.addItem("检查更新...");
+	mnuHelp.addItem("关于...",function(){
+		alert("PopupMenu Lite V"+this.getParentApp().getVersion());
+	});
+	var menu=new jsdk.PopupMenuLite(document.getElementById("MainBody"),0);
+	menu.addItem("复制","",function(){
+		alert("复制");
+	});
+	menu.addItem("剪切","",function(){
+		alert("剪切");
+	});
+	with(menu.addItem("粘贴","",function(){
+		alert("粘贴");
+	})){
+		setId("itmPaste");
+		setEnabled(false);
+	}
+	menu.addItem("-");
+	menu.addItem("上一页");
+	menu.addItem("下一页");
+	var mnuMenuTest01=new jsdk.PopupMenuLite(document.getElementById("menuTest01"),1);
+	mnuMenuTest01.addItem("复制");
+	mnuMenuTest01.addItem("-");
+	mnuMenuTest01.addItem("剪切");
+	mnuMenuTest01.addItem("-");
+	mnuMenuTest01.addItem("粘贴");
+	mnuMenuTest01.addItem("-");
+	mnuMenuTest01.addItem("上一页");
+	mnuMenuTest01.addItem("-");
+	mnuMenuTest01.addItem("下一页");
+	</script>
+
+ </body>
+</html>

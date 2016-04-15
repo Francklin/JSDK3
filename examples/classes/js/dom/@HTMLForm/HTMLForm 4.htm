@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/loader.js">
+  $import("js.dom.HTMLForm");
+  </script>
+  <script src="../../../example.js"></script>  
+  <script>
+  //初始化表单校验
+  function initFormValidation(thisform){
+	thisform.setAllItems([
+		["F_Subject","Subject","Text",false,"",""],
+		["F_FromDate","From Date","Date",false,"",""],
+		["F_ToDate","To Date","Date",false,"","","->#F_FromDate"],
+		["F_Category","Category","Text",false,"",{
+			"onValueChange": function(event){
+				//alert(this.name);
+			}
+		}],
+		["F_isPublic","Is Public","Text",false,"",{
+			"onValueChange": function(event){
+				//alert(this.name);
+			}
+		}],
+		["F_Reads","Reads","Number",true,"","",5,10],
+		["F_Edits","Edits","Number",true,"",{
+			"onValueChange": function(event){
+				//alert(event.srcElement.value);
+			},
+			"onValidate": function(){
+				if(thisform.F_Reads.value!=""){
+					this.allowEmpty=false;
+					return this.parentForm.checkItem(this.name);
+				}
+				return true;
+			}
+		},0,"->#F_Reads"],
+		["F_LogoImage","Logo","Text",false,"Please select logo image!",""]
+
+	]);
+	thisform.onItemValueChange=function(event){alert(event.result.fromItem);
+		//alert("changed item '"+event.result.fromItem.label+"'!");
+		setFormValidation(this,event.result.fromItem.name);
+	}
+	setFormValidation(thisform);
+  }
+  //根据域值的变化设置表单校验
+  function setFormValidation(thisform,sChangedField){
+	var fields=["F_Category"];
+	if(!sChangedField){
+		for(var i=0;i<fields.length;i++){
+			setFormValidation(thisform,fields[i]);
+		}
+		return;
+	}
+	switch(sChangedField){
+		case "F_Category": 
+			if(thisform.getItemValue(sChangedField)=="其他"){
+				thisform.F_OtherCategory.style.display="";
+			}else{
+				thisform.F_OtherCategory.style.display="none";
+			}
+			break;
+	}
+  }
+  window.onload=function(){
+    var thisform=document.forms[0];
+	jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+	initFormValidation(thisform);
+	thisform.btnSubmit.onclick=function(){
+		if(thisform.checkForm()){
+			alert("OK!");
+		}
+	}
+  }
+  </script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<div>updated date: 2012.2.28</div>
+	<hr> 
+	<Form>
+	<TABLE width="100%" border="0" bordercolor="gray" cellspacing="0" cellpadding="3" style="border-collapse:collapse">
+	<TR>
+		<TD>
+			Subject: <input type="text" name="F_Subject">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			From Date: <input type="text" name="F_FromDate"> To Date: <input type="text" name="F_ToDate">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Category: 
+			<select name="F_Category">
+				<option value="图书" selected>图书</option>
+				<option value="音像">音像</option>
+				<option value="服饰">服饰</option>
+				<option value="其他">其他</option>
+			</select>
+			<input type="text" name="F_OtherCategory">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Is Public: <label><input type="radio" name="F_isPublic" value="1">Yes</label><label><input type="radio" name="F_isPublic" value="0">No</label>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Reads: <input type="text" name="F_Reads">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Edits: <input type="text" name="F_Edits">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Logo: <input type="file" id="F_LogoImage">
+		</TD>
+	</TR>
+	</TABLE>
+	<br>
+	<input type=button name="btnSubmit" value="提交">
+	</Form>
+ </body>
+</html>

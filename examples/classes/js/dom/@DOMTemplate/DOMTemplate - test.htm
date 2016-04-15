@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title> test - Class: js.dom.DOMTemplate </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script appName="jsdk" debug="false" src="../../../../common/loader.js">
+  $import("js.dom.DOMTemplate3");
+  </script>
+ </head>
+
+ <body>
+	 <script id="tmpl" type="text/html">
+	   <table width="80%">
+		 <tr bgcolor="#DEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+		 <% for(var n = 0; n < books.length; n++) {
+			  var book = books[n];
+			  if(n % 2 != 0) { 
+		  %>
+		  <tr bgcolor="#DCDCDC"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% }else{   %>
+		   <tr bgcolor="#FFFFE0"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% } }  %>
+	   </table>
+	</script>
+	<script id="tpl_wht_wdc" type="text/html">
+                            	<div class="wht-wdc">
+					<form>
+<% if(typeof(data.viewentry)!="undefined"&&data.viewentry.length>0){
+	var viewentry=data.viewentry[0];
+	var aWordList=viewentry.entrydata[2]["text"]["0"].split(";").trim();
+	var iCount=aWordList.length;
+	var iColumnWidth=iCount<=3?1:(iCount<=6?2:3);
+	var iLines=Math.ceil(iCount/iColumnWidth);
+	var iItemTextLen=Math.floor(38/iColumnWidth)+iColumnWidth-1;
+	var sSelectMode=viewentry.entrydata[6]["text"]["0"];
+	var isExpired=viewentry.entrydata[4]["text"]["0"]=="1";
+	var title=viewentry.entrydata[0]["text"]["0"];
+	var title1=jsdk.obj(title).truncate(56,0,"...");
+%>
+					<input type="hidden" name="F_T_$UNID" value="${viewentry["@unid"]}" />
+			 	 	<input type="hidden" name="F_T_isAnonymous" value="${viewentry.entrydata[5]["text"]["0"]||""}" />
+					<p title="<%=title==title1?"":title%>">${title1}</p>
+					<div style="display:block;*display:inline-block;overflow:hidden">
+					<table width="100%">
+					  <% for(var j=0;j<iLines;j++){%>
+					  <tr>
+						<%for(var k=0;k<iColumnWidth&&(j*iColumnWidth+k)<iCount;k++){
+							var item_text=aWordList[j*iColumnWidth+k];
+							var item_text1=jsdk.obj(item_text).truncate(iItemTextLen,0,"...");
+						%>
+							<td width="${Math.floor(100/iColumnWidth)}%"><input name="F_T_ChoiceItems" type="<%=(sSelectMode=="1"?"radio":"checkbox")%>" value="${aWordList[j*iColumnWidth+k]}" /><span title="<%=item_text==item_text1?"":item_text%>">${item_text1}</span></td>
+						<%}%>
+					  </tr>
+					  <%}%>
+					</table>
+					</div>
+					<div class="action-bar">
+                                   <input name="_btnSubmit" type="button" value="提交" class="tj-btn"> 
+                                   <input name="_btnViewResult" type="button" value="查看结果" class="chakan-btn"> 
+					 <input name="_btnViewMore" type="button" value="往期调查" class="chakan-btn"> 
+                                  </div>
+<%}else{%>
+	<div class="empty">没有发现微调查！</div>
+<%}%>
+					</form>
+					</div>
+	</script>
+	<script language="javascript" type="text/javascript">
+	var tpl=jsdk.DOMTemplate3.newInstanceWithId("tpl_wht_wdc");
+	tpl.setTarget(jsdk.dom("#tmpl")[0]);
+	tpl.setIsOnsiteOutput(true);
+	tpl.parse({
+		books:[
+			{name:"hibernate实战教程", author:"李永胜", plsh:"李永胜出版社", price: "50.00"},
+			{name:"ajax and jtle文档", author:"李永胜", plsh:"李永胜出版社", price: "0.00"},
+			{name:"spring webflow教程", author:"李永胜", plsh:"李永胜出版社", price: "60.00"},
+			{name:"dwr应用", author:"李永胜", plsh:"李永胜出版社", price: "30.00"}
+		]
+	});
+	</script>
+	<script>
+	var tpl=jsdk.DOMTemplate3.newInstanceWithId("tmpl");
+		var date1=new Date();
+	document.write(date1.toSTDString()+"<br>");
+	var code1=tpl.getCompiledCode();
+	for(var i=0;i<100;i++){
+			var tpl11=jsdk.DOMTemplate3.newInstanceFromCompiled(code1);
+			//var tpl11=new jsdk.DOMTemplate3(tpl.getCode());
+	}
+	var date2=new Date();
+	document.write(date2.toSTDString()+ "-" +(date2-date1)+"<br>");
+	var code2=tpl.getCode();
+	for(var i=0;i<100;i++){
+			//var tpl11=jsdk.DOMTemplate3.newInstanceFromCompiled(tpl.getCompiledCode());
+			var tpl11=new jsdk.DOMTemplate3(code2);
+	}
+	var date3=new Date();
+	document.write(date3.toSTDString()+ "-" +(date3-date2)+"<br>");
+	</script>
+	<hr>
+	<script id="tmpl1" type="text/html" src="template/books.tpl.htm"></script>
+	<script language="javascript" type="text/javascript">
+	var tpl=jsdk.DOMTemplate3.newInstanceWithId("tmpl1");
+	var tpl=jsdk.DOMTemplate3.newInstanceFromCompiled(tpl.getCompiledCode());
+	tpl.setTarget(jsdk.dom("#tmpl1")[0]);
+	tpl.setIsOnsiteOutput(true);
+	tpl.parse(jsdk.get("data/books1.json","",false,"","json"));
+
+	</script>
+
+ </body>
+</html>

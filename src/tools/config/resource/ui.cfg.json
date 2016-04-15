@@ -1,0 +1,15 @@
+{
+manifest : {
+"name" : "ui",
+"file" : "ui.js",
+"version" : "1.0",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013-09-09",
+"modified": "2013-09-09"
+},
+entity : [
+	"lib/classes/ui.json"
+],
+output : "lib\\resources\\ui.1.0.js"
+}

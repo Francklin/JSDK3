@@ -1,0 +1,43 @@
+.Selector{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-size: 9pt;
+	text-align: left;
+	overflow: hidden;
+}
+.Selector form{
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+	margin: 0px;
+	padding-bottom: 30px;
+}
+.Selector .List{
+	width: 100%;
+	height: 100%;
+	padding: 1px;
+	overflow: auto;
+}
+.Selector .ListItem{
+	width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+}
+.Selector .ActionBar{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 29px;
+	text-align: center;
+	border-top: solid 1px gray;
+	background-color: ;
+	overflow:hidden;
+}
+.Selector .ActionBarItem{
+	width: 70px;
+	margin: 3px 7px;
+	*padding-top: 1px;
+}

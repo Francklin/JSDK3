@@ -1,0 +1,254 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> build project </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" develop="false" src="../../src/loader.js">
+  $import("js.dom.HTMLForm");
+  $import("js.build.Compressor");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  label{
+	line-height: 1.5em;
+  }
+  .label{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 4px;
+	vertical-align: top;
+  }
+  .field{
+	width: 250px;
+  }
+  .index{
+	width: 32px;
+	color: blue;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Build Project<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<form>
+	<span class="label">Config: </span><INPUT class="field" TYPE="text" NAME="F_ConfigFile" value="./config/project/project.cfg.json"><input type="button" value="Load" 
+		onclick="loadConfig()"><br>
+	<span class="label">Entity: </span><TEXTAREA NAME="F_Entity" ROWS="7" COLS="60"></TEXTAREA><br>
+	<span class="label">Release Path: </span><INPUT class="field" TYPE="text" NAME="F_TargetPath"><input type="button" value="Scan" 
+		onclick="startBuild(false)"><input type="button" value="Start" onclick="startBuild(true)"><br>
+	<span class="label"></span>
+	</form>
+	<hr>
+	<div id="out"></div>
+    <script>
+	JSDK.HTMLForm.applyInstance(document.forms[0],"copy");
+	var config;
+	var jsre=JSDK.Engine.runtimeEnvironment;
+	var root=unescape(JSDK.Engine.runtimeEnvironment.getRootPath().slice(1).replace(/\//g,"\\"));
+	var targetPath="";
+	var runMode=0;
+	function loadConfig(){
+		var sCfgFile=document.getElementsByName("F_ConfigFile")[0].value;
+		if(!sCfgFile){
+			alert("Please input config file path!");
+			return;
+		}
+		config=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()+"/"+sCfgFile,"",false,"","JSON");
+		document.getElementsByName("F_Entity")[0].value=config.entity.join("\n");
+		document.getElementsByName("F_TargetPath")[0].value=config.output;
+	}
+	function startBuild(isOK){
+		if(!config) {
+			alert("Please first load config data!");
+			return;
+		}else if(!document.getElementsByName("F_TargetPath")[0].value){
+			alert("Please input target path!");
+			return;
+		}else if(isOK&&!confirm("Do you build the project really?")){
+			return;
+		}
+		runMode=isOK;
+		var compressor=new JSDK.Compressor(1);
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		//var iOptions=parseInt(document.forms[0].getItemValue("F_Options"));
+		JSDK.dom("#out")[0].innerHTML="";
+		targetPath=JSDK.getURIFullPath(root,document.getElementsByName("F_TargetPath")[0].value,"\\");
+		for(var i=0,iLen=config.entity.length,j=1;i<iLen;i++){
+			var values=parseFilePathRule(config.entity[i]);
+			copyFiles(values[0]?(root+"\\"+values[0]):root,values[1],values[2],values[3],values[4]);
+		}
+	}
+	function parseFilePathRule(sRule){
+		var sPath="",iFileType=-1, iIncludeSub=false;
+		var sFileNameRule="", iRuleType=-1;
+		if(sRule.indexOf("<%")>=0&&sRule.indexOf("%>")>=0){
+			iRuleType=1;
+			var strs=JSDK.obj(sRule).xsplit("group",["<%","%>"]);
+			for(var i=0;i<strs.length;i++){
+				if(strs[i][0]=="<%%>"){
+					sFileNameRule=strs[i][1];
+					strs[i]=".";
+				}else{
+					strs[i]=strs[i][1];
+				}
+			}
+			sRule=strs.join("");
+		}else if(sRule.indexOf("*")>=0||sRule.indexOf("?")>=0){
+			iRuleType=0;
+		}else{
+			iRuleType=-1;
+		}
+		sPath=sRule.leftBack("\\");
+		var fileName1=sRule.word("\\",-1);
+		if(fileName1.slice(0,3)=="((|"&&fileName1.slice(-3)=="|))"){
+			iFileType=0;
+			iIncludeSub=true;
+			if(!sFileNameRule){
+				sFileNameRule=fileName1.middle("((|","|))",2);
+			}
+		}else if(fileName1.slice(0,2)=="(|"&&fileName1.slice(-2)=="|)"){
+			iFileType=0;
+			if(!sFileNameRule){
+				sFileNameRule=fileName1.middle("(|","|)",2);
+			}
+		}else if(fileName1.slice(0,3)=="[[|"&&fileName1.slice(-3)=="|]]"){
+			iFileType=1;
+			iIncludeSub=true;
+			if(!sFileNameRule){
+				sFileNameRule=fileName1.middle("[[|","|]]",2);
+			}
+		}else if(fileName1.slice(0,2)=="[|"&&fileName1.slice(-2)=="|]"){
+			iFileType=1;
+			iIncludeSub=true;
+			if(!sFileNameRule){
+				sFileNameRule=fileName1.middle("[|","|]",2);
+			}
+		}else{
+			if(!sFileNameRule){
+				sFileNameRule=fileName1;
+			}
+		}
+		//alert([sPath,iFileType,iIncludeSub,sFileNameRule,iRuleType]);
+		return [sPath,iFileType,iIncludeSub,sFileNameRule,iRuleType];
+	}
+	//iFileType: -1, *; 0, file; 1, dir
+	//iRuleType: -1, no; 0, std; 1, regexp
+	function copyFiles(sPath,iFileType,iIncludeSub,sFileNameRule,iRuleType){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var subFolders=[];
+		var folder= fso.GetFolder(sPath);
+		if(iRuleType==-1&&!iIncludeSub){
+			if(fso.FileExists(sPath+"\\"+sFileNameRule)){
+				copyFile(sPath+"\\"+sFileNameRule,targetPath);
+			}else if(fso.FolderExists(sPath+"\\"+sFileNameRule)){
+				copyFolder(sPath+"\\"+sFileNameRule,targetPath);
+			}
+			return;
+		}
+		//copy file
+		if(iFileType==-1||iFileType==0){
+			var fc=new Enumerator(folder.files);
+			for (; !fc.atEnd(); fc.moveNext()){
+				if(!sFileNameRule){
+					copyFile(fc.item().path,targetPath);
+				}else if(iRuleType==0
+					&&checkFile(fc.item().name,sFileNameRule)){
+					copyFile(fc.item().path,targetPath);
+				}else if(iRuleType==1
+					&&checkFileByRegExp(fc.item().name,sFileNameRule)){
+					copyFile(fc.item().path,targetPath);
+				}
+			}
+		}
+		//copy dir
+		if((iFileType==-1||iFileType==1)){
+			var fc=new Enumerator(folder.SubFolders);
+			for (; !fc.atEnd(); fc.moveNext()){
+				var flag=false;
+				if(!sFileNameRule){
+					flag=true;
+				}else if(iRuleType==-1
+					&&fc.item().name.toLowerCase()==sFileNameRule.toLowerCase()){
+					flag=true;
+				}else if(iRuleType==0
+					&&checkFile(fc.item().name,sFileNameRule)){
+					flag=true;
+				}else if(iRuleType==1
+					&&checkFileByRegExp(fc.item().name,sFileNameRule)){
+					flag=true;
+				}
+				if(flag){
+					copyFolder(fc.item().Path,targetPath);
+				}else if(iIncludeSub){
+					copyFiles(fc.item().Path,iFileType,iIncludeSub,sFileNameRule,iRuleType);
+				}
+			}
+		}
+		//copy file from sub dir
+		if((iFileType==-1||iFileType==0)&&iIncludeSub){
+			var fc=new Enumerator(folder.SubFolders);
+			for (; !fc.atEnd(); fc.moveNext()){
+				copyFiles(fc.item().Path,iFileType,iIncludeSub,sFileNameRule,iRuleType);
+			}
+		}
+	}
+	function copyFolder(src,targetRoot){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var subFolders=[];
+		var folder= fso.GetFolder(src);
+		if(runMode) createFolderPath(fso,src.replace(root,targetRoot));
+		var fc=new Enumerator(folder.Files);
+		for (; !fc.atEnd(); fc.moveNext()){
+			copyFile(fc.item().path,targetRoot);
+		}
+		var fc=new Enumerator(folder.SubFolders);
+		for (; !fc.atEnd(); fc.moveNext()){
+			copyFolder(fc.item().path,targetRoot);
+		}
+	}
+	function copyFile(src,targetRoot){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		with(JSDK.dom("#out")[0].appendChild(document.createElement("div"))){
+			innerHTML="正在拷贝文件\""+src.right(root+"\\")+"\"...";
+		}
+		if(runMode) {
+			var dirPath=src.replace(root,targetRoot).leftBack("\\");
+			createFolderPath(fso,dirPath);
+			fso.CopyFile(src,dirPath+"\\",true);
+		}
+	}
+	function createFolderPath(fso,dirPath){
+		var names=dirPath.split("\\");
+		for(var i=1;i<names.length;i++){
+			var path=names.slice(0,i+1).join("\\");
+			if(!fso.FolderExists(path)){
+				fso.CreateFolder(path);
+			}
+		}
+	}
+	function checkFile(fileName,sRule){
+		var ext=fileName.rightBack(".");
+		var rules=sRule.split(".");
+		if(sRule=="*") return;
+		if(rules[1]!="*"){
+			return rules[1].toLowerCase()==ext.toLowserCase();
+		}
+		return true;
+	}
+	function checkFileByRegExp(fileName,sRegExp){
+		var regExp=new RegExp(sRegExp,"i");
+		return regExp.test(fileName);
+	}
+	</script>
+	</div>
+ </body>
+</html>

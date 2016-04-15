@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/loader.js">
+  $import("js.dom.HTMLForm");
+  $import("js.text.validator.Validator");
+  </script>
+  <script src="../../../example.js"></script>
+  <style>
+
+  </style>
+  <script>
+  window.onload=function(){
+    var thisform=document.forms[0];
+	var validator=new jsdk.Validator();
+	validator.addRule("FileExtName","FileExtName",".jpg;.jpeg;.gif;.bmp;.png","Please select image file!");
+	validator.setDefaultRule("FileExtName");
+	jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+	thisform.setItems([
+		{
+			name: "F_Subject",
+			label: "Subject",
+			dataType: "Text",
+			allowEmpty: false
+		},
+		{
+			name: "F_FromDate",
+			label: "From Date",
+			dataType: "Date",
+			allowEmpty: false
+		},
+		{
+			name: "F_ToDate",
+			label: "To Date",
+			dataType: "Date",
+			allowEmpty: false,
+			minValue: "->#F_FromDate"
+		},
+		{
+			name: "F_isPublic",
+			label: "Is Public",
+			dataType: "Text",
+			allowEmpty: false
+		}
+	]);
+	thisform.setItems([
+		["F_Reads","Reads","Number",true,"","",5,10],
+		{
+			name: "F_Edits",
+			label: "Edits",
+			dataType: "Number",
+			allowEmpty: true,
+			onEvents: {
+				"onValidate": function(){
+					var thisform=document.forms[0];
+					if(thisform.F_Reads.value!=""){
+						this.allowEmpty=false;
+						return this.parentForm.checkItem(this.name);
+					}
+					return true;
+				}
+			},
+			minValue: 0,
+			maxValue: "->#F_Reads"
+		},
+		{
+			name: "F_LogoImage",
+			label: "Logo",
+			dataType: "Text",
+			allowEmpty: false,
+			unfilledPrompt: "Please select logo image!",
+			onEvents: {
+				"onValidate": function(){
+					var thisform=document.forms[0];
+					var fileName=jsdk.obj(">"+thisform.getItemValue(this.name)).xsplit("first",["/","\\",">"]).pop();
+					var vResult=validator.validate("FileExtName",fileName);
+					if(!vResult[0]){
+						alert(vResult[1]);
+						return false;
+					}
+					return true;
+				}
+			}
+		}
+	]);
+	thisform.btnSubmit.onclick=function(){
+		if(thisform.checkForm()){
+			alert("OK!");
+		}
+	}
+  }
+  </script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<Form>
+	<TABLE width="100%" border="0" bordercolor="gray" cellspacing="0" cellpadding="3" style="border-collapse:collapse">
+	<TR>
+		<TD>
+			Subject: <input type="text" name="F_Subject">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			From Date: <input type="text" name="F_FromDate"> To Date: <input type="text" name="F_ToDate">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Is Public: <label><input type="radio" name="F_isPublic" value="1">Yes</label><label><input type="radio" name="F_isPublic" value="0">No</label>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Reads: <input type="text" name="F_Reads">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Edits: <input type="text" name="F_Edits">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Logo: <input type="file" id="F_LogoImage">
+		</TD>
+	</TR>
+	</TABLE>
+	<br>
+	<input type=button name="btnSubmit" value="提交">
+	</Form>
+ </body>
+</html>

@@ -1,0 +1,150 @@
+/**
+ * @file HTMLFormField.class.js
+ * @author Liu Denggao
+ * @created 2012.5.28
+ * @modified 2012.6.18
+ * @version 0.4
+ * @since JSDK3 V1.9.0
+ * @updated
+		v0.3 -> v0.4.0
+		2013.8.29 增加获取本地化资源方法“_getLocale(key,value)”
+ */
+
+$package("js.domx");
+$import("js.domx.DOM");
+
+js.domx.HTMLFormField=function(){
+	this._parentForm=null;
+	this._name="";
+	this._dataType="";
+	this._allowEmpty=true;
+	this._isReadOnly=false;
+	this._unfilledPrompt="";
+	this._unmatchedPrompt="";
+};
+var _$class=js.domx.HTMLFormField;
+
+_$class.$name="HTMLFormField";
+_$class.$context=js.domx.HTML;
+_$class.$extends(js.domx.DOMObject);
+var _$proto=_$class.prototype;
+
+//:constructor----------
+
+_$proto._HTMLFormField=function(){
+
+
+}
+
+//:property-------------------------
+
+_$class.getContext=function(){
+	return this.$context;
+}
+_$proto.getParentForm=function(){
+	return this._parentForm;
+}
+_$proto.getName=function(){
+	return this._name;
+}
+_$proto.getDataType=function(){
+	return this._dataType;
+}
+_$proto.getLabel=function(){
+	return this._label;
+}
+_$proto.setLabel=function(value){
+	this._label=value;
+}
+_$proto.getAllowEmpty=function(){
+	return this._allowEmpty;
+}
+_$proto.setAllowEmpty=function(value){
+	this._allowEmpty=value;
+}
+_$proto.getIsReadOnly=function(){
+	return this._isReadOnly;
+}
+//interface
+_$proto.getAllowMultiple=function(){
+	return false;
+}
+_$proto.getStoreValues=function(index){
+	var values=[this.__original.value].concat(this._dataField?this._dataField.value:[]);
+	if(index!=undefined) return values[index];
+	else return values;
+}
+_$proto.setStoreValues=function(){
+	this.__original.value=arguments[0];
+	if(arguments.length>=2&&this._dataField) this._dataField.value=arguments[1];
+}
+_$proto.getStoreFields=function(index){
+	var field=[this.__original].concat(this._dataField?this._dataField:[]);
+	if(index!=undefined) return fields[index];
+	else return fields;
+}
+_$proto.getDataField=function(){
+	return this._dataField;
+}
+
+//:method-------
+
+_$class.newInstanceFrom=function(parentForm,vField,vOptions){
+	if(original==null) return null;
+	var obj=new this();
+	this._parentForm=parentForm;
+	obj.__original=original;
+	return obj;
+}
+_$proto.isEmpty=function(){
+	return !this.__original.value;
+}
+_$proto.clearEmpty=function(){
+	this.__original.value="";
+}
+_$proto.validate=function(iOptions,isSubmiting){
+	//interface to do...
+}
+_$proto.hasEvent=function(sEvent){
+	if(typeof(this[sEvent])!="function") return false;
+	return true;
+}
+_$proto._getLocale=function(key,value){
+	var strObj=Global.Object(this.getClass()._localeResource[key]);
+	return strObj.format.apply(strObj,Global.js.lang.natives.Array.from(arguments).slice(1)).valueOf();
+}
+/**
+ * Add event listener 
+ * @created: 2012.5.31
+ */
+_$proto.addEventListener=function(sName,fnListener){
+	if(typeof(fnListener)=="function") 
+		this[sName] = fnListener;
+}
+/**
+ * fire event
+ * @created 2012.5.31
+ * @modified 2012.6.1
+ */
+_$proto.fireEvent=function(sEvent){
+	if(typeof(this[sEvent])!="function") return;
+	try{
+		return this[sEvent].apply(this,Array.from(arguments).slice(1));
+	}catch(e){
+		throw new Error(1000,"Event '"+sEvent+"' of object '"+this.getClass().getName()+"' has been runned error!\nSource: "
+			+e.description);
+	}
+}
+
+//:event-----------
+
+_$proto._onValidate=function(isSubmiting){
+	if(this.hasEvent("onValidate"))
+		return this.fireEvent("onValidate",isSubmiting);
+	else
+		return true;
+}
+_$proto._onValueChanged=function(event){
+	var flag=this.fireEvent("onValueChanged",this.getDataValue());
+	if(flag||flag==undefined) this._parentForm.fireEvent("_onFieldValueChanged",this);
+}

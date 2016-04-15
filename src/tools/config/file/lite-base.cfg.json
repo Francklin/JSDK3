@@ -1,0 +1,28 @@
+{
+manifest : {
+"name" : "base",
+"file" : "base.js",
+"version" : "lite 2.10",
+"description" : "",
+"author" : "liu denggao"
+},
+entity : [
+	"lite\\src\\base.String.js",
+	"lite\\src\\base.Number.js",
+	"lite\\src\\base.Date.js",
+	"lite\\src\\base.Array.js"
+],
+comment: ""
++"/** \n"
++" * JavaScript Native Language Basic Extras \n"
++" * @file: base.js \n"
++" * @version: V2.10 \n"
++" * @author: liu denggao \n"
++" * @mail: francklin.liu@gmail.com \n"
++" * @home: http://www.tringsoft.com \n"
++" * @date: 2007-2013.08.02 \n"
++" * @update: \n"
++" ************************************************/ \n\n",
+separater : "",
+output : "lite\\base.js"
+}

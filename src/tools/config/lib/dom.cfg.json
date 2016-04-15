@@ -1,0 +1,22 @@
+{
+manifest : {
+"name" : "dom",
+"file" : "dom.json",
+"version" : "3",
+"description" : "",
+"author" : "liu denggao",
+"date": "2014.08.14"
+},
+entity : [
+	"js.detect.shell.Browser",
+	"js.dom.DOMTemplate",
+	"js.dom.DOMWindow",
+	"js.dom.DOMElement",
+	"js.dom.HTML",
+	"js.dom.HTMLElement",
+	"js.dom.HTMLDocument",
+	"js.dom.HTMLForm",
+	"js.dom.HTMLEncoder"
+],
+output : "lib\\classes\\dom.3.json"
+}

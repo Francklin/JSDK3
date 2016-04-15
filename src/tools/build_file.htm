@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> build - file </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" develop="false" src="../../src/loader.js">
+  $import("js.build.Packager");
+  $import("js.ui.menu.PopupMenuLite");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  .label{
+	width:80px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 2px;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Build - File<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<span class="label">Config: </span><INPUT TYPE="text" NAME="F_ConfigFile"><input type="button" value="Load" 
+		onclick="loadConfig()"><br>
+	<span class="label">Comment: </span><TEXTAREA NAME="F_Comment" ROWS="7" COLS="60"></TEXTAREA><br>
+	<span class="label">Entity: </span><TEXTAREA NAME="F_Entity" ROWS="7" COLS="60"></TEXTAREA><br>
+	<div style="margin: 10px 0px"><span class="label"></span><input type="checkbox" name="F_isCompress" value="1">Compress</div>
+	<span class="label">SavePath: </span><INPUT TYPE="text" NAME="F_SavePath"><input type="button" value="Start" 
+		onclick="startBuild()">
+	<hr>
+	<div id="out"></div>
+    <script>
+	var packager=new JSDK.Packager(0);
+	packager.attachEvent("onPackagingFile",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		document.all['out'].appendChild(document.createElement("div")).innerText="正在打包文件\""+sFilePath+"\"...";
+	});
+	packager.attachEvent("onPackageFileFail",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		var errors=oEvent.result.errors;
+		document.all['out'].appendChild(document.createElement("div")).innerText="打包文件\""+sFilePath+"\"失败！\n错误为：\n";
+		for(var i=0;i<errors.length;i++){
+			document.all['out'].appendChild(document.createElement("div")).innerText=errors[i].description;
+		}
+	});
+	packager.attachEvent("onCompleted",function(oEvent){
+		document.all['out'].appendChild(document.createElement("div")).innerText="";
+		document.all['out'].appendChild(document.createElement("div")).innerText="已输出所有文件内容到目标文件\""+oEvent.result.output+"\"上!";
+	});
+	var config;
+	function loadConfig(){
+		var sCfgFile=document.getElementsByName("F_ConfigFile")[0].value;
+		if(!sCfgFile){
+			alert("Please input config file path!");
+			return;
+		}
+		config=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()+"/"+sCfgFile,"",false,"","JSON");
+		
+		document.getElementsByName("F_Comment")[0].value=config.comment||"";
+		document.getElementsByName("F_Entity")[0].value=config.entity.join("\n");
+		document.getElementsByName("F_isCompress")[0].checked=config.compress;
+		document.getElementsByName("F_SavePath")[0].value=config.output;
+	}
+	function startBuild(){
+		if(!config) {
+			alert("Please first load config data!");
+			return;
+		}else if(!document.getElementsByName("F_SavePath")[0].value){
+			alert("Please input save path!");
+			return;
+		}
+		packager.setIsCompress(document.getElementsByName("F_isCompress")[0].checked);
+		packager.clearEmpty();
+		for(var i=0,iLen=config.entity.length;i<iLen;i++){
+			packager.addFile(config.entity[i]);
+		}
+		var comment=document.getElementsByName("F_Comment")[0].value;
+		comment=comment.indexOf("\r")>=0?comment:comment.replace(/\n/g,"\r\n");
+		packager.build(comment,'',config.separater,document.getElementsByName("F_SavePath")[0].value);
+	}
+	</script>
+	</div>
+ </body>
+</html>

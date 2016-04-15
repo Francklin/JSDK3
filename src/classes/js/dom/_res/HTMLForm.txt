@@ -1,0 +1,24 @@
+/**
+ * @file: HTMLForm.class.js
+ * @version: V2.5 beta
+ * @since: JSDK3 V1.7.0
+ * @support: IE6+, Firefox 5+, Chrome 14+, Safari 5+, Opera 11.11+
+ * @author: liu denggao
+ * @created: 2011.9.22
+ * @modified: 2013.9.11-2013.9.23
+ * @update:
+		v2.5
+		2014.4.11 修复了表单验证没有正常过滤掉类型属性"type"为隐藏“hidden”的元素
+		v2.3
+		2013.10.31 修复了表单事件“onItemValueChange”的一个元素获取问题
+		v2.2
+		2013.9.23 修复了方法“getElementById”在IE下的一个问题
+		v2.1
+		2013.9.11 修复了部分获取元素的方法的问题
+		v2.0
+		2013.9.3 增加了方法“getElements”、“getElementById”、“getElementByName”、“getElementsByName”，并修改了所有CSS选择器方法为最新的这些方法。
+		v1.6.0 -> v1.7.0
+		2013.8.30 把本地化字符串集中化了，便于修改，也为下一步多语言化做准备
+ * @mail: mestime@tom.com 
+ * @homepage: http://www.tringsoft.com.cn
+ ***************************************/

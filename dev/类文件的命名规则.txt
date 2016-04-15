@@ -1,0 +1,48 @@
+更新时间：2013.08.29
+----------------------
+命名规则为：
+
+MyClass[_V(version)][_(lang)][.(browser)].class.js
+
+其中：
+1.version
+形如：n[.n[.n]]
+说明：n为数字
+例如：1, 1.2, 1.2.3
+
+2.lang
+形如：语言代码-国家地区代码
+其中：语言代码小写，国家地区代码大写，国家地区代码可省略
+例如：zh-CN, zh-TW, en-US, en
+
+3.browser
+形如：浏览器名[主版本号]，浏览器引擎名[主版本号[+]]
+其中：浏览器名和引擎名统一使用2个大写字母代替
+例如：IE, IE6, IE7, FF(Firefox), FF3(Firefox3), CR(Chrome), SF(Safari), OP(Opera), TD(Trident), GK(Gecko), WK(Webkit)
+
+完整命名例子：
+TreeView_V1.2.3_zh-CN.IE.class.js
+TreeView_V1.2.3_zh-CN.IE.class
+TreeView_V1.2.3_zh-CN.class
+TreeView_V1.2.3_en.IE.class
+TreeView_V1.2.3_en.FF.class
+TreeView_V1.2.3.IE.class
+TreeView_V1.2.3.class
+TreeView_zh-CN.class
+TreeView.IE.class
+TreeView.class
+
+
+--------------
+2013.9.6
+
+经过许多次项目应用，发现.class扩展名总是在某些时候被服务器屏蔽掉，经过再三思考，决定修改类文件的扩展名从“class.js”到“jsc.js”
+以下罗列所有扩展名：
+
+.jsc		编译之后的或者压缩混淆过的类文件
+.jsc.js		类的源文件
+.jsd		类的API DOC文件
+.jsl		库文件，类库、模版库、资源库
+.tpl.htm	DOM模版文件
+
+

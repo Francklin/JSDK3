@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta charset="UTF-8">
+  <meta name="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../../../common/loader.js">
+  $import("js.detect.shell.OS2");
+  </script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+ </head>
+
+ <body>
+	<h2>Test - classes - js.detect.shell.OS2</h2>
+	<hr>
+	<h4>JSDK3 变量: <script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<script>
+	if(isLoaded){
+		var OS=new jsdk.js.detect.shell.OS2(0);
+		document.write("<table border=\"1\">");
+		document.write("<tr><td>isWin</td><td>"+OS.isWin+"</td></tr>");
+		document.write("<tr><td>isWin98</td><td>"+OS.isWin98+"</td></tr>");
+		document.write("<tr><td>isWinME</td><td>"+OS.isWinME+"</td></tr>");
+		document.write("<tr><td>isWin2K</td><td>"+OS.isWin2K+"</td></tr>");
+		document.write("<tr><td>isWinXP</td><td>"+OS.isWinXP+"</td></tr>");
+		document.write("<tr><td>isWin2K3</td><td>"+OS.isWin2K3+"</td></tr>");
+		document.write("<tr><td>isWinVista</td><td>"+OS.isWinVista+"</td></tr>");
+		document.write("<tr><td>isWin7</td><td>"+OS.isWin7+"</td></tr>");
+		document.write("<tr><td>isMac</td><td>"+OS.isMac+"</td></tr>");
+		document.write("<tr><td>isUnix</td><td>"+OS.isUnix+"</td></tr>");
+		document.write("<tr><td>isSunOS</td><td>"+OS.isSunOS+"</td></tr>");
+
+		document.write("</table>");
+	}
+	</script>
+	</div>
+ </body>
+</html>

@@ -1,0 +1,221 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> build file list for classes dir </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script appName="JSDK" debug="false" src="../../src/loader.js">
+  $import("js.dom.HTMLForm");
+  </script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  label{
+	line-height: 1.5em;
+  }
+  .label{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 4px
+  }
+  .field{
+	width: 250px;
+  }
+  .index{
+	width: 32px;
+	color: blue;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>build file list for classes dir<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<form>
+	<span class="label">Classes Folder: </span><INPUT class="field" TYPE="text" NAME="F_Folder" 
+					onkeypress="if(event.keyCode==JSDK.KEY_Enter){ thisform.btnScan.onclick();return false; }">
+	<input type="button" name="btnScan" value="Scan" 
+		onclick="startBuild(false)"><input type="button" name="btnStart" value="Start" onclick="startBuild(true)"><br>
+	<span class="label"></span>
+	<label><INPUT TYPE="checkbox" NAME="F_isContainsSub" value="1" checked>contains sub folder</label>
+	</form>
+	<hr>
+	<div id="out"></div>
+    <script>
+	var thisform=document.forms[0];
+	JSDK.HTMLForm.applyInstance(document.forms[0],"copy");
+	var folders=[],files=[];
+	var jsre=JSDK.Engine.runtimeEnvironment;
+	var classesRootPath=unescape(JSDK.getURIFullPath(location.pathname.leftBack("/").slice(1).replace(/\//g,"\\")
+				,jsre.getClassHome().replace(/\//g,"\\"),"\\"));
+	var isBuild=false;
+	var jsonData=[],xmlData=[];
+	function startBuild(isBuild){
+		if(isBuild&&!confirm("Do you build these file really?")){
+			return;
+		}
+		window.isBuild=isBuild;
+		var isContainsSubDir=thisform.F_isContainsSub.checked;
+		var classPath=JSDK.getURIFullPath(classesRootPath,document.getElementsByName("F_Folder")[0].value.replace(/\/|\./g,"\\"),"\\");
+		JSDK.dom("#out")[0].innerHTML="";
+		jsonData=[],xmlData=[];
+		buildList(classPath,isContainsSubDir);
+		saveJSONTreeFile(classPath+"\\_res\\tree.json");
+		saveXMLTreeFile(classPath+"\\_res\\tree.xml");
+	}
+	function saveXMLFile(savePath,folders,files){
+		if(!isBuild) return;
+
+		createPath(savePath.leftBack("\\"));
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.CreateTextFile(savePath, true,false);
+		file.WriteLine("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>");
+		file.WriteLine("<package>");
+		folders=folders.map(function(folder){
+			return	"<folder name=\"" + folder + "\" />"; 
+		});
+		file.Write(folders.join(JSDK.STR_NewLine)+(folders.length?JSDK.STR_NewLine:""));
+		files=files.map(function(file){
+			return	"<file name=\"" + file + "\" />"; 
+		});
+		file.Write(files.length?files.join(JSDK.STR_NewLine):"");
+		file.WriteLine("</package>");
+		file.Close();
+	}
+	function saveJSONFile(savePath,folders,files){
+		if(!isBuild) return;
+		
+		createPath(savePath.leftBack("\\"));
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.CreateTextFile(savePath, true,false);
+		file.WriteLine("{");
+		file.WriteLine("\tchildren: [");
+		folders=folders.map(function(folder){
+			return	"\t\t{" + JSDK.STR_NewLine
+				  +	"\t\t\tname: \"" + folder + "\"," + JSDK.STR_NewLine
+				  +	"\t\t\ttype: 1" + JSDK.STR_NewLine
+				  + "\t\t}"; 
+		});
+		file.WriteLine(folders.length?(folders.join(","+JSDK.STR_NewLine)+(files.length?",":"")):"");
+		files=files.map(function(file){
+			return	"\t\t{" + JSDK.STR_NewLine
+				  +	"\t\t\tname: \"" + file + "\"," + JSDK.STR_NewLine
+				  +	"\t\t\ttype: 0" + JSDK.STR_NewLine
+				  + "\t\t}"; 
+		});
+		file.Write(files.length?(files.join(","+JSDK.STR_NewLine)):"");
+		file.WriteLine("\t}");
+		file.WriteLine("]");
+		file.Close();
+	}
+	function saveJSONTreeFile(savePath){
+		if(!isBuild) return;
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.CreateTextFile(savePath, true,false);
+		file.WriteLine("{");
+		file.WriteLine("\tchildren: [");
+		file.WriteLine(jsonData.join(JSDK.STR_NewLine));
+		file.WriteLine("\t]");
+		file.WriteLine("}");
+		file.Close();
+	}
+	function saveXMLTreeFile(savePath){
+		if(!isBuild) return;
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.CreateTextFile(savePath, true,false);
+		file.WriteLine("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>");
+		file.WriteLine("<package>");
+		file.WriteLine(xmlData.join(JSDK.STR_NewLine));
+		file.WriteLine("</package>");
+		file.Close();
+	}
+	function buildList(folderPath,isContainsSub){
+		JSDK.dom("#out")[0].innerHTML+="Scaning \""+folderPath+"\"...<br>";
+		var listdata=listFolder(folderPath);
+		var folders=listdata[0],files=listdata[1];
+		var level=folderPath.right(classesRootPath+"\\").split("\\").length;
+		folders.erase("_res");
+		files=files.select(function(file){
+			return ((/\.class(\.js)?$/i).test(file)) && !((/_V[0-9]+\./i).test(file));
+		});
+		folders.forEach(function(folder){
+			JSDK.dom("#out")[0].innerHTML+=(folderPath+"\\").right(classesRootPath+"\\")+folder+"<br>";
+		});
+		files.forEach(function(file){
+			JSDK.dom("#out")[0].innerHTML+=(folderPath+"\\").right(classesRootPath+"\\")+file+"<br>";
+		});
+		saveJSONFile(folderPath+"\\_res\\list.json",folders,files);
+		saveXMLFile(folderPath+"\\_res\\list.xml",folders,files);
+		if(!isContainsSub) return;
+		for(var i=0;i<folders.length;i++){	
+			//--------
+			jsonData.push(
+				JSDK.obj("\t\t").repeat(level)+["{" 
+					,"\tname: \"" + folders[i] + "\"," 
+					,"\ttype: 1," 
+					,"\tchildren: ["
+				].join(JSDK.STR_NewLine+JSDK.obj("\t\t").repeat(level))
+			);
+			//---------
+			xmlData.push(
+				JSDK.obj("\t").repeat(level)+"<folder name=\"" + folders[i] + "\">"
+			);
+			//---------		
+			buildList(folderPath+"\\"+folders[i],isContainsSub);
+			//---------
+			jsonData.push(JSDK.obj("\t\t").repeat(level)+"\t]");
+			jsonData.push(JSDK.obj("\t\t").repeat(level)+"}"+(i<folders.length+files.length-1?(","+JSDK.STR_NewLine):""));
+			//---------
+			xmlData.push(JSDK.obj("\t").repeat(level)+"</folder>");
+		}
+		//jsonData.push(folders.length&&files.length?(","+JSDK.STR_NewLine):"");
+		//---------
+		var files1=files.map(function(file){
+			return	JSDK.obj("\t\t").repeat(level)+["{","\tname: \"" + file + "\",","\ttype: 0","}"].join(JSDK.STR_NewLine+JSDK.obj("\t\t").repeat(level));
+		});
+		jsonData.push(files1.length?(files1.join(","+JSDK.STR_NewLine)):"");
+		//---------
+		var files2=files.map(function(file){
+			return	JSDK.obj("\t").repeat(level)+"<file name=\"" + file + "\" />"; 
+		});
+		xmlData.push(files2.join(JSDK.STR_NewLine));		
+	}
+	function listFolder(folderPath){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var folders=[],files=[];
+		try{
+			var folder= fso.GetFolder(folderPath);
+			var fc=new Enumerator(folder.SubFolders);
+			for (; !fc.atEnd(); fc.moveNext()){
+				folders.push(fc.item().Name);
+			}
+		}catch(e){
+		}
+		try{
+			var fc=new Enumerator(folder.files);
+			for (; !fc.atEnd(); fc.moveNext()){
+				files.push(fc.item().Name);
+			}
+		}catch(e){
+		}
+		return [folders,files];
+	}
+	function createPath(path){
+		var names=path.split("\\");
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		for(var i=1;i<names.length;i++){
+			var path=names.slice(0,i+1).join("\\");
+			if(!fso.FolderExists(path)){
+				fso.createFolder(path);
+			}
+		}
+		fso=null;
+	}
+	</script>
+	</div>
+ </body>
+</html>

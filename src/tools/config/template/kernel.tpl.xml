@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template createdDate="2013-01-05" modifiedDate="2014-01-03">
+<script>
+/**
+ * JSDK, core module
+ * @function: defines JSDK & core components
+ * @file: kernel.js
+ * @version: V1.11.0
+ * @since: JSDK3 V0.1
+ * @adapt: JSDK3 V1.9.0
+ * @quote: Engine
+ * @author: liu denggao 
+ * @modified: 2013.8.29-2014.1.3
+ * @mail: francklin.liu@gmail.com
+ * @homepage: http://www.tringsoft.com
+ *******************************************/
+(function(Engine){
+var Global = this;
+var Class;
+var jsre = Engine.runtimeEnvironment, ex;
+var logger = jsre.logger;
+var _classes={};
+eval(
+</script>
+<script src="../bin/kernel.loader.js"></script>
+<script>
+({
+	"Class":
+</script>
+<script src="../bin/kernel.Class.js"></script>
+<script>
+		,
+	"Function":
+</script>
+<script src="../bin/kernel.Function.js"></script>
+<script>
+		,
+	"Object":
+</script>
+<script src="../bin/kernel.Object.js"></script>
+<script>
+		,
+	"Exception":
+</script>
+<script src="../bin/kernel.Exception.js"></script>
+<script>
+		,
+	"String":
+</script>
+<script src="../bin/kernel.String.js"></script>
+<script>
+		,
+	"Number":
+</script>
+<script src="../bin/kernel.Number.js"></script>
+<script>
+		,
+	"Date":
+</script>
+<script src="../bin/kernel.Date.js"></script>
+<script>
+}));
+})
+</script>
+</template>

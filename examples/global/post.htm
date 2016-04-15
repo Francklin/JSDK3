@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Global.post </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js">
+   $import("js.dom.HTMLForm");
+  </script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  .label{
+	width: 120px;
+	text-align: left;
+	vertical-align: top;
+	display:inline-block;
+  }
+  </style>
+  <script>
+	function submitForm(){
+		var thisform=document.forms[0];
+		thisform.F_Output.value=jsdk.post(
+			thisform.F_URL.value||window.location.href,
+			jsdk.parseJSON(thisform.F_Data.value),
+			"",
+			thisform.getItemValue("F_DataType")
+		);
+	}
+	window.onload=function(){
+		var thisform=document.forms[0];
+		jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+	}
+  </script>
+ </head>
+
+ <body>
+	<h3>Examples - Global.post(<span class="FunPara">
+	<script>document.write(["sUrl","vData","fpCallBack","sDataType"].join("</span>, <span class=\"FunPara\">"));</script>
+	</span>)</h3>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div style="width:100%;">
+		<form>
+		<span class="label">表单Action：</span><input type="text" name="F_URL" style="width:900px" value=""><br>
+		<span class="label">表单数据：</span><TEXTAREA id="F_Data" NAME="F_Data" style="width:900px;height:100px" wrap="off"></TEXTAREA><br>
+		<span class="label">返回数据类型：</span><label><input type="radio" name="F_DataType" value="text" checked>text</label>
+		<label><input type="radio" name="F_DataType" value="json">json</label>
+		<label><input type="radio" name="F_DataType" value="xml">xml</label><br><br>
+		<span class="label"></span><input type="button" value="Submit" onclick="submitForm();"><br><br>
+		<span class="label">返回数据：</span><TEXTAREA id="F_Output" NAME="F_Output" style="width:900px;height:200px" wrap="off"></TEXTAREA>
+		</form>
+	</div>
+ </body>
+</html>

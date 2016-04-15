@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+ <head>
+  <title> menu </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Cache-Control" Content="no-cache">
+  <meta http-equiv="Pragma" Content="no-cache">
+  <base target="main">
+  <script appMode="sub" include="dom;ui-menu" src="common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTML");
+  $import("js.dom.HTMLForm");
+  $import("js.ui.PopupDialog");
+  $import("js.ui.menu.Outline");
+  </script>
+  <script src="index.js"></script>
+  <style>
+  *{ margin:0; padding:0; font-size:100%; }
+  html, body{ width:100%;height:100%;overflow:hidden}
+  body,table{
+	font-size: 9pt;
+  }
+  a,a:link,a:visited{
+	color: blue;
+  }
+  #wrapper{
+	width:100%;
+	height: 100%;
+	overflow: auto;
+  }
+  #content{
+	margin: 7px 5px;
+	display: block;
+  }
+  hr{
+	margin: 7px 0px;
+	*margin: auto;
+  }
+  .category{
+	font-weight: bold;
+  }
+  .taskmenu{
+
+  }
+  .taskmenu-category{
+	margin-bottom: 10px;
+	border: solid 1px #2783DE;
+  }
+  .taskmenu-title{
+	line-height: 24px;
+	padding: 0px 5px;
+	font-weight: bold;
+	color: white;
+	background-color: #2783DE;
+  }
+  .taskmenu-content{
+	min-height: 30px;
+	padding: 3px;
+  }
+  .taskmenu-item{
+	line-height: 1.5em;
+  }
+  .taskmenu-item a, .taskmenu-item a:link, .taskmenu-item a:visited{
+	color: black;
+	text-decoration:none;
+	padding-left: 15px;
+	background: url(common/icons/icon01.gif) 1px 1px no-repeat;
+  }
+  .taskmenu-item a:hover{
+	color: blue;
+	text-decoration:underline;
+  }
+  </style>
+  <script>
+  var jsdk_path=jsdk.Engine.runtimeEnvironment.getRootPath().replace(/^[/\\][a-z]:/i,"");
+  </script>
+ </head>
+
+ <body>
+  <div id="wrapper">
+	  <div id="content" class="content">
+		  <div style="display:none;font-weight:bold;font-size: 12pt"><span style="color: blue;font-family:verdana"><span style="color:#71A43E">JS</span>DK3</span><span style="vertical-align:text-top;font-size: 8px;font-family:arial;color:blue">TM</span> Examples <div style="margin-left: 2px;font-family:arial;font-weight:normal;font-size:10pt;margin-top: 4px;"></div></div>
+		  <div style="font-weight:bold;font-size: 12pt"><img src="../src/res/logo/jsdk3-tm-text.png" style="margin-bottom:-3px"> Examples <div style="margin-left: 2px;font-family:arial;font-weight:normal;font-size:10pt;margin-top: 4px;">
+		  <!--(v<script>document.write(jsdk.get("../src/version.txt","",true,"","text"));</script>)--></div></div>
+		  <hr>
+		  <div style="text-align:center">
+		    <a href="javascript:parent.showAbout();void(0)" target="_self" >关于</a>
+			<a href="main.htm">首页</a>
+			<a href="javascript:outline.expandAll(true);" target=_self>全部展开</a>
+			<a href="javascript:outline.expandAll(false);" target=_self>全部折叠</a>
+			<a href="javascript:window.location.reload();" target=_self>刷新</a>
+		  </div>
+		  <hr>
+		  <div class="taskmenu">
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">基本检测</div>
+				<div class="taskmenu-content">
+					<div class="taskmenu-item"><a href="classes/js/detect/shell/OS.htm">操作系统检测</a></div>
+					<div class="taskmenu-item"><a href="classes/js/detect/shell/Browser.htm">网页浏览器检测</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">常用方法</div>
+				<div class="taskmenu-content">
+					<div class="taskmenu-item"><a href="global/obj.htm">获取扩展对象(obj)</a></div>
+					<div class="taskmenu-item"><a href="global/dom.htm">DOM选择器(dom)</a></div>
+					<div class="taskmenu-item"><a href="global/exec.htm">同步队列执行(exec)</a></div>
+					<div class="taskmenu-item"><a href="global/exec (1).htm">同步队列执行1(exec)</a></div>
+					<div class="taskmenu-item"><a href="global/get.htm">Ajax 获取(get)</a></div>
+					<div class="taskmenu-item"><a href="global/parse.htm">字符串解析</a></div>
+					<div class="taskmenu-item"><a href="global/newId.htm">获取新的唯一标识(newId)</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">典型组件</div>
+				<div class="taskmenu-content">
+				<div class="taskmenu-item"><a href="classes/js/ui/menu/@Outline/outline.htm">树型菜单</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/menu/@PopupMenuLite/PopupMenuLite_02.htm">弹出菜单</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/@SelectDialogBox/SelectDialogBox.htm">选择对话框</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/@PopupDialog/PopupDialog.htm">弹出对话框</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/@WebReminderDialogBox/WebReminderDialogBox.htm">提醒对话框</a></div>
+				<div class="taskmenu-item"><a href="classes/js/dom/@HTML/operate text and cursor position.htm">文本编辑</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/parser/@Table/Table.htm">复合表格</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/table/@TableDataEditor/TableDataEditor.htm">动态表格编辑器</a></div>
+				<div class="taskmenu-item"><a href="classes/js/ui/photo/@MiniSlide/MiniSlide.htm">迷你幻灯片</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">页面功能</div>
+				<div class="taskmenu-content">
+					<div class="taskmenu-item"><a href="classes/js/dom/@DOMTemplate/DOMTemplate 2.htm">DOM模版</a></div>
+					<div class="taskmenu-item"><a href="classes/js/dom/@HTMLForm/HTMLForm.htm">表单验证</a></div>
+					<div class="taskmenu-item"><a href="classes/js/domx/@HTMLForm/HTMLForm.htm">表单验证(增强)</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">DOM模版应用</div>
+				<div class="taskmenu-content">
+					<div class="taskmenu-item"><a href="template/marquee/@notice/demo.htm">公告栏(横向)</a></div>
+					<div class="taskmenu-item"><a href="template/marquee/@info/demo.htm">公告栏(纵向)</a></div>
+					<div class="taskmenu-item"><a href="template/hierarchy/@discuss/demo.htm">讨论话题</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">所有例子</div>
+				<div class="taskmenu-content">
+					 <script src="menu.js"></script>
+				</div>
+			</div>
+		  </div>
+	  </div>
+   </div>
+ </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <title> test - Class: js.ui.menu.Outline </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script appName="jsdk" debug="false" src="../../../../../../../src/loader.js">
+  $import("js.dom.HTML");
+  $import("js.ui.menu.Outline");
+  </script>
+ </HEAD>
+
+ <BODY>
+  <input type="button" value="Add Items" onclick="addItems()">
+  <input type="button" value="Add Child Items" onclick="addChildItems()">
+  <input type="button" value="Remove Item" onclick="removeItem()">
+  <input type="button" value="Remove All" onclick="outline.removeAll()">
+  <hr>
+  <script>
+  jsdk.Outline.addStyleSkin("custom",(!jsdk.Browser.Engine.trident?"Outline.css":
+					(document.compatMode=="CSS1Compat"?"Outline.css":
+						(jsdk.Browser.Engine.version==3?"Outline.IE6.css":"Outline.IE.css"))));
+  jsdk.Outline.setStyleSkin("custom");
+  //jsdk.Outline.setIcon("file","icon.jpg");
+  var StartTime=new Date();
+  var outline=new jsdk.Outline("");
+
+  outline.setUseIcon(true);
+  outline.addEventListener("onActivatedItem",function(item){
+	//alert(item.getTitle());
+  });
+  function addItems(){
+	  for(var i=0;i<10;i++){
+		outline.addItem("Item"+i);
+	  }
+  }
+  function addChildItems(){
+	  var activeItem=outline.getActiveItem()||outline; 
+	  for(var i=0;i<10;i++){
+		activeItem.addItem("Item"+i);
+	  }
+	  if(activeItem!=outline) activeItem.expand();
+  }
+  function removeItem(){
+	var activeItem=outline.getActiveItem();
+	if(activeItem) activeItem.remove();
+  }
+  </script>
+  <script type="text/javascript">
+	window.status="加载"+outline.getLength()+"个节点耗时"+((new Date())-StartTime)+"毫秒";
+  </script>
+ </BODY>
+</HTML>

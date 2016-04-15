@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title> Examples - Class: js.ui.photo.MiniSlide (按IE非标准样式) </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.ui.photo.MiniSlide");
+  </script>
+  <script src="../../../../example.js"></script>
+ </head>
+
+ <body>
+	<h3><script>document.write(example.title)</script></h3>
+	<hr>
+	<div style="float:left">
+	<script>
+	jsdk.MiniSlide.addStyleSkin("my",{
+		url: (jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"my.IE.css":"my.css"),
+		".MiniSlide .box": {
+			borderWidth: 1
+		}
+	});
+	jsdk.MiniSlide.setStyleSkin("classic");
+	var slide1=new jsdk.MiniSlide("",402,318,16);
+	slide1.setIsAloneDisplayTabBar(false);
+	slide1.setIsStretchPhoto(false);
+	slide1.setInterval(2000);
+	slide1.setIsCircle(false);
+	slide1.addPhoto("","","photo/menu01.jpg");
+	slide1.addPhoto("","","photo/tree01.jpg");
+	slide1.addPhoto("","","photo/select01.jpg");
+	slide1.addPhoto("","","photo/table01.jpg");
+	slide1.addPhoto("","","photo/table03.jpg");
+	slide1.startPlay();
+	</script>
+	</div>
+	<div style="width: 500px;height:350px;float:left;margin: 0px 5px;overflow:">
+	<script>
+	var slide1=new jsdk.MiniSlide("","100%","100%");
+	slide1.setIsAloneDisplayTabBar(true);
+	slide1.setIsStretchPhoto(false);
+	slide1.setInterval(2000);
+	slide1.setIsCircle(false);
+	slide1.setIsPauseOnEntering(true);
+	slide1.addPhoto("","","photo/01.jpg");
+	slide1.addPhoto("","","photo/YM.jpg","http://www.baidu.com");
+	slide1.addPhoto("","","photo/02.jpg");
+	slide1.addPhoto("","","photo/winxp.jpg");
+	slide1.addPhoto("","","photo/03.jpg");
+	slide1.startPlay();
+	</script>
+	</div>
+ </body>
+</html>

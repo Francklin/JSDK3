@@ -1,0 +1,4 @@
+1.要支持跨平台操作系统：windows, linux
+  难点：linux下文件名区分大小写
+
+2.要支持跨平台WEB服务器：asp,asp.net, jsp, php, python, lotus domino

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.parser.Table </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.ui.parser.Table");
+  </script>
+  <script src="../../../../example.js"></script>
+
+  <style>
+  .table td{
+	text-align: center;
+  }
+  .table-header{
+	background-color: #D6EEFB;
+  }
+  .interlace{
+	background-color: #F3F3F3;
+  }
+  .adv_mng_2{
+	background-color: #F3F3F3;
+  }
+  .adv_mng_3{
+	background-color: #E3E3E3;
+  }
+  .table tr{
+	height:20px;
+  }
+  .b{
+	font-weight:bold;
+	color:white;
+  }
+  .b1{
+	background-color: #71A43E;
+  }
+  .b2{
+	background-color: #2783DE;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h3><script>document.write(example.title)</script></h3>
+	<hr>
+	<div style="width:100%;margin: 15px 0px;text-align: center;font-size: 18pt;font-weight: bold">Table</div>
+	<script>
+	var db=new jsdk.TableData(0,0,{
+		arrangeMode: "column",
+		attribs: {
+			table: {
+				className: "table",
+				width: "1000",
+				border: "1",
+				bordercolor: "#D2D2D2",
+				cellpadding: "3",
+				style: "font-size: 12pt;margin: 0px auto;border-collapse:collapse"
+			}
+		},
+		data: [
+			[{text:"J",rowspan:2,className:"b b1"},{text:"-",rowspan:3}],
+			["-",{text:"S",rowspan:2,className:"b b1"},{text:"-",rowspan:2}],
+			[{text:"-",rowspan:2},{text:"D",rowspan:2,className:"b b2"},"-"],
+			[{text:"-",rowspan:3},{text:"K",rowspan:2,className:"b b2"}]
+		]
+		
+	});
+	var table=new jsdk.Table(db.fix());
+	document.write(table.parse());
+	</script>
+	<hr>
+	<div style="text-align:center">
+	<script>
+	document.write("行数："+db.getActualRowCount()+"，列数："+db.getActualColumnCount());
+	</script>
+	</div>
+ </body>
+</html>

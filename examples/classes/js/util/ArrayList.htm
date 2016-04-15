@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> Examples </TITLE>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="../../../common/common.css"/>
+  <script src="../../../common/loader.js">
+  $import("js.util.ArrayList");
+  </script>
+  <script src="../../example.js"></script>
+ </HEAD>
+
+ <BODY>
+  <h2><script>document.write(example.title)</script></h2>
+  <hr>
+  <script>
+  var array1=[2,1,3];
+  var array=[
+	{title: "bbb", id: 2},
+	{title: "aaa", id: 1},
+	{title: "ccc", id: 3}
+  ];
+  alert(jsdk.ArrayList.sort(array1,"Number",0,function(item){
+	return item;
+  }));
+  jsdk.ArrayList.sort(array,"Number",0,function(item){
+	return item.id;
+  });
+  array.forEach(function(item,index,array){
+	document.write(item.title+"<br>");
+  },array);
+  </script>
+ </BODY>
+</HTML>

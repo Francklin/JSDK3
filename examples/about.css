@@ -1,0 +1,11 @@
+.t-message-box{
+	padding: 30px 50px;
+	background-color: #EFEFEF;
+	font-size: 9pt;
+}
+.t-message-box .content{
+	margin: 10px;
+}
+.t-message-box .content pre{
+	margin: 0;
+}

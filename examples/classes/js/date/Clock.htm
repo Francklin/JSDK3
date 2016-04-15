@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../common/common.css"/>
+  <script src="../../../common/loader.js">
+  $import("js.date.Clock");
+  </script>
+  <script src="../../example.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  var jsdk_path=jsdk.Engine.runtimeEnvironment.getRootPath().replace(/^[/\\][a-z]:/i,"");
+  </script>
+  <style>
+	html,body{
+		font-size: 9pt;
+		font-family: arial;
+	}
+	.label{
+		width: 70px;
+		display: inline-block;
+		vertical-align: top;
+		line-height: 1.3em;
+	}
+	.field{
+		width: 379px;
+	}
+	.button{
+		width: ;
+	}
+	.titlebar{
+		margin-top: 20px;
+		margin-bottom: 4px;
+		width: 300px;
+		padding-bottom: 3px;
+		border-bottom: solid 1px gray;
+	}
+	.title{
+		background-color: #DEDEDE;
+		padding: 0px 3px;
+		font-weight: bold;
+	}
+	.options{
+		margin: 3px 0px;
+	}
+	.options_item_data{
+		margin-left: 19px;
+	}
+	.options_item_data input{
+		width: 500px;
+	}
+	.options_item_data textarea{
+		width: 500px;
+		height: 100px;
+	}
+	.sepline{
+		width: 360px;
+		height: 1px;
+		overflow:hidden;
+		margin: 3px 0px;
+		border-bottom: solid 1px gray;
+	}
+  </style>
+  <script>
+  window.onload=function(){
+	var thisform=document.forms[0];
+	var date=new Date();
+	thisform.F_Date.value=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+  }
+  </script>
+ </head>
+
+ <body>
+    <h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<form>
+	<script>
+		var thisform=document.forms[0];
+		var clock=new jsdk.Clock();
+		function enableTrigger(){
+			clock.setEnabledTrigger(true);
+			thisform.btnEnableTrigger.disabled=true;
+			thisform.btnDisableTrigger.disabled=false;
+		}
+		function disableTrigger(){
+			clock.setEnabledTrigger(false);
+			thisform.btnEnableTrigger.disabled=false;
+			thisform.btnDisableTrigger.disabled=true;
+		}
+		function addTask(){
+			if(thisform.F_Date.value==""){
+				alert("Please input date!");
+				return;
+			}else if(thisform.F_Time.value==""){
+				alert("Please input time!");
+				return;
+			}else if(thisform.F_Data.value==""){
+				alert("Please input data");
+				return;
+			}else if(thisform.F_ActionCode.value==""){
+				alert("Please input script code of action!");
+				return;
+			}
+			clock.addTask("",
+				[	new Date(), 
+					new Date(0,0,0,thisform.F_Time.value.split(":")[0],thisform.F_Time.value.split(":")[1])
+				],
+				thisform.F_Data.value,
+				new Function(thisform.F_ActionCode.value));
+			thisform.F_Tasks.value+=thisform.F_Data.value+"\n";
+			document.all['F_TaskCount'].innerText=clock.getAllTasks().length;
+		}
+	</script>
+	<INPUT TYPE="button" name="btnEnableTrigger" value="enable trigger" onclick="enableTrigger()">
+	<INPUT TYPE="button" name="btnDisableTrigger" value="disable trigger" onclick="disableTrigger()" disabled>
+	<span>currentTasks: <span id="F_TaskCount"></span></span>
+	<hr>
+	<span class="label">date: </span><INPUT TYPE="text" NAME="F_Date" id="F_Date" value="">
+	<span class="label" style="margin-left:100px">time: </span><INPUT TYPE="text" NAME="F_Time" id="F_Time" value=""><br>
+	<span class="label">data: </span><INPUT TYPE="text" NAME="F_Data" id="F_Data" value="" style="width: 476px"><br>
+	<span class="label">action: </span>
+	<TEXTAREA NAME="F_ActionCode" ROWS="" COLS="" style="width: 476px;height: 100px"></TEXTAREA><br>
+	<span class="label"></span>
+	<INPUT TYPE="button" name="btnAddTask" value="add task" onclick="addTask()"><br>
+	<br>
+	<span class="label">task list: </span>
+	<TEXTAREA NAME="F_Tasks" ROWS="" COLS="" style="width: 476px;height: 150px"></TEXTAREA><br>
+	<hr>
+	<div id="output"></div>
+	</form>
+
+ </body>
+</html>

@@ -1,0 +1,19 @@
+<div class="MessageBox">
+<div class="box">
+<form>
+	<div class="TitleBar" style="background-color: <%= para.titleBgColor||"" %>">
+		<div class="title">${para.title}</div>
+		<div class="SysActionBar">
+			<span class="SysActionBarItem" id="s_btnClose"><img width=12 height=12 src="ico_closetip.gif"></span>
+		</div>
+	</div>
+	<div class="Body" style="background-color: <%= para.bodyBgColor||"" %>">
+		${para.body}
+	</div>
+	<div class="ActionBar" style="display: <%= para.dspActionBar?"":"none" %>">
+		<input class="ActionBarItem" id="btnOK" name="btnOK" type="button" value="确定">
+	</div>
+	</div>
+</form>
+</div>
+</div>

@@ -1,0 +1,15 @@
+<div class="comment-list">
+<%
+   for(var i=0;i<comment.length;i++){
+%>
+   <div class="comment">
+      <div class="comment-body"><pre>${jsdk.HTMLEncoder.encodeNodeData(comment[i]["@content"])}</pre></div>
+      <div class="comment-bottom">评论人：${comment[i]["@creator"]}, 日期：${comment[i]["@date"]}<%if(_$maxLevels>1){%>, <a href="javascript:void(0)">评论</a><%}%></div>
+	  <% if(comment[i].comment&&comment[i].comment.length>0){ %>
+	  <!--#include src="./discuss.tpl.htm" data="${comment[i]}" -->
+	  <% } %>
+   </div>
+<%
+   }
+%>
+</div>

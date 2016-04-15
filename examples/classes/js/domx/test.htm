@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> test - Class: js.dom.DOMWindow </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script src="../../../../common/loader.js">
+  $import("js.domx.DOM");
+  $import("js.domx.DOMObject");
+  $import("js.domx.DOMNode");
+  $import("js.domx.DOMNodeList");
+  $import("js.domx.DOMText");
+  $import("js.domx.DOMComment");
+  $import("js.domx.DOMAttribute");
+  $import("js.domx.DOMElement");
+  $import("js.domx.DOMDocument");
+  $import("js.domx.HTML");
+  $import("js.domx.HTMLNode");
+  $import("js.domx.HTMLNodeList");
+  $import("js.domx.HTMLText");
+  $import("js.domx.HTMLComment");
+  $import("js.domx.HTMLAttribute");
+  $import("js.domx.HTMLElement");
+  $import("js.domx.HTMLDocument");
+  $import("js.domx.XML");
+  $import("js.domx.XMLNode");
+  $import("js.domx.XMLNodeList");
+  $import("js.domx.XMLText");
+  $import("js.domx.XMLComment");
+  $import("js.domx.XMLAttribute");
+  $import("js.domx.XMLElement");
+  $import("js.domx.XMLDocument");
+  </script>
+  <script>var endDate=new Date();</script>
+  <style>
+
+  </style>
+ </head>
+
+ <body>
+    <script>
+	document.write("<center>共耗时"+Date.computeTime(endDate-startDate,"ms","ms")+"毫秒</center>");
+	</script>
+	<script>
+	//alert(jsdk);
+	alert("["+jsdk.js.domx.XML.obj(jsdk.get("../../../../src/about.xml","",false,"","XML")).getDocumentElement().getFirstChild().getTextContent()+"]");
+	</script>
+	
+	
+ </body>
+</html>

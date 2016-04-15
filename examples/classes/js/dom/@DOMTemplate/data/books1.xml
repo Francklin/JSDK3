@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<books>
+	<book>
+		<name>hibernate实战教程</name>
+		<author>李永胜</author>
+		<plsh>李永胜出版社</plsh>
+		<price>50.00</price>
+	</book>
+	<book>
+		<name>ajax and jtle文档</name>
+		<author>李永胜</author>
+		<plsh>李永胜出版社</plsh>
+		<price>0.00</price>
+	</book>
+	<book>
+		<name>spring webflow教程</name>
+		<author>李永胜</author>
+		<plsh>李永胜出版社</plsh>
+		<price>60.00</price>
+	</book>
+	<book>
+		<name>dwr应用</name>
+		<author>李永胜</author>
+		<plsh>李永胜出版社</plsh>
+		<price>30.00</price>
+	</book>
+</books>

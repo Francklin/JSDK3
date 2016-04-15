@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> js.lang.String </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../../common/loader.js"></script>
+  <style>
+  .label{
+	width: 200px;
+	font-weight: bold
+  }
+  .class .label{
+	background-color: #EDEDED
+  }
+  </style>
+ </head>
+
+ <body>
+  <h3>js.lang.String</h3>
+  <div>
+	version: v0.2<br>
+	update: 2012.2.29<br>
+  </div>
+  <br>
+  <script>
+  var data=jsdk.get("String.doc.js","",true,"","json");
+  document.write("<table width=\"100%\" border=\"1\">");
+  document.write("<tr><td class=label>Package: </td><td>"+data["package"]+"</td></tr>");
+  document.write("<tr><td class=label>Import: </td><td>"+data["import"].join(", ")+"</td></tr>");
+  document.write("<tr><td class=label colspan=2>Class: </td></tr>");
+  for(var i=0;i<data["class"].length;i++){
+	var oClass=data["class"][i];
+	document.write("<tr><td align=right valign=top class=\"label\">"+oClass.name+"</td><td>");
+	document.write("<table class=\"class\" width=\"100%\" border=\"1\" bordercolor=\"gray\" frame=\"void\" rules=\"rows\">");
+	document.write("<tr><td class=label>Constructor</td></tr>");
+	document.write("<tr><td>");
+	for(var j=0;j<oClass["constructor"].length;j++){
+		var vConstructor=oClass["constructor"][j];
+		if(!jsdk.isArray(vConstructor)){
+			document.write("<div>"+vConstructor+"</div>");
+		}else{
+			var paras=[];
+			for(var j=0;j<vConstructor.length;j++){
+				var arg=vConstructor[j];
+				if(typeof(arg)=="string"){
+					paras.push(arg);
+				}else{
+					var html=[];
+					html.push(arg.name+": {<br><div style=\"margin-left: 24px;\">");
+					html.push(arg.para.join(", <br>"));
+					html.push("</div>}");
+					paras.push(html.join(""));
+				}
+			}
+			document.write("<div>"+oClass.name+"("
+					+(paras.length?("<div style=\"margin-left: 24px\">"+paras.join(", <br>")+"<br></div>"):"")
+					+")</div>");
+		}
+		
+	}
+	if(oClass["const"]){
+		document.write("<br></td></tr>");
+		document.write("<tr><td class=label>Const</td></tr>");
+		document.write("<tr><td>");
+		for(var j=0;j<oClass["const"].length;j++){
+			var oConst=oClass["const"][j];
+			document.write("<div><div>"+oConst.name+" = "+oConst.value+"</div>");
+		}
+		document.write("<br></td></tr>");
+	}
+	if(oClass["enum"]){
+		document.write("<tr><td class=label>Enum</td></tr>");
+		document.write("<tr><td>");
+		for(var j=0;j<oClass["enum"].length;j++){
+			var oConst=oClass["enum"][j];
+			document.write("<div><div>"+oConst.name+"{</div><div style=\"padding-left: 24px\">"+oConst.members.join(", <br>")+"</div><div>}</div>");
+		}
+		document.write("<br></td></tr>");
+	}
+	document.write("<tr><td class=label>Property</td></tr>");
+	document.write("<tr><td>");
+	for(var j=0;j<oClass.property.length;j++){
+		var oProperty=oClass.property[j];
+		document.write("<div>"+oProperty.slice(0,3).join(" ")+" ["+oProperty[4].join("|")+"] "+oProperty[3]+"</div>");
+	}
+	document.write("<br></td></tr>");
+	document.write("<tr><td class=label>Method</td></tr>");
+	document.write("<tr><td>");
+	for(var j=0;j<oClass.method.length;j++){
+		var oMethod=oClass.method[j];
+		document.write("<div>"+oMethod.slice(0,4).join(" ")+"("+oMethod[4]+")</div>");
+	}
+	if(oClass.event){
+		document.write("<br></td></tr>");
+		document.write("<tr><td class=label>Event</td></tr>");
+		document.write("<tr><td>");
+		for(var j=0;j<oClass.event.length;j++){
+			var oEvent=oClass.event[j];
+			document.write("<div>"+oEvent.slice(0,4).join(" ")+"("+oEvent[4]+")</div>");
+		}
+		document.write("<br></td></tr>");
+	}
+	document.write("</table>");
+	document.write("</td></tr>")
+  }
+  document.write("</table>");
+  </script>
+ </body>
+</html>

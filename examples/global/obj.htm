@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - classes - js.detect.shell.Browser </title>
+  <meta name="Content-Type" content="text/html; charset=gb2312">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  </style>
+ </head>
+
+ <body>
+	<h2>Examples - Global.obj(<span class="FunPara">obj</span>,<span class="FunPara">clazz</span>)</h2>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<table width="100%" border="1">
+	<tr>
+		<td width="400">jsdk.obj("francklin.liu@gmail.com").left("@")</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj("francklin.liu@gmail.com").left("@"));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj("francklin.liu@gmail.com").right("@")</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj("francklin.liu@gmail.com").right("@"));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj("francklin.liu @ gmail.com").trim()</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj("francklin.liu@gmail.com").trim());</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj("francklin.liu")+jsdk.obj("@gmail.com")</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj("francklin.liu")+jsdk.obj("@gmail.com"));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj(123).isWithin(0,3)</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj(123).isWithin(0,3));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj(123).isWithout(0,3)</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj(123).isWithout(0,3));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj(123).isWithin(0,300)</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj(123).isWithin(0,300));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj(123).isWithout(0,300)</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj(123).isWithout(0,300));</script></td>
+	</tr>
+	<tr>
+		<td width="400">jsdk.obj(123)+jsdk.obj(321)</td>
+		<td width=""><script>if(isLoaded) document.write(jsdk.obj(123)+jsdk.obj(321));</script></td>
+	</tr>
+	</table>
+	</div>
+ </body>
+</html>

@@ -1,0 +1,36 @@
+{
+manifest : {
+"name" : "core",
+"file" : "core.js",
+"version" : "1.4",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013.12.9",
+"modified": "2014.08.14"
+},
+entity : [
+	"jsre.js",
+	"bin/base.js",
+	"bin/kernel.js",
+	"bin/global.js", 
+	"shell/webbrowser/re.js",
+	"shell/webbrowser/(webkit)/re.js",
+	"shell/webbrowser/(webkit)/patch/patch-IE.js", 
+	"shell/webbrowser/ie/re.js",
+	"shell/webbrowser/ie/patch/all-patch-std.js",
+	"shell/webbrowser/firefox/re.js",
+	"shell/webbrowser/firefox/patch/patch-IE.js",
+	"lib/classes/lang.json"
+],
+comment: ""
++"/** \n"
++" * JSDK3 Core Script File \n"
++" * @file: core.js \n"
++" * @version: V1.4 \n"
++" * @author: liu denggao \n"
++" * @modified: 2014.08.14 \n"
++" * @mail: francklin.liu@gmail.com \n"
++" * @homepage: http://www.tringsoft.com \n"
++" ************************************************/ \n\n",
+output : "lib\\resources\\core.1.4.js"
+}

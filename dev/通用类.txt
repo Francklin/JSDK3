@@ -1,0 +1,12 @@
+属性：
+
+$name		类名
+$super		父类、超类
+$base		内部类，封装的原始类
+$interfaces	接口类
+$context	上下文局部包类
+
+方法：
+
+getClassFor()
+getContext()

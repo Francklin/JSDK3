@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - String </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script src="../common/loader.js"></script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+ </head>
+
+ <body>
+	<h3>Examples - String</h3>
+	<h4><script>if(!isLoaded) document.write("(JSDK is undefined!)");</script></h4>
+	<div>
+    <TABLE width="100%" border=1>
+    <TR style="background-color:#EFEFEF">
+		<TD width="">Example</TD>
+		<TD width="50">Action</TD>
+		<TD width="40%">Result</TD>
+    </TR>
+    <TR>
+		<TD id="code1">alert(jsdk.obj("I am is \"francklin\"!").middle("\"","\""));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(jsdk.dom('#code1')[0].innerText)"></TD>
+		<TD>francklin</TD>
+    </TR>
+    <TR>
+		<TD id="code2">alert(jsdk.obj("I am is \"francklin\"! He is \"tom\".").middle("\"","\"","right"));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(jsdk.dom('#code2')[0].innerText)"></TD>
+		<TD>tom</TD>
+    </TR>
+    <TR>
+		<TD id="code3">alert(jsdk.obj("I am is \"francklin\"! He is \"tom\".").middle("\"","\"","max"));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(jsdk.dom('#code3')[0].innerText)"></TD>
+		<TD>francklin"! He is "tom</TD>
+    </TR>
+    </TABLE>
+	</div>
+ </body>
+</html>

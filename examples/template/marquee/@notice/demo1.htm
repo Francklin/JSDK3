@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 公告栏 </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link href="notice.css" rel="stylesheet" type="text/css">
+  <script src="../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  </script>
+  <script>
+  window.onload=function(){
+	jsdk.DOMTemplate.parse(jsdk.dom("script[type='text/x-html-block']"));
+  }
+  var data={
+	items: [
+		"11111111111111111111111111111",
+		"圣达菲卡积分卡垃圾分类卡解放大路考司法拘留",
+		"22222222222222222222222222222222222",
+		"是否快乐","",
+		"33333333",
+		"44444444444444",
+		"mmmmmmmmmmmmmmmmmmmmm"
+	]
+  }
+  </script>
+ </head>
+
+ <body>
+  <div style="background-color: #EDEDED; margin: 50px auto;width: 450px;height: 300px;">
+	<script type="text/x-html-block" template="notice.tpl.htm" data="${data}"></script>
+  </div>
+ </body>
+</html>

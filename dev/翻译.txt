@@ -1,0 +1,141 @@
+修改以下类的语言字符串，可对类的静态属性“_localeResource”进行修改
+在类被导入后调用之前进行修改，例如：
+jsdk.js.dom.HTMLForm._localeResource[key]=value;
+========================
+
+js.dom.HTMLForm (资源位置：js.dom.HTMLForm.prototype._localeResource)
+----------------
+(1)简体中文
+	"pleaseInput": "请选择或输入\"{0}\"!",
+	"isnotNumber": "您输入的\"{0}\"不是数字！",
+	"isnotDate": "您输入的\"{0}\"不是日期！",
+	"canotLess": "您输入的\"{0}\"不能小于{1}!",
+	"canotGreater": "您输入的\"{0}\"不能大于{1}!",
+	"canotEarly": "您输入的\"{0}\"不能早于\"{1}\"!",
+	"canotLate": "您输入的\"{0}\"不能晚于\"{1}\"!",
+	"canotLessWords": "您输入的\"{0}\"文本字数不能少于{1}个!",
+	"canotGreaterWords": "您输入的\"{0}\"文本字数不能多于{1}个!",
+	"atLeastItems": "您至少要选择{0}个\"{1}\"!",
+	"atMostItems": "您至多能选择{0}个\"{1}\"!",
+	"errIsNotUniqueElement": "获取表单项值错误!标识为\"{0}\"的文档元素并不唯一!",
+	"errNotSupportElementType": "获取表单项值错误!该功能不支持类型为\"{0}\"的元素!"
+(2)英文------
+	"pleaseInput": "Please select or input \"{0}\"!",
+	"isnotNumber": "The \"{0}\" you entered is not number!",
+	"isnotDate": "The \"{0}\" you entered is not date!",
+	"canotLess": "The \"{0}\" you entered cannot be less than {1}!",
+	"canotGreater": "The \"{0}\" you entered cannot be greater than {1}!",
+	"canotEarly": "The \"{0}\" you entered cannot be early than \"{1}\"!",
+	"canotLate": "The \"{0}\" you entered cannot be late than \"{1}\"!",
+	"canotLessWords": "The count of characters you entered \"{0}\" cannot be less than {1}!",
+	"canotGreaterWords": "The count of characters you entered \"{0}\" cannot be greater than {1}!",
+	"atLeastItems": "You must select at least {0} \"{1}\"!",
+	"atMostItems": "You can select up to {0} \"{1}\"!",
+	"errIsNotUniqueElement": "Get form item value error! The document element identified as a \"{0}\" is not unique!",
+	"errNotSupportElementType": "Get form item value error! This function does not support type as \"{0}\" of elements!"
+================
+js.domx.HTMLTextField
+----------------
+(1)简体中文
+	"pleaseInput": "请选择或输入\"{0}\"!",
+	"canotLessItems": "您选择的\"{0}\"的条目数不能少于{1}条!",
+	"canotGreaterItems": "您选择的\"{0}\"的条目数不能超过{1}条!",
+	"canotLessWords": "您输入的\"{0}\"的字数不能少于{1}字!",
+	"canotGreaterWords": "您输入的\"{0}\"的字数不能超过{1}字!",
+	"itemsLimit": "元素个数限制: {0} - {1}",
+	"wordsLimit": "长度限制: {0} - {1}",
+	"atLeastItems": "至少{0}个!",
+	"atMostItems": "最多{0}个!",
+	"atLeastWords": "至少{0}字!",
+	"atMostWords": "最多{0}字!"
+(2)英文------
+	"pleaseInput": "Please select or input \"{0}\"!",
+	"canotLessItems": "The count of items you selected \"{0}\" cannot be less than {1}!",
+	"canotGreaterItems": "The count of items you selected \"{0}\" cannot be greater than {1}!",
+	"canotLessWords": "The count of characters you entered \"{0}\" cannot be less than {1}!",
+	"canotGreaterWords": "The count of characters you entered \"{0}\" cannot be greater than {1}!",
+	"itemsLimit": "Limit count of items: {0} - {1}",
+	"wordsLimit": "Limit count of characters: {0} - {1}",
+	"atLeastItems": "At least {0}!",
+	"atMostItems": "Up to {0}!",
+	"atLeastWords": "At least {0} characters!",
+	"atMostWords": "Up to {0} characters!"
+================
+js.domx.HTMLNumberField
+----------------
+(1)简体中文
+	"pleaseInput": "请选择或输入\"{0}\"!",
+	"validScope": "有效范围",
+	"isnotNumber": "您输入的\"{0}\"不是数字！",
+	"maxDecimalBits": "请最多输入{0}位小数!",
+	"canotLess": "您输入的\"{0}\"不能小于{1}!",
+	"canotGreater": "您输入的\"{0}\"不能大于{1}!"
+(2)英文-------
+	"pleaseInput": "Please select or input \"{0}\"!",
+	"validScope": "Valid Scope",
+	"isnotNumber": "The \"{0}\" you entered is not a number!",
+	"maxDecimalBits": "Please enter up to {0} decimal places!",
+	"canotLess": "The \"{0}\" you entered cannot be less than {1}!",
+	"canotGreater": "The \"{0}\" you entered cannot be greater than {1}!"
+================
+js.domx.HTMLDataField
+----------------
+(1)简体中文---------
+	"dateFormat": "日期格式为: YYYY-MM-DD \n 例如: 2012-05-30",
+	"timeFormat": "时间格式为: HH:MM:SS \n 例如: 23:59:59",
+	"datetimeFormat": "日期格式为: YYYY-MM-DD HH:MM:SS \n 例如: 2012-05-30 23:59:59",
+	"pleaseInput": "请选择或输入\"{0}\"!",
+	"isnotDate": "您输入的\"{0}\"不是日期！请注意格式：\n\n{1}",
+	"mustLess": "您输入的\"{0}\"必须小于(等于)\"{1}\"!",
+	"mustGreater": "您输入的\"{0}\"必须大于(等于)\"{1}\"!"
+(2)英文----------
+	"dateFormat": "Date Format: YYYY-MM-DD \n Example: 2012-05-30",
+	"timeFormat": "Time Format: HH:MM:SS \n Example: 23:59:59",
+	"datetimeFormat": "Date Format: YYYY-MM-DD HH:MM:SS \n Example: 2012-05-30 23:59:59",
+	"pleaseInput": "Please select or input \"{0}\"!",
+	"isnotDate": "The \"{0}\" you entered is not date! Please notice format: \n\n{1}",
+	"mustLess": "The \"{0}\" you entered must be less or equal than \"{1}\"!",
+	"mustGreater": "The \"{0}\" you entered must be greater or equal than \"{1}\"!"
+================
+js.ui.form.AttachmentList
+----------------
+(1)简体中文------
+	"onlyUploadSingle": "只能上传单个文件！",
+	"fileAlreadyExists": "文件\"{0}\"已存在，不能重复上传！",
+	"notAllowUploadOtherTypeFile": "不允许上传类型为\"{0}\"之外的文件！",
+	"mustUpdateSameFileName": "您要更新的文件名必须与新文件名相等！"
+(2)英文-----
+	"onlyUploadSingle": "Only upload single file!",
+	"fileAlreadyExists": "File \"{0}\" already exists, cannot upload repeat!",
+	"notAllowUploadOtherTypeFile": "Does not allow uploading of type \"{0}\" file outside!",
+	"mustUpdateSameFileName": "File name you need to update must be same with new file name!"
+================
+js.ui.form.FileUploader
+----------------
+(1)简体中文--------
+	"onlyUploadSingle": "只能上传单个文件！",
+	"fileAlreadyExists": "文件\"{0}\"已存在，不能重复上传！"
+(2)英文-----
+	"onlyUploadSingle": "Only can upload single file!",
+	"fileAlreadyExists": "File \"{0}\" already exists, cannot upload repeat!"
+================
+js.ui.table.TableDataEditor
+----------------
+(1)简体中文
+	"tipsOfAddButton": "添加",
+	"tipsOfInsertButton": "插入",
+	"tipsOfDeleteButton": "删除",
+	"tipsOfMoveUpButton": "向上移动",
+	"tipsOfMoveDownButton": "向下移动",
+	"canotAddRowInLimitCount": "已达到最大记录条数限制，不能再添加了！",
+	"canotDeleteRowInLimitCount": "已达到最小记录条数限制，不能再删除了！"
+(2)英文-----
+	"tipsOfAddButton": "Add",
+	"tipsOfInsertButton": "Insert",
+	"tipsOfDeleteButton": "Remove",
+	"tipsOfMoveUpButton": "Move up",
+	"tipsOfMoveDownButton": "Move down",
+	"canotAddRowInLimitCount": "The maximum number of records limit has been reached, cannot be added!",
+	"canotDeleteRowInLimitCount": "The minimum number of record limit has been reached, cannot be deleted!"
+================
+

@@ -1,0 +1,55 @@
+.MessageBox{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-size: 9pt;
+	text-align: left;
+	overflow: hidden;
+}
+.MessageBox .box{
+	width: 100%;
+	height: 100%;
+	border: solid 1px #0368FA;
+}
+.MessageBox form{
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+	margin: 0px;
+	padding-bottom: 30px;
+}
+.MessageBox .TitleBar{
+	height: 30px;
+	color: white;
+	font-weight: bold;
+	background-color: #0368FA;
+}
+.MessageBox .TitleBar.title{
+	float: left;
+}
+.MessageBox .TitleBar.SysActionBar{
+	float: right;
+}
+.MessageBox .Body{
+	width: 100%;
+	height: 100%;
+	padding: 1px;
+	background-color: white;
+	overflow: hidden;
+}
+.MessageBox .ActionBar{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 29px;
+	text-align: center;
+	border-top: solid 1px gray;
+	background-color: ;
+	overflow:hidden;
+}
+.MessageBox .ActionBarItem{
+	width: 70px;
+	margin: 3px 7px;
+	*padding-top: 1px;
+}

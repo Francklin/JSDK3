@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> compile script </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" develop="true" src="../../src/loader.js">
+  $import("js.dom.HTMLForm");
+  $import("js.build.Compressor");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  .label{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 4px;
+	vertical-align: top;
+  }
+  .field{
+	width: 290px;
+  }
+  .index{
+	width: 32px;
+	color: blue;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Compress Script<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<form>
+	<div style="line-height: 1.3em">
+	<span class="label">Script File: </span><INPUT class="field" TYPE="text" NAME="F_ScriptFile">
+	<input type="button" value="Get Script Code" onclick="getScriptCode()"><br>
+	<span class="label">Compress Options: </span>
+	<label><input type="radio" name="F_Options" value="0">none</label>
+	<label><input type="radio" name="F_Options" value="1" checked>safe</label>
+	<label><input type="radio" name="F_Options" value="2">full</label><br>
+	<span class="label">Script Code: </span><textarea id="F_Input" name="F_Input" rows="7" cols="100"></textarea><br>
+	<span class="label"></span><input type="button" value="Start Compress" onclick="startCompress()"><input type="button" value="Compress & Serialize" onclick="startAndSerialize()"><input type="button" value="Serialize" onclick="serialize()"><br>
+	<span class="label">Script Output: </span><textarea id="F_Output" name="F_Output" rows="15" cols="100"></textarea><br>
+	<span class="label"></span><span style="width:810px;display:inline-block"><input type="button" value="Validate Code" onclick="validateCode()"><input type="button" value="Unserialize" onclick="Unserialize()">
+	<span style="float:right;"><input type="checkbox" name="F_isAutoNewLine" onclick="setAutoNewLine(this.checked)" checked>Auto New Line</span>
+	</span>
+	</form>
+    <script>
+	JSDK.HTMLForm.applyInstance(document.forms[0],"copy");
+	var jsre=JSDK.Engine.runtimeEnvironment;
+	function getScriptCode(){
+		var sScriptFilePath=JSDK.dom("#F_ScriptFile#")[0].value;
+		JSDK.dom("#F_Input")[0].value=JSDK.get("../../src/"
+				+sScriptFilePath
+			,"",false,"","Text");
+	}
+	function validateCode(){
+		var thisform=document.forms[0];
+		var code=thisform.F_Output.value;
+		if(code=="") return;
+		try{
+			new Function(code)();
+		}catch(e){
+			alert(e.description);
+			return;
+		}
+		alert("OK!");
+	}
+	function startCompress(){
+		if(!document.getElementsByName("F_Input")[0].value){
+			alert("Please input code!");
+			return;
+		}
+		var compressor=new JSDK.Compressor(parseInt(document.forms[0].getItemValue("F_Options")));
+		JSDK.dom("#F_Output")[0].value=compressor.compress(JSDK.dom("#F_Input")[0].value);
+	}
+	function serialize(){
+		if(!document.getElementsByName("F_Input")[0].value){
+			alert("Please input code!");
+			return;
+		}
+		JSDK.dom("#F_Output")[0].value=JSDK.dom("#F_Input")[0].value.serialize();
+	}
+	function startAndSerialize(){
+		if(!document.getElementsByName("F_Input")[0].value){
+			alert("Please input code!");
+			return;
+		}
+		var compressor=new JSDK.Compressor(parseInt(document.forms[0].getItemValue("F_Options")));
+		JSDK.dom("#F_Output")[0].value=compressor.compress(JSDK.dom("#F_Input")[0].value).serialize();
+	}
+	function Unserialize(){
+		var str=document.getElementsByName("F_Output")[0].value;
+		if(!str) return;
+		document.getElementsByName("F_Output")[0].value=eval(str);
+	}
+	function setAutoNewLine(isAuto){
+		var thisform=document.forms[0];
+		thisform.F_Output.wrap=isAuto?"soft":"off";
+	}
+	</script>
+	</div>
+ </body>
+</html>

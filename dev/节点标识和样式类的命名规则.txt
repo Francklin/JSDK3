@@ -1,0 +1,28 @@
+一、样式类
+
+1.前缀
+  所有类名都要加前缀，统一为此框架的简称“jk”，连接符为“-”
+  例如：jk-outline, jk-popupmenu
+
+2.局部类名
+  起辅助作用的、表示对象状态的样式类，可使用本规则。
+  规则为前缀连接符为两个普通的连接符“--”
+  例如：jk--active, jk--alternate，jk--empty，jk--editable
+
+3.系统类
+  在普通前缀符前面再加个连接符“-”，形如：-jk-fl, -jk-fr
+  补充：IE6不支持
+
+规则预览：
+-jk-fl, -jk-fr, -jk--editable, jk-outline, jk--active, jk--editable
+
+二、节点标识
+
+1.前缀
+  所有类名都要加前缀，统一为此框架的简称“jk”，连接符为“-”
+  例如：jk-201210261029335590001
+
+2.局部标识
+  起辅助作用的、表示对象局部区域的节点，可使用本规则。
+  规则为前缀连接符为两个普通的连接符“--”
+  例如：jk--currentpage, jk--pagesize, jk--total, jk--pagenum

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta name="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../../../common/loader.js">
+  $import("js.detect.shell.OS");
+  </script>
+  <script src="../../../example.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  var jsdk_path=jsdk.Engine.runtimeEnvironment.getRootPath().replace(/^[/\\][a-z]:/i,"");
+  </script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<div>
+	<script>
+		var OS=jsdk.js.detect.shell.OS;
+		document.write("<table border=\"1\">");
+		document.write("<tr><td>isWin</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWin?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWin98</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWin98?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWinME</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWinME?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWin2K</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWin2K?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWinXP</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWinXP?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWin2K3</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWin2K3?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWinVista</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWinVista?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWin7</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWin7?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isWin8</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isWin8?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isMac</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isMac?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isUnix</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isUnix?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isSunOS</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isSunOS?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isIOS</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isIOS?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("<tr><td>isAndroid</td><td><img src=\""+jsdk_path+"/res/icons/"+(OS.isAndroid?"ok.gif":"cancel.gif")+"\"></td></tr>");
+		document.write("</table>");
+	</script>
+	</div>
+ </body>
+</html>

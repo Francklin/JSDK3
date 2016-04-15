@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title> test - Class: js.dom.HTMLForm </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script appName="jsdk" debug="debug" src="../../../../../src/loader.js">
+  $import("js.dom.HTMLForm","1.2");
+  $import("js.text.validator.Validator");
+  </script>
+  <script src="../../../example.js"></script>
+  <style>
+
+  </style>
+  <script>
+  window.onload=function(){
+    var thisform=document.forms[0];
+	var validator=new jsdk.Validator();
+	validator.addRule("FileExtName","FileExtName",".jpg;.jpeg;.gif;.bmp;.png","Please select image file!");
+	validator.setDefaultRule("FileExtName");
+	jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+	thisform.setAllItems([
+		["F_Subject","Subject","Text",false,"",""],
+		["F_FromDate","From Date","Date",false,"",""],
+		["F_ToDate","To Date","Date",false,"","","->#F_FromDate"],
+		["F_isPublic","Is Public","Text",false,"",""],
+		["F_Reads","Reads","Number",true,"","",5,10],
+		["F_Edits","Edits","Number",true,"",{
+			"onValidate": function(){
+				var thisform=document.forms[0];
+				if(thisform.F_Reads.value!=""){
+					this.allowEmpty=false;
+					return this.parentForm.checkItem(this.name);
+				}
+				return true;
+			}
+		},0,"->#F_Reads"],
+		["F_LogoImage","Logo","Text",false,"Please select logo image!",{
+			"onValidate": function(){
+				var thisform=document.forms[0];
+				var fileName=jsdk.obj(">"+thisform.getItemValue(this.name)).xsplit("first",["/","\\",">"]).pop();
+				var vResult=validator.validate("FileExtName",fileName);
+				if(!vResult[0]){
+					alert(vResult[1]);
+					return false;
+				}
+				return true;
+			}
+		}]
+
+	]);
+	thisform.btnSubmit.onclick=function(){
+		if(thisform.checkForm()){
+			alert("OK!");
+		}
+	}
+  }
+  </script>
+ </head>
+
+ <body>
+	<h3><script>document.write(example.title)</script></h3>
+	<hr>
+	<Form>
+	<TABLE width="100%" border="0" bordercolor="gray" cellspacing="0" cellpadding="3" style="border-collapse:collapse">
+	<TR>
+		<TD>
+			Subject: <input type="text" name="F_Subject">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			From Date: <input type="text" name="F_FromDate"> To Date: <input type="text" name="F_ToDate">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Is Public: <label><input type="radio" name="F_isPublic" value="1">Yes</label><label><input type="radio" name="F_isPublic" value="0">No</label>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Reads: <input type="text" name="F_Reads">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Edits: <input type="text" name="F_Edits">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			Logo: <input type="file" id="F_LogoImage">
+		</TD>
+	</TR>
+	</TABLE>
+	<br>
+	<input type=button name="btnSubmit" value="提交">
+	</Form>
+ </body>
+</html>

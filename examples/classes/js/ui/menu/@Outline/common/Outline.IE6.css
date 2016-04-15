@@ -1,0 +1,36 @@
+.Outline{
+
+}
+.OutlineItemOuter{
+
+}
+.OutlineItem{
+	height:16px;
+	font-size:0;
+	white-space: nowrap;
+	overflow:hidden;
+}
+.OutlineItem a,.OutlineItem a:link,.OutlineItem a:visited{
+	color: black;
+	font-size: 12px;
+	text-decoration: none;
+}
+.OutlineItem #button{
+	height: 16px;
+	overflow:hidden;
+}
+.OutlineItem #checkbox{
+	height: 16px;
+	overflow:hidden;
+}
+.OutlineItem #icon{
+	height: 16px;
+	overflow:hidden;
+}
+.OutlineItem #link{
+	height: 16px;
+	margin-left: 1px;
+	padding: 2 2 0 2;
+	vertical-align:top;
+	overflow:hidden;
+}

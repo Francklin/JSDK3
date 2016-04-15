@@ -1,0 +1,15 @@
+{
+manifest : {
+"name" : "build",
+"file" : "build.json",
+"version" : "0.7",
+"description" : "",
+"author" : "liu denggao"
+},
+entity : [
+	"js.build.JSTemplate",
+	"js.build.Compressor",
+	"js.build.Packager"
+],
+output : "lib\\classes\\build.0.7.json"
+}

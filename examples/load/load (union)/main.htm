@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Main </TITLE>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <script>var startDate=new Date();</script>
+  <script appMode="sub" src="../../../src/loader.js"></script>
+  <script>var endDate=new Date();</script>
+ </HEAD>
+
+ <BODY>
+	<h1 align=center>MAIN</h1>
+	<hr>
+    <script>
+	document.write("<center>加载JSDK共耗时"+Date.computeTime(endDate-startDate,"ms",3)+"毫秒</center>");
+	</script>
+	<hr>
+	已装载类：<br>
+	<script>
+	document.write(JSDK.Engine.compileEnvironment.getLoadedClassNames().join("<br>"));
+	</script>
+ </BODY>
+</HTML>

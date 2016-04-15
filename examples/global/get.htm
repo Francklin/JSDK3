@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Global.get </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js">
+  $import("js.text.charset.Charset");
+  $import("js.text.charset.GB2312");
+  </script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  </style>
+  <script>
+	var xml;
+	function getTextFile(url){
+		document.getElementById("output").value=jsdk.get(url,'',false,'',"Text");
+	}
+	function getTextFile1(url){
+		jsdk.get(url,'',false,function(sText){
+			document.getElementById("output").value=sText;
+		},"Text");
+	}
+	function getTextFile2(url){
+		jsdk.get(url,'',false,function(data){
+			document.getElementById("output").value=data;
+		},"Text","gb2312",function(bstr){
+			return jsdk.Charset.gb2312utf16(bstr);
+		});
+	}
+	function getTextFile3(url){
+		jsdk.get(url,'',false,function(data){
+			document.getElementById("output").value=data;
+		},"Text","gb2312",function(bstr){
+			return jsdk.GB2312.toUtf16(bstr);
+		});
+	}
+	function getXMLFile(url){
+		xml=jsdk.get(url,'',false,'',"XML");alert(xml);
+		alert(xml.documentElement);alert("["+xml.documentElement.childNodes[2].nodeType+"]");
+		document.getElementById("output").value=xml.documentElement.xml;
+		return xml;
+	}
+	function getXMLFile1(url){
+		xml=jsdk.get(url,{author: "liudenggao", date: "2011.6.23"},false,'',"XML");
+		document.getElementById("output").value=xml.documentElement.xml;
+	}
+	function saveXMLFile1(){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.CreateTextFile('e:\\test.xml', true,false);
+		file.Write(xml.xml);
+		file.Close();
+		alert("OK!");
+	}
+  </script>
+ </head>
+
+ <body>
+	<h3>Examples - Global.get(<span class="FunPara">
+	<script>document.write(["sUrl","vData","isCache","fpCallBack","sFormat","sCharset","fpConvert"].join("</span>,<span class=\"FunPara\">"));</script>
+	</span>)</h3>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div style="width:100%;height:350px">
+		资源：<input type="text" name="F_URL" style="width:85%" value="../../release/jsdk3x/about.xml">
+		<TEXTAREA id="output" NAME="output" style="width:100%;height:100%" wrap="off"></TEXTAREA>
+	</div>
+	<div style="padding:2px">
+		<INPUT TYPE="button" VALUE="清空" ONCLICK="document.getElementById('output').value='';">
+		<INPUT TYPE="button" VALUE="获取文本文件" ONCLICK="getTextFile(document.all['F_URL'].value)">
+		<INPUT TYPE="button" VALUE="获取文本文件(GB2312(VBScript))" ONCLICK="getTextFile2(document.all['F_URL'].value)">
+		<INPUT TYPE="button" VALUE="获取文本文件(GB2312(mapping))" ONCLICK="getTextFile3(document.all['F_URL'].value)">
+		<INPUT TYPE="button" VALUE="获取文本文件(异步)" ONCLICK="getTextFile1(document.all['F_URL'].value)">
+		<INPUT TYPE="button" VALUE="获取XML文件" ONCLICK="getXMLFile(document.all['F_URL'].value)">
+		<INPUT TYPE="button" VALUE="获取XML文件(带数据)" ONCLICK="getXMLFile1(document.all['F_URL'].value)">
+		<br>
+		<INPUT TYPE="button" VALUE="保存XML文件(仅IE)" ONCLICK="saveXMLFile1()">
+	</div>
+ </body>
+</html>

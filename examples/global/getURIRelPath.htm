@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <script src="../common/loader.js"></script>
+ </HEAD>
+
+ <BODY>
+  <div>Global.getURIRelPath(sCurPath,sUriFullPath,sSep)</div><br>
+  <div>updated: 2011.11.16</div>
+  <hr>
+  <script>
+	var path1="/domino/html/test";
+	var path2="/test/jsdk3/test/htc";
+	var path3="/test/jsdk3/jsdk3/test/htc";
+	//document.write(jsdk.getURIRelPath(path1,"/jsdk3","/")+"<br>");	//正确结果为："../domino/html/test"
+	//document.write(jsdk.getURIRelPath(path1,"./jsdk3","/")+"<br>");	//正确结果为：".."
+	//document.write(jsdk.getURIRelPath(path2,"../..","/")+"<br>");	//正确结果为："test/htc"
+	//document.write(jsdk.getURIRelPath(path3,"../..","/")+"<br>");	//正确结果为："test/htc"
+
+	var relPath=jsdk.getURIRelPath("/admin","/index.htm","/");
+	document.write("1.正确结果为：\"../index.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："../index.htm"
+
+	var relPath=jsdk.getURIRelPath("/admin","/admin/index.htm","/");
+	document.write("2.正确结果为：\"index.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："index.htm"
+
+	var relPath=jsdk.getURIRelPath("/admin/data","/admin/index.htm","/");
+	document.write("3.正确结果为：\"../index.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："../index.htm"
+
+	var relPath=jsdk.getURIRelPath("../jsdk3x/examples","../jsdk3x/examples/classes/js/detect/shell/Browser.htm","/");
+	document.write("4.正确结果为：\"classes/js/detect/shell/Browser.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："classes/js/detect/shell/Browser.htm"
+
+	var relPath=jsdk.getURIRelPath("../jsdk3x1/examples","../jsdk3x/examples/classes/js/detect/shell/Browser.htm","/");
+	document.write("5.正确结果为：\"../../jsdk3x/examples/classes/js/detect/shell/Browser.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："../../jsdk3x/examples/classes/js/detect/shell/Browser.htm"
+
+	var relPath=jsdk.getURIRelPath("../jsdk3x1/examples","jsdk3x/examples/classes/js/detect/shell/Browser.htm","/");
+	document.write("6.正确结果为：\"(无法到达)\"<br>");
+	document.write(relPath+"<br><br>");   //结果为：""
+
+	var relPath=jsdk.getURIRelPath("./jsdk3x1/examples","jsdk3x/examples/classes/js/detect/shell/Browser.htm","/");
+	document.write("7.正确结果为：\"../../jsdk3x/examples/classes/js/detect/shell/Browser.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："../../jsdk3x/examples/classes/js/detect/shell/Browser.htm"
+
+	var relPath=jsdk.getURIRelPath("jsdk3x1/examples","./jsdk3x/examples/classes/js/detect/shell/Browser.htm","/");
+	document.write("8.正确结果为：\"../../jsdk3x/examples/classes/js/detect/shell/Browser.htm\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："../../jsdk3x/examples/classes/js/detect/shell/Browser.htm"
+
+	var relPath=jsdk.getURIRelPath("jsdk3x/examples/classes/js/detect/shell","jsdk3x/src/loader.js","/");
+	document.write("9.正确结果为：\"../../../../../src/loader.js\"<br>");
+	document.write(relPath+"<br><br>");   //结果为："../../../../../src/loader.js"
+
+
+  </script>
+ </BODY>
+</HTML>

@@ -1,0 +1,24 @@
+{
+manifest : {
+"name" : "global",
+"file" : "global.js",
+"version" : "2.1",
+"description" : "",
+"author" : "liu denggao",
+"date": "2013.11.05"
+},
+entity : [
+	"lite\\src\\global.key.js",
+	"lite\\src\\global.base.js",
+	"lite\\src\\global.id.js",
+	"lite\\src\\global.uri.js",
+	"lite\\src\\global.parser.js",
+	"lite\\src\\global.charset.js",
+	"lite\\src\\global.exec.js",
+	"lite\\src\\global.ajax.js",
+	"lite\\src\\global.query.js",
+	"lite\\src\\global.dom.js"
+],
+separater : ",",
+output : "lite\\src\\global.js"
+}

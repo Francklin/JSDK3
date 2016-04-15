@@ -1,0 +1,18 @@
+{
+manifest : {
+"name" : "ui-home",
+"file" : "ui-home.json",
+"version" : "1.0",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013-12-06",
+"modified": "2013-12-06"
+},
+entity : [
+	"js.ui.PopupDialog",
+	"js.ui.WebReminderDialogBox",
+	"js.ui.menu.PopupMenuLite",
+	"js.ui.view.SimpleView"
+],
+output : "lib\\classes\\ui-home.1.0.json"
+}

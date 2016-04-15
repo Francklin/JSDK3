@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title> test - Class: js.dom.DOMTemplate </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script appName="jsdk" debug="false" src="../../../../common/loader.js">
+  $import("js.dom.DOMTemplate3");
+  </script>
+ </head>
+
+ <body>
+	 <script id="tmpl" type="text/html">
+	   <table width="80%">
+		 <tr bgcolor="#DEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+		 <% for(var n = 0; n < books.length; n++) {
+			  var book = books[n];
+			  if(n % 2 != 0) { 
+		  %>
+		  <tr bgcolor="#DCDCDC"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% }else{   %>
+		   <tr bgcolor="#FFFFE0"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% } }  %>
+	   </table>
+	</script>
+	<script id="tpl_wdy" type="text/html">
+	<%if(viewentry&&viewentry.length>0){%>
+	<%for(var i=0;i<viewentry.length;i++){%>
+	<a onmouseover="showPlayButton(this,1);" onmouseout="showPlayButton(this,0);" style="width:167px;height:100%;overflow:hidden;margin: 1px;display:inline-block;position:relative" href="/nj/qywh/microzone.nsf/FM_ShowMovies?OpenForm" target="_blank"><img src="/nj/qywh/microzone.nsf/0/${viewentry[i]['@unid']}/$file/${viewentry[i].entrydata[1]['text']['0']}" width="100%" height="100%" title="${viewentry[i].entrydata[0]['text']['0']}" style="position:absolute;left:0;top:0"><%if(jsdk.Browser.Engine.version<=3.1){%><span class="play-button-img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/<Computed Value>/skins/new/wdy-images/play.png');position:absolute;margin: 30px 66px;left:0;width:44px;height:44px"></span><%}else{%><img class="play-button-img" src="/<Computed Value>/skins/new/wdy-images/play.png" style="position:absolute;margin: 30px 66px;left:0;"/><%}%></a>
+	<%}}else{%>
+	<div class="empty">没有发现微电影</div>
+	<%}%>
+	</script>
+<script id="tpl_wht_wdc" type="text/html">
+                            	<div class="wht-wdc">
+					<form>
+<% if(typeof(data.viewentry)!="undefined"&&data.viewentry.length>0){
+	var viewentry=data.viewentry[0];
+	var aWordList=viewentry.entrydata[2]["text"]["0"].split(";").trim();
+	var iCount=aWordList.length;
+	var iColumnWidth=iCount<=3?1:(iCount<=6?2:3);
+	var iLines=Math.ceil(iCount/iColumnWidth);
+	var iItemTextLen=Math.floor(38/iColumnWidth)+iColumnWidth-1;
+	var sSelectMode=viewentry.entrydata[6]["text"]["0"];
+	var isExpired=viewentry.entrydata[4]["text"]["0"]=="1";
+	var title=viewentry.entrydata[0]["text"]["0"];
+	var title1=jsdk.obj(title).truncate(56,0,"...");
+%>
+					<input type="hidden" name="F_T_$UNID" value="${viewentry["@unid"]}" />
+			 	 	<input type="hidden" name="F_T_isAnonymous" value="${viewentry.entrydata[5]["text"]["0"]||""}" />
+					<p title="<%=title==title1?"":title%>">${title1}</p>
+					<div style="display:block;*display:inline-block;overflow:hidden">
+					<table width="100%">
+					  <% for(var j=0;j<iLines;j++){%>
+					  <tr>
+						<%for(var k=0;k<iColumnWidth&&(j*iColumnWidth+k)<iCount;k++){
+							var item_text=aWordList[j*iColumnWidth+k];
+							var item_text1=jsdk.obj(item_text).truncate(iItemTextLen,0,"...");
+						%>
+							<td width="${Math.floor(100/iColumnWidth)}%"><input name="F_T_ChoiceItems" type="<%=(sSelectMode=="1"?"radio":"checkbox")%>" value="${aWordList[j*iColumnWidth+k]}" /><span title="<%=item_text==item_text1?"":item_text%>">${item_text1}</span></td>
+						<%}%>
+					  </tr>
+					  <%}%>
+					</table>
+					</div>
+					<div class="action-bar">
+                                   <input name="_btnSubmit" type="button" value="提交" class="tj-btn"> 
+                                   <input name="_btnViewResult" type="button" value="查看结果" class="chakan-btn"> 
+					 <input name="_btnViewMore" type="button" value="往期调查" class="chakan-btn"> 
+                                  </div>
+<%}else{%>
+	<div class="empty">没有发现微调查！</div>
+<%}%>
+					</form>
+					</div>
+	</script>
+	<script>
+	var code=document.getElementById("tpl_wht_wdc").text;
+	var date1=new Date();
+	document.write(date1.toSTDString()+"<br>");
+	for(var i=0;i<100;i++){
+		var cc=jsdk.obj(code).xsplit("group",["<%#","%>","<%=","%>","<%","%>","${","}","<!--#include","-->"]);
+		window.status=cc.length;
+	}
+	var date3=new Date();
+	document.write(date3.toSTDString()+ "-" +(date3-date1)+"<br>");
+	</script>
+
+ </body>
+</html>

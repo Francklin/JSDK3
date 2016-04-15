@@ -1,0 +1,131 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Export class files </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" src="../../src/loader.js">
+  $import("js.dom.HTMLForm");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  label{
+	line-height: 1.5em;
+  }
+  .label{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 4px;
+	vertical-align: top;
+  }
+  .field{
+	width: 300px;
+  }
+  .index{
+	width: 32px;
+	color: blue;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Export class files<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<form>
+	<span class="label">Class: </span><INPUT class="field" TYPE="text" NAME="F_ClassFullName"><br>
+	<span class="label">Target Folder: </span><INPUT class="field" TYPE="text" NAME="F_TargetPath"><br>
+	<span class="label">Option: </span>
+		<label><INPUT TYPE="checkbox" NAME="F_isCopySource">copy source file</label><br>
+	<span class="label"></span><br>
+	<span class="label"></span>
+		<input type="button" value="Scan" onclick="startCopy(false)">
+		<input type="button" value="Start" onclick="startCopy(true)">
+	</form>
+	<hr>
+	<div id="out"></div>
+    <script>
+	var thisform=document.forms[0];
+	JSDK.HTMLForm.applyInstance(document.forms[0],"copy");
+	var config;
+	var jsre=JSDK.Engine.runtimeEnvironment;
+	var root=JSDK.Engine.runtimeEnvironment.getRootPath().slice(1).replace(/\//g,"\\");
+	var sourcePath="";
+	var targetPath="";
+	var runMode=0;
+	function startCopy(isOK){
+		if(!document.getElementsByName("F_ClassFullName")[0].value){
+			alert("Please input full path name of class!");
+			return;
+		}else if(!document.getElementsByName("F_TargetPath")[0].value){
+			alert("Please input target folder path!");
+			return;
+		}else if(isOK&&!confirm("Start?")){
+			return;
+		}
+		runMode=isOK;
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		JSDK.dom("#out")[0].innerHTML="";
+		var classFullName=document.getElementsByName("F_ClassFullName")[0].value;
+		var classPathName=classFullName.leftBack(".").replace(/\./g,"\\");
+		var className=classFullName.rightBack(".");
+		var classFileExtName=JSDK.Engine.runtimeEnvironment._fileExtension["class"]["compile"];
+		sourcePath=JSDK.getURIFullPath(root+"\\classes",classPathName,"\\");
+		targetPath=document.getElementsByName("F_TargetPath")[0].value;
+		if(targetPath.indexOf(":")<0) targetPath=JSDK.getURIFullPath(root,targetPath,"\\");
+		var isCopySource=document.getElementsByName("F_isCopySource")[0].checked;
+		if(isCopySource) copyFile(sourcePath+"\\"+className+classFileExtName+".js",targetPath);
+		copyFile(sourcePath+"\\"+className+classFileExtName,targetPath);
+		copyFolder(sourcePath+"\\_res\\"+className,targetPath);
+		
+	}
+	function copyFolder(src,targetRoot){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var subFolders=[];
+		var folder= fso.GetFolder(src);
+		if(runMode) createFolderPath(fso,src.replace(root,targetRoot));
+		var fc=new Enumerator(folder.Files);
+		for (; !fc.atEnd(); fc.moveNext()){
+			copyFile(fc.item().path,targetRoot);
+		}
+		var fc=new Enumerator(folder.SubFolders);
+		for (; !fc.atEnd(); fc.moveNext()){
+			copyFolder(fc.item().path,targetRoot);
+		}
+	}
+	function copyFile(src,targetRoot){
+		with(JSDK.dom("#out")[0].appendChild(document.createElement("div"))){
+			innerHTML="正在拷贝文件\""+src.replace(root+"\\","")+"\"...";
+		}
+		if(runMode){
+			var fso = new ActiveXObject("Scripting.FileSystemObject");
+			var dirPath=src.replace(root,targetRoot).leftBack("\\");
+			createFolderPath(fso,dirPath);
+			try{
+				fso.CopyFile(src,dirPath+"\\",true);
+			}catch(e){
+				with(JSDK.dom("#out")[0].appendChild(document.createElement("div"))){
+					innerHTML="拷贝文件\""+src.replace(root+"\\","")+"\"失败！";
+				}
+			}
+		}
+	}
+	function createFolderPath(fso,dirPath){
+		var names=dirPath.split("\\");
+		for(var i=1;i<names.length;i++){
+			var path=names.slice(0,i+1).join("\\");
+			if(!fso.FolderExists(path)){
+				fso.CreateFolder(path);
+			}
+		}
+	}
+	</script>
+	</div>
+ </body>
+</html>

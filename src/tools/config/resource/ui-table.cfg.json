@@ -1,0 +1,15 @@
+{
+manifest : {
+"name" : "ui-table",
+"file" : "ui-table.js",
+"version" : "1.0",
+"description" : "",
+"author" : "liu denggao",
+"created": "2014.01.02",
+"modified": "2014.01.02"
+},
+entity : [
+	"lib/classes/ui-table.json"
+],
+output : "lib\\resources\\ui-table.1.0.js"
+}

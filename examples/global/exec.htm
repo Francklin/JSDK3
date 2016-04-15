@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Global.exec </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  .category{width:150px;font-weight:bold}
+  .item{width:150px;}
+  </style>
+ </head>
+
+ <body>
+	<h2>Examples - Global.exec(<span class="FunPara">
+	<script>document.write(["func(container,[callback],[data])","[driver=\"do\"]","[para]"].join("</span>,<span class=\"FunPara\">"));</script>
+	</span>)</h2>
+	(2013.05.31)<br><br>
+	同步队列 - 执行， 可在HTML的脚本标签下执行，这样可使用"container.write"代替“document.write”；也可以在任意地方执行。<br>
+	本功能的宗旨是解决HTML文档下内联脚本在JS框架的异步加载模式下的同步执行问题，亦可以分解由于数据量大而造成任务执行过于繁重冗长的问题。
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<script>
+	jsdk.exec(function(container){
+		container.write("<div style=\"color:red\">11111111111111</div>");
+	});
+	jsdk.exec(function(container){
+		container.write("<div style=\"color:red\">22222222222222</div>");
+	});
+	jsdk.exec(function(container,callBack){
+		container.write("<div style=\"color:red\">333333333333333</div>");
+		jsdk.get("../../src/res/charset/gb2312.xml","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(1)loaded 'gb2312.xml'</div>");
+		}),"text");
+		jsdk.get("../../src/res/charset/countries.xml","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(2)loaded 'countries.xml'</div>");
+		}),"text");
+		jsdk.get("../../src/res/logo/firefox.ico","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(3)loaded 'firefox.ico'</div>");
+		}),"text");
+		jsdk.get("../../src/res/logo/opera.ico","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(4)loaded 'opera.ico'</div>");
+		}),"text");
+		jsdk.get("../../src/res/logo/ie7.ico","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(5)loaded 'ie7.ico'</div>");
+		}),"text");
+		jsdk.get("data01.txt","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(6)loaded 'data01.txt'</div>");
+		}),"text");
+	});
+	</script>
+	<script>
+	jsdk.exec(function(container){
+		container.write("<div style=\"color:green\">444444444444444444</div>");
+	});
+	jsdk.exec(function(container,callBack,data){
+		container.write("<div style=\"color:green\">555555555555555555555</div>");
+		jsdk.get("../../src/res/charset/gb2312.xml","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(7)loaded 'gb2312.xml'...</div>");
+		}),"text");
+		jsdk.get("../../src/res/charset/countries.xml","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(8)loaded 'countries.xml'...</div>");
+		}),"text");
+		jsdk.get("../../src/res/logo/firefox.ico","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(9)loaded 'firefox.ico'...</div>");
+		}),"text");
+		jsdk.get("../../src/res/logo/opera.ico","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(10)loaded 'opera.ico'...</div>");
+		}),"text");
+		jsdk.get("../../src/res/logo/ie7.ico","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(11)loaded 'ie7.ico'...</div>");
+		}),"text");
+		jsdk.get("data01.txt","",false,callBack(function(data){
+			container.write("<div style=\"color:red\">(12)loaded 'data01.txt'...</div>");
+		}),"text");
+		container.write("<div style=\"color:blue;font-weight:bold;font-size:18pt\">");
+		container.write("JSDK3 Framework</div>");
+		container.write(data.mail+"<br>");
+		data.state="ok";
+	},"do",{
+		data: {
+			mail: "francklin.liu@gmail.com",
+			state: "start",
+		},
+		onFinished: function(data){
+			alert(data.state);
+		}
+	});
+	</script>
+	==============><br>
+ </body>
+</html>

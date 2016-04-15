@@ -1,0 +1,26 @@
+{
+	author: "liudenggao",
+	date: "2011.10.14",
+	dialogbox: {
+		oDspTexts: {
+			title: "人员选择",
+			tips: "请选择人员：",
+			category: "",
+			view: "候选人员：",
+			data: "",
+			result: "已选人员：",
+			memo: "注：候选人员可按“shift”键连选，按“Ctrl”键跳选"
+		},
+		oPara: {
+			isMultiple: false,
+			dspResult: false	
+		},
+		oViewData: {
+			"array": '["刘德华|liudehua","梁朝伟|liangchaowei","刘嘉玲|liujialing","谢霆锋|xietingfeng","周润发|zhourunfa"]',
+			"url(json)": "simple.people.json",
+			"url(xml)": "simple.people.xml",
+			"function": 'return ["刘德华|liudehua","梁朝伟|liangchaowei","刘嘉玲|liujialing","谢霆锋|xietingfeng","周润发|zhourunfa"];'
+		},
+		vValues: "刘德华|liudehua"
+	}
+}

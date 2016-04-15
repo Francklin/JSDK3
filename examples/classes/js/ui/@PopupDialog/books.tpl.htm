@@ -1,0 +1,11 @@
+<table width="80%">
+ <tr bgcolor="#DEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+ <% for(var n = 0; n < books.length; n++) {
+	  var book = books[n];
+	  if(n % 2 != 0) { 
+  %>
+  <tr bgcolor="#DCDCDC"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+ <% }else{   %>
+   <tr bgcolor="#FFFFE0"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+ <% } }  %>
+</table>

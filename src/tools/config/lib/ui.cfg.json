@@ -1,0 +1,21 @@
+{
+manifest : {
+"name" : "ui",
+"file" : "ui.json",
+"version" : "1.0",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013-08-30",
+"modified": "2013-08-30"
+},
+entity : [
+	"js.ui.data.TableData",
+	"js.ui.parser.Table",
+	"js.ui.PopupDialog",
+	"js.ui.SelectDialogBox",
+	"js.ui.menu.PopupMenuLite",
+	"js.ui.form.FileUploader",
+	"js.ui.form.AttachmentList"
+],
+output : "lib\\classes\\ui.1.0.json"
+}

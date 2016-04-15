@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template createdDate="2011-11-03" modifiedDate="2011-11-03">
+<script>
+;(function(window){
+/*----- loader ----- */
+</script>
+<script src="../lite/src/loader.js"></script>
+<script>
+
+/*----- jsdk ----- */
+var Global={
+</script>
+<script src="../lite/src/global.js"></script>
+<script>
+};
+var jsdk=window.jsdk=Global;
+})(window);
+</script>
+</template>

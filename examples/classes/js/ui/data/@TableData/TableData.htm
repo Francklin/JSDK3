@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.data.TableData </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.ui.data.TableData");
+  </script>
+  <script src="../../../../example.js"></script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<div>updated date: 2012.4.1</div>
+	<hr>
+	<div style="width:100%;margin: 15px 0px;text-align: center;font-size: 18pt;font-weight: bold">人力资源地图</div>
+	<script>
+	function makeTable(data){
+		document.write("<table align=\"center\" width=\"90%\" border=1>");
+		for(var i=0;i<data.data.length;i++){
+			var row=data.data[i];
+			if(row instanceof Array){
+				document.write("<tr>");
+				for(var j=0;j<row.length;j++){
+					var rowCell=row[j];
+					if(typeof(rowCell)=="string"){
+						document.write("<td>");
+						document.write(rowCell||"&nbsp;");
+					}else{
+						document.write("<td");
+						if(rowCell.rowspan){
+							document.write(" rowspan=\""+rowCell.rowspan+"\"");
+						}
+						if(rowCell.colspan){
+							document.write(" colspan=\""+rowCell.colspan+"\"");
+						}
+						document.write(">");
+						document.write(rowCell.text||"&nbsp;");
+					}
+					document.write("</td>");
+				}
+				document.write("</tr>");
+			}else{
+				switch(row.arrangeMode){
+					case "":
+					case "row":
+						var data1=row.data;
+						for(var j=0;j<data1.length;j++){
+							var rowCells=data1[j];
+							document.write("<tr>");				
+							for(var k=0;k<rowCells.length;k++){
+								var rowCell=rowCells[k];
+								if(rowCell==undefined){
+									document.write("<td>&nbsp;</td>");
+								}else if(typeof(rowCell)=="string"){
+									document.write("<td>");
+									document.write(rowCell||"&nbsp;");
+								}else{
+									document.write("<td");
+									if(rowCell.rowspan){
+										document.write(" rowspan=\""+rowCell.rowspan+"\"");
+									}
+									if(rowCell.colspan){
+										document.write(" colspan=\""+rowCell.colspan+"\"");
+									}
+									document.write(">");
+									document.write(rowCell.text||"&nbsp;");
+								}
+								document.write("</td>");
+							}
+							document.write("</tr>");
+						}
+						break;
+					case "column":
+						var rows=[];
+						var columns=row.data;
+						for(var j=0;j<columns.length;j++){
+							var colCells=columns[j];
+							for(var k=0,k1=0;k<colCells.length;k++){
+								rows[k1]=rows.length-1<k1?[]:rows[k1];
+								rows[k1].push(colCells[k]);
+								var rowspan=colCells[k]&&colCells[k].rowspan||1;
+								for(var k2=1;k2<rowspan;k2++){
+									if(rows.length-1<k1+k2) rows[k1+k2]=[];
+								}
+								k1+=rowspan;
+							}
+						}
+						for(var j=0;j<rows.length;j++){
+							var rowCells=rows[j];
+							document.write("<tr>");
+							for(var k=0;k<rowCells.length;k++){
+								var rowCell=rowCells[k];
+								if(rowCell==undefined){
+									document.write("<td>&nbsp;</td>");
+								}else if(typeof(rowCell)=="string"){
+									document.write("<td>");
+									document.write(rowCell||"&nbsp;");
+								}else{
+									document.write("<td");
+									if(rowCell.rowspan){
+										document.write(" rowspan=\""+rowCell.rowspan+"\"");
+									}
+									if(rowCell.colspan){
+										document.write(" colspan=\""+rowCell.colspan+"\"");
+									}
+									document.write(">");
+									document.write(rowCell.text||"&nbsp;");
+								}
+								document.write("</td>");
+							}
+							document.write("</tr>");
+						}
+						break;
+				}
+			}
+		}
+		document.write("</table>");
+	}
+	var db=new jsdk.TableData(0,0,jsdk.get("./data.json","",false,"","json"));
+	makeTable(db.fix().getData());
+	</script>
+	<hr>
+	<div style="text-align:center">
+	<script>
+	document.write("行数："+db.getActualRowCount()+"，列数："+db.getActualColumnCount());
+	</script>
+	</div>
+ </body>
+</html>

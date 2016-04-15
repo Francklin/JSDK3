@@ -1,0 +1,160 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> compile class </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" src="../../src/loader.js">
+  $import("js.dom.HTMLForm");
+  $import("js.build.Compressor");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  label{
+	line-height: 1.5em;
+  }
+  .label{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 4px
+  }
+  .field{
+	width: 250px;
+  }
+  .index{
+	width: 32px;
+	color: blue;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Compile Class<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<form>
+	<span class="label">Config: </span><INPUT class="field" TYPE="text" NAME="F_ConfigFile" value="../config.json"><input type="button" value="Load" 
+		onclick="loadConfig()"><br>
+	<span class="label">Classes Folder: </span><INPUT class="field" TYPE="text" NAME="F_Folder"><br>
+	<span class="label">Source Extension: </span><INPUT class="field" TYPE="text" NAME="F_SourceExt"><br>
+	<span class="label">Target Extension: </span><INPUT class="field" TYPE="text" NAME="F_TargetExt"><input type="button" value="Scan" 
+		onclick="startCompile(false)"><input type="button" value="Start" onclick="startCompile(true)"><br>
+	<span class="label"></span>
+	<label><INPUT class="" TYPE="radio" NAME="F_Options" value="0" checked>only create new</label>
+	<label><INPUT class="" TYPE="radio" NAME="F_Options" value="1">create new & update old</label>
+	<label><INPUT class="" TYPE="radio" NAME="F_Options" value="2">create or update all</label>
+	</form>
+	<hr>
+	<div id="out"></div>
+    <script>
+	JSDK.HTMLForm.applyInstance(document.forms[0],"copy");
+	var config,entity=[];
+	var jsre=JSDK.Engine.runtimeEnvironment;
+	function loadConfig(){
+		var sCfgFile=document.getElementsByName("F_ConfigFile")[0].value;
+		if(!sCfgFile){
+			alert("Please input config file path!");
+			return;
+		}
+		config=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()+"/"+sCfgFile,"",false,"","JSON");
+		document.getElementsByName("F_Folder")[0].value=jsre.getClassHome();
+		document.getElementsByName("F_SourceExt")[0].value=config['file-extension']["class"].source;
+		document.getElementsByName("F_TargetExt")[0].value=config['file-extension']["class"].compile;
+	}
+	function startCompile(isConvert){
+		if(!config) {
+			alert("Please first load config data!");
+			return;
+		}else if(!document.getElementsByName("F_Folder")[0].value){
+			alert("Please select folder!");
+			return;
+		}else if(!document.getElementsByName("F_SourceExt")[0].value){
+			alert("Please input source extension!");
+			return;
+		}else if(!document.getElementsByName("F_TargetExt")[0].value){
+			alert("Please input target extension!");
+			return;
+		}else if(isConvert&&!confirm("Are you compile these file really?")){
+			return;
+		}
+		var compressor=new JSDK.Compressor(1);
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		//listFolder(document.getElementsByName("F_Folder")[0].value);
+		entity=[];
+		listFolder(unescape(JSDK.getURIFullPath(location.pathname.leftBack("/").slice(1).replace(/\//g,"\\"),
+				document.getElementsByName("F_Folder")[0].value.replace(/\//g,"\\"),"\\")));
+		var sourceExt=JSDK.dom("#F_SourceExt#")[0].value;
+		var targetExt=JSDK.dom("#F_TargetExt#")[0].value;
+		var iOptions=parseInt(document.forms[0].getItemValue("F_Options"));
+		JSDK.dom("#out")[0].innerHTML="";
+		for(var i=0,iLen=entity.length,j=1;i<iLen;i++){
+			var fileName=entity[i].rightBack("\\");
+			var filePath1=entity[i].leftBack("\\")+"\\"+fileName.leftBack(sourceExt)+targetExt;
+			var f=null,f1=null,flag=false;
+			try{
+				f=fso.GetFile(entity[i]);
+				f1=fso.GetFile(filePath1);
+			}catch(e){
+			}
+			if(fileName.indexOf(sourceExt)>=0
+				&&fileName.rightBack(sourceExt)==""){
+				if(isConvert){
+					if(iOptions==2){
+						flag=true;
+					}else if(!f1){
+						flag=true;
+					}else if(f.DateLastModified>f1.DateLastModified){
+						if(iOptions>0) flag=true;
+					}else{
+						flag=false;
+					}
+					if(flag){
+						JSDK.dom("#out")[0].innerHTML+="正在编译类文件\""+entity[i]+"\"...<br>";
+						//fso.CopyFile(entity[i],filePath1,true);
+						var file = fso.CreateTextFile(filePath1, true,false);
+						var code = JSDK.obj(JSDK.get(entity[i],"",false,"","Text")).encodeNonAscii();
+						file.Write((code.match(/^\s*(\/\*[^\/]+\*\/)/)||["",""])[1].replace(/\r\n/g,"\n")+"\n");
+						file.Write(compressor.compress(code));
+						file.close();
+					}
+				}else{
+					if(iOptions==2){
+						flag=true;
+					}else if(!f1){
+						flag=true;
+					}else if(f.DateLastModified>f1.DateLastModified){
+						if(iOptions>0) flag=true;
+					}else{
+						flag=false;
+					}
+					if(flag){
+						JSDK.dom("#out")[0].innerHTML+="<span class=\"index\">"+j+++".</span>"+entity[i]+"<br>";
+					}
+				}				
+			}
+		}
+	}
+	function listFolder(folderPath){
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var subFolders=[];
+		var folder= fso.GetFolder(folderPath);
+		var fc=new Enumerator(folder.SubFolders);
+		for (; !fc.atEnd(); fc.moveNext()){
+		  //entity.push(fc.item());
+		  listFolder(fc.item().Path);
+		}
+		var fc=new Enumerator(folder.files);
+		for (; !fc.atEnd(); fc.moveNext()){
+		  entity.push(fc.item().Path);
+		}
+	}
+	</script>
+	</div>
+ </body>
+</html>

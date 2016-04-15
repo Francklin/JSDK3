@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Test - JSDK </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script appName="JSDK" appMode="" loadMode="compat" debug="false" develop="false" resource="core;config;dom;ui;ui-home" src="../../src/loader.js"></script>
+  <script src="../../src/lib/resources/core.js"></script>
+  <script src="../../src/lib/resources/config.js"></script>
+  <script src="../../src/lib/resources/dom.js"></script>
+  <script src="../../src/lib/resources/ui.js"></script>
+  <script src="../../src/lib/resources/ui-home.js"></script>
+  <!--<script src="../../src/scripts/jquery/1.7.1/jquery.js"></script>-->
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+ </head>
+
+ <body>
+	<h2>Test - JSDK</h2>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("JSDK3 变量: (JSDK未定义)");</script></h4>
+	<div>
+	<script>
+	if(isLoaded){
+		document.write("<table border=\"1\">");
+		document.write("<tr><td style=\"font-weight:bold;background-color:#EFEFEF\">window</td></tr>");
+		for(sName in window){
+			document.write("<tr><td style=\"padding-left:30px\">"+sName+"</td></tr>");
+		}
+		document.write("<tr><td style=\"font-weight:bold;background-color:#EFEFEF\">JSDK</td></tr>");
+		for(sName in JSDK){
+			document.write("<tr><td style=\"padding-left:30px\">"+sName+"</td></tr>");
+		}
+		document.write("</table>");
+	}
+	</script>
+	</div>
+ </body>
+</html>

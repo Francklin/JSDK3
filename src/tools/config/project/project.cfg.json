@@ -1,0 +1,25 @@
+{
+manifest : {
+"name" : "project",
+"version" : "0.5",
+"description" : "",
+"author" : "liu denggao"
+},
+entity : [
+	"(|*.*|)",
+	"bin\\res",
+	"bin\\base.js",
+	"bin\\global.js",
+	"bin\\kernel.js",
+	"classes\\js\\((|<%^(.(?!\_V[0-9]+))+\\.jsc$%>|))",
+	"classes\\js\\[[|_res|]]",
+	"lib\\((|<%^(.(?!\\.[0-9]+))+\\.json$%>|))",
+	"lib\\((|<%^(.(?!\\.[0-9]+))+\\.js$%>|))",
+	"shell",
+	"lite\\base.js",
+	"lite\\jsdk.js",
+	"res"
+],
+comment: "",
+output : "..\\release\\jsdk3x"
+}

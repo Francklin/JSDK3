@@ -1,0 +1,67 @@
+{	//明星档案
+	names: [
+		{
+			name: "刘德华",
+			sex: "男",
+			birthday: new Date("1961/9/27"),
+			stature: 174,
+			constellation: "天秤座",
+			msc_reprtwork: "天下第一等,中国人,忘情水",
+			mov_reprtwork: "无间道"
+		},
+		{
+			name: "郭富城",
+			sex: "男",
+			birthday: new Date("1965/10/26"),
+			stature: 175,
+			constellation: "天蝎座",
+			msc_reprtwork: "",
+			mov_reprtwork: "B+侦探"
+		},
+		{
+			name: "吴奇隆",
+			sex: "男",
+			birthday: new Date("1970/10/31"),
+			stature: 173,
+			constellation: "天蝎座",
+			msc_reprtwork: "祝你一路顺风",
+			mov_reprtwork: "侠女闯天关,步步惊心"
+		},
+		{
+			name: "成龙",
+			sex: "男",
+			birthday: new Date("1954/4/7"),
+			stature: 173,
+			constellation: "白羊座",
+			msc_reprtwork: "美丽的神话,男儿当自强,真心英雄",
+			mov_reprtwork: "神话,醉拳"
+		},
+		{
+			name: "梁朝伟",
+			sex: "男",
+			birthday: new Date("1962/6/27"),
+			stature: 174,
+			constellation: "巨蟹座",
+			msc_reprtwork: "无间道,花样年华",
+			mov_reprtwork: "无间道,花样年华"
+		},
+		{
+			name: "赵雅芝",
+			sex: "女",
+			birthday: new Date("1954/11/15"),
+			stature: 165,
+			constellation: "天蝎座",
+			msc_reprtwork: "",
+			mov_reprtwork: "上海滩,新白娘子传奇,戏说乾隆"
+		},
+		{
+			name: "赵薇",
+			sex: "女",
+			birthday: new Date("1976/3/12"),
+			stature: 166,
+			constellation: "双鱼座",
+			msc_reprtwork: "自从有了你,情深深雨濛濛",
+			mov_reprtwork: "画皮,锦衣卫,还珠格格"
+		}
+	]
+}

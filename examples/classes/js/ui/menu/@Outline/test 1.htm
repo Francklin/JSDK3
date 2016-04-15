@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.dom.HTML");
+  $import("js.ui.menu.Outline");
+  </script>
+ </HEAD>
+
+ <BODY>
+  <script>
+  var StartTime=new Date();
+  var outline=new jsdk.Outline("");
+  //outline.setIsAllowTitleRepeated(true);
+  outline.setUseIcon(true);
+  outline.addItem("Item");
+  </script>
+  <script type="text/javascript">
+	//window.status="加载"+outline.getLength()+"个节点耗时"+((new Date())-StartTime)+"毫秒";
+  </script>
+ </BODY>
+</HTML>

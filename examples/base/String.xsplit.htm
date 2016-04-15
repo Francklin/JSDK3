@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - String.xsplit </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script src="../common/loader.js"></script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+ </head>
+
+ <body>
+	<h3>Examples - String.xsplit</h3>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+    <TABLE width="100%" border=1>
+    <TR style="background-color:#EFEFEF">
+		<TD width="">Example</TD>
+		<TD width="50">Action</TD>
+		<TD width="40%">Result</TD>
+    </TR>
+    <TR>
+		<TD>alert(jsdk.obj("1 2,3 5,6 7 8,0,10,11").xsplit("",",").join("|"));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(this.parentNode.$previousSibling.innerHTML)"></TD>
+		<TD>1 2|3 5|6 7 8|0|10|11</TD>
+    </TR>
+    <TR>
+		<TD>alert(jsdk.obj("1 2,3 5,6 7 8,0,10,11").xsplit("first",[","," "]).join("|"));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(this.parentNode.$previousSibling.innerHTML)"></TD>
+		<TD>1 2|3 5|6 7 8|0|10|11</TD>
+    </TR>
+    <TR>
+		<TD>alert(jsdk.obj("1 2,3 5,6 7 8,0,10,11").xsplit("first",[" ",","]).join("|"));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(this.parentNode.$previousSibling.innerHTML)"></TD>
+		<TD>1|2,3|5,6|7|8,0,10,11</TD>
+    </TR>
+    <TR>
+		<TD>alert(jsdk.obj("1 2,3 5,6 7 8,0,10,11").xsplit("any",[","," "]).join("|"));</TD>
+		<TD width="50"><INPUT TYPE="button" value="Do" onclick="eval(this.parentNode.$previousSibling.innerHTML)"></TD>
+		<TD>1|2|3|5|6|7|8|0|10|11</TD>
+    </TR>
+    </TABLE>
+	</div>
+ </body>
+</html>

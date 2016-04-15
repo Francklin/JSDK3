@@ -1,0 +1,470 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+ <head>
+  <title> Examples - Class: js.ui.table.TableDataEditor </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script include="domx2" src="../../../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTMLForm");
+  $import("js.domx.DOM");
+  $import("js.domx.DOMObject");
+  $import("js.domx.DOMNode");
+  $import("js.domx.DOMNodeList");
+  $import("js.domx.DOMText");
+  $import("js.domx.DOMComment");
+  $import("js.domx.DOMAttribute");
+  $import("js.domx.DOMElement");
+  $import("js.domx.DOMDocument");
+  $import("js.domx.XML");
+  $import("js.domx.XMLNode");
+  $import("js.domx.XMLNodeList");
+  $import("js.domx.XMLText");
+  $import("js.domx.XMLComment");
+  $import("js.domx.XMLAttribute");
+  $import("js.domx.XMLElement");
+  $import("js.domx.XMLDocument");
+  $import("js.domx.HTML");
+  $import("js.domx.HTMLNode");
+  $import("js.domx.HTMLNodeList");
+  $import("js.domx.HTMLText");
+  $import("js.domx.HTMLComment");
+  $import("js.domx.HTMLAttribute");
+  $import("js.domx.HTMLElement");
+  $import("js.domx.HTMLDocument");
+  $import("js.domx.HTMLForm");
+  $import("js.domx.HTMLFormField");
+  $import("js.domx.HTMLTextField");
+  $import("js.domx.HTMLSelectField");
+  $import("js.domx.HTMLNumberField");
+  $import("js.domx.HTMLDateField");
+  $import("js.ui.PopupDialog");
+  $import("js.ui.table.TableDataEditor");
+  </script>
+  <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+  <script src="../../../../example.js"></script>
+
+  <style>
+  .table td{
+	text-align: center;
+  }
+  .table-header{
+	background-color: #D6EEFB;
+  }
+  .interlace{
+	background-color: #F3F3F3;
+  }
+  #data input{
+	width: 350px;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<form>
+	<table id="data" border=1 style="margin: 0px auto;width:960px">
+	<tr style="background-color: #DEDEDE">
+		<td colspan="4" align="center">hidden fields</td>
+	</tr>
+	<tr>
+		<td>name:</td>
+		<td><input type="text" name="F_Name"></td>
+		<td>sex:</td>
+		<td><input type="text" name="F_Sex"><input type="text" name="F_SexCode"></td>
+	</tr>
+	<tr>
+		<td>birthday:</td>
+		<td><input type="text" name="F_Birthday"></td>
+		<td>stature:</td>
+		<td><input type="text" name="F_Stature"></td>
+	</tr>
+	<tr>
+		<td>constellation:</td>
+		<td colspan="3"><input type="text" name="F_Constellation"></td>
+	</tr>
+	<tr>
+		<td>msc_reprtwork:</td>
+		<td colspan="3"><input type="text" name="F_MSC_Reprtwork"></td>
+	</tr>
+	<tr>
+		<td>mov_reprtwork:</td>
+		<td colspan="3"><input type="text" name="F_MOV_Reprtwork"></td>
+	</tr>
+	<tr style="background-color: #DEDEDE">
+		<td>rows count:</td>
+		<td colspan="3"><input type="text" name="F_RowsCount"></td>
+	</tr>
+	<tr style="background-color: #DEDEDE">
+		<td>Sex list</td>
+		<td colspan="3"><input type="text" name="L_Sex" value="男|0;女|1"></td>
+	</tr>
+	</table>
+	<hr>
+	<div style="text-align:center">
+	<input type="button" value="read" onclick="window.location=window.location.href.word('?',0)+'?openmode=0';">
+	<input type="button" value="edit" onclick="window.location=window.location.href.word('?',0)+'?openmode=1';">
+	<input type="button" value="select all" onclick="editor.selectAll();">
+	<input type="button" value="load" onclick="editor.load();">
+	<input type="button" value="validate" onclick="if(editor.validate()){ alert('已全部填写完！');}">
+	<input type="button" value="trim" onclick="editor.trim();alert('整理完毕！');">
+	<input type="button" value="clear data" onclick="editor.clearEmpty();">
+	<input type="button" value="clear all" onclick="editor.removeAll();">
+	<input type="button" value="reset" onclick="editor.reset();">
+	<input type="button" value="reload" onclick="editor.reload();">
+	<input type="button" value="save" onclick="editor.save();">
+	<input type="button" value="reload first row" onclick="if(editor.getRowsCount()>=1) editor.getRow(0).reload();">
+	<input type="button" value="save first row" onclick="if(editor.getRowsCount()>=1) editor.getRow(0).save();">
+	</div>
+	<hr>
+	<script>
+	var thisform=document.forms[0];
+	var thatform=jsdk.js.domx.HTMLForm.newInstanceFrom(document.forms[0]);
+	var data=jsdk.get("data/data2.json","",true,"","json");
+	jsdk.PopupDialog.setStyleSkin("std");
+	jsdk.TableDataEditor.addStyleSkin("custom",
+		"css/"+ (!jsdk.Browser.Engine.trident?"TableDataEditor.css":(
+				document.compatMode=="CSS1Compat"?"TableDataEditor.css":"TableDataEditor.IE.css"))
+	);
+	jsdk.TableDataEditor.setStyleSkin("custom");
+	jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+	thisform.F_Name.value=data.names.map(function(lucida){
+		return lucida.name;
+	}).join(";");
+	thisform.F_Sex.value=data.names.map(function(lucida){
+		return lucida.sex;
+	}).join(";");
+	thisform.F_SexCode.value=data.names.map(function(lucida){
+		return lucida.sexCode;
+	}).join(";");
+	thisform.F_Birthday.value=data.names.map(function(lucida){
+		return [lucida.birthday.getFullYear(),lucida.birthday.getMonth()+1,lucida.birthday.getDate()].join("-");
+	}).join(";");
+	thisform.F_Stature.value=data.names.map(function(lucida){
+		return lucida.stature;
+	}).join(";");
+	thisform.F_Constellation.value=data.names.map(function(lucida){
+		return lucida.constellation;
+	}).join(";");
+	thisform.F_MSC_Reprtwork.value=data.names.map(function(lucida){
+		return lucida.msc_reprtwork;
+	}).join(";");
+	thisform.F_MOV_Reprtwork.value=data.names.map(function(lucida){
+		return lucida.mov_reprtwork;
+	}).join(";");
+	thisform.F_RowsCount.value=data.names.length;
+	</script>
+	<table align=center border=1 width="98%">
+	<tr>
+		<td>
+<div style="width:960px;margin: 15px auto;">
+		<div style="text-align: center;font-size: 18pt;font-weight: bold;margin: 15px 0px">明星档案表</div>
+		<script>
+		var editor=new jsdk.TableDataEditor("",{
+			openMode: parseInt(jsdk.getURIPrmt(location.search,"openmode"))||0,
+			parentForm: document.forms[0],
+			enabledNoCol: true,
+			enabledSelectCol: true,
+			enabledActionCol: true,
+			minRowsCount: 1,
+			maxRowsCount: 10,
+			/*
+			// 兼容其它编码模式
+			encodeText: function(text,separator){
+				return text.replace(/;/g,"#semic#")
+					.replace(new RegExp("\r","ig"),"")	//去掉回车符，保持所有浏览器的换行符存储的唯一性
+					.replace(new RegExp("\n","ig"),"#newl#");
+			},
+			//兼容其它编码模式
+			decodeText: function(text,separator){
+				return text.replace(/#semic#/g,";").replace(/#newl#/g,"\n");
+			},
+			*/
+			columns:{
+				"No": {
+					title: "#",
+					/*width: "80px",*/
+					headerAlign: 1,
+					isHidden: false
+				},
+				"Action": {
+					width: "55px",
+					actions: ["add,insert,moveup,movedown,delete","moveup,movedown,delete"]
+				}
+			}
+		},"");
+		editor.setStoreFieldFor("AllCount",jsdk.dom("#F_RowsCount#")[0]);
+		/* addColumn(title,name,type,width,align) */
+		with(editor.addColumn("姓名","colName","Text","64",0)){
+			bindDataFields(jsdk.dom('#F_Name#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				isReadOnly: true,
+				unfilledPrompt: "请输入明星的姓名！"
+			});
+		}
+		/**
+		with(editor.addColumn("性别","colSex","Text","64",1)){
+			bindDataFields(jsdk.dom('#F_Sex#')[0],jsdk.dom('#F_SexCode#')[0]);
+			setInputOptions({
+				separator: ";",
+				allowEmpty: false,
+				allowKeywordSyno: true,
+				allowNotInList: false,
+				unfilledPrompt: "请输入明星的性别！",
+				optionalValues: "男|0;女|1",
+				onEvents: {
+					onSelect: function(event,optionalValues,callBack){
+						var _this=this;
+						var sep=this.getSeparator();
+						var allowMultiple=this.getAllowMultiple();
+						var owner=this.getOriginal();
+						jsdk.PopupDialog.show(
+							"Selector/selector.tpl.htm",
+							{
+								para: {
+									values: [],
+									isMulti: allowMultiple,
+									optionalValues: this.getOptionalValues()
+								},
+								init: function(oDialog,oContainer){
+									var thisform=jsdk.dom("form",oContainer)[0];
+									jsdk.dom(".List",oContainer)[0].style.height=100-34+"px";
+									jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+									jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+										var value=thisform.getItemValue("F_Value");
+										if(!(value instanceof Array)){
+											oDialog.returnValue=[value];
+										}else{
+											oDialog.returnValue=value;
+										}
+										oDialog.hide();
+									});
+									jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+										oDialog.hide();
+									});
+								}
+							},
+							{
+								owner: this.getOriginal(),
+								event: event||window.event,
+								driver: "template",
+								mode: 1
+							},
+							{
+								width: 200,
+								height: 100,
+								style: "Selector/"+ (!jsdk.Browser.Engine.trident?"selector.css":(
+											document.compatMode!="CSS1Compat"?"selector.IE.css":(
+												jsdk.Browser.Engine.version<=3?"selector.IE6.css":"selector.css"
+											)
+										))
+							},
+							function(vReturnValue){
+								if(vReturnValue!=undefined){
+									_this.setDataValue(!allowMultiple?vReturnValue.join(sep):vReturnValue);
+								}
+								//alert('return ok!');
+								callBack(0);
+							}
+						)
+					}
+				}
+			});
+		}*/
+		//测试可选菜单项数据不在此列中设置
+		with(editor.addColumn("性别","colSex","Text","64",1)){
+			bindDataFields(jsdk.dom('#F_Sex#')[0],jsdk.dom('#F_SexCode#')[0]);
+			setInputOptions({
+				separator: ";",
+				allowEmpty: false,
+				allowKeywordSyno: true,
+				allowNotInList: false,
+				unfilledPrompt: "请输入明星的性别！",
+				optionalValues: "a",
+				onEvents: {
+					onSelect: function(event,optionalValues,callBack){
+						var _this=this;
+						var sep=this.getSeparator();
+						var allowMultiple=this.getAllowMultiple();
+						var owner=this.getOriginal();
+						jsdk.PopupDialog.show(
+							"Selector/selector.tpl.htm",
+							{
+								para: {
+									values: [],
+									isMulti: allowMultiple,
+									optionalValues: thisform.L_Sex.value.split(";").map(function(item){
+										return [item.word("|",0),item];
+									})
+								},
+								init: function(oDialog,oContainer){
+									var thisform=jsdk.dom("form",oContainer)[0];
+									jsdk.dom(".List",oContainer)[0].style.height=100-34+"px";
+									jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+									jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+										var value=thisform.getItemValue("F_Value");
+										if(!(value instanceof Array)){
+											oDialog.returnValue=[value];
+										}else{
+											oDialog.returnValue=value;
+										}
+										oDialog.hide();
+									});
+									jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+										oDialog.hide();
+									});
+								}
+							},
+							{
+								owner: this.getOriginal(),
+								event: event||window.event,
+								driver: "template",
+								mode: 1
+							},
+							{
+								width: 200,
+								height: 100,
+								style: "Selector/"+ (!jsdk.Browser.Engine.trident?"selector.css":(
+											document.compatMode!="CSS1Compat"?"selector.IE.css":(
+												jsdk.Browser.Engine.version<=3?"selector.IE6.css":"selector.css"
+											)
+										))
+							},
+							function(vReturnValue){
+								if(vReturnValue!=undefined){
+									_this.setStoreValues(vReturnValue.join().word("|",0),vReturnValue.join().word("|",1));
+								}
+								//alert('return ok!');
+								callBack(0);
+							}
+						)
+					}
+				}
+			});
+		}
+		with(editor.addColumn("生日","colBirthday","Date","100",0)){
+			bindDataFields(jsdk.dom('#F_Birthday#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				allowKeyInput: false,
+				unfilledPrompt: "请输入明星的出生日期！",
+				onEvents: {
+					onSelect: function(event,dateOptions,callBack){
+						WdatePicker({el: this.getOriginal(), onpicked: function(){
+							callBack(0);
+						}});
+					}
+				}
+			});
+		}
+		with(editor.addColumn("身高","colStature","Number","45",0)){
+			bindDataFields(jsdk.dom('#F_Stature#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				unfilledPrompt: "请输入明星的身高！"
+			});
+		}
+		with(editor.addColumn("星座","colConstellation","Text","80",1)){
+			bindDataFields(jsdk.dom('#F_Constellation#')[0]);
+			setInputOptions({
+				separator: ";",
+				allowEmpty: true,
+				allowMultiple: true,
+				allowNotInList: false,
+				unfilledPrompt: "请输入明星所属的星座！",
+				optionalValues: "白羊座;金牛座;双子座;巨蟹座;狮子座;处女座;天秤座;天蝎座;射手座;摩羯座;水瓶座;双鱼座",
+				onEvents: {
+					onSelect: function(event,optionalValues,callBack){
+						var _this=this;
+						var sep=this.getSeparator();
+						var allowMultiple=this.getAllowMultiple();
+						var owner=this.getOriginal();
+						jsdk.PopupDialog.show(
+							"Selector/selector.tpl.htm",
+							{
+								para: {
+									values: [],
+									isMulti: allowMultiple,
+									optionalValues: this.getOptionalValues()
+								},
+								init: function(oDialog,oContainer){
+									var thisform=jsdk.dom("form",oContainer)[0];
+									jsdk.dom(".List",oContainer)[0].style.height=200-34+"px";
+									jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+									jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+										var value=thisform.getItemValue("F_Value");
+										if(!(value instanceof Array)){
+											oDialog.returnValue=[value];
+										}else{
+											oDialog.returnValue=value;
+										}
+										oDialog.hide();
+									});
+									jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+										oDialog.hide();
+									});
+								}
+							},
+							{
+								owner: this.getOriginal(),
+								event: event||window.event,
+								driver: "template",
+								mode: 1
+							},
+							{
+								width: 200,
+								height: 200,
+								style: "Selector/"+ (!jsdk.Browser.Engine.trident?"selector.css":(
+											document.compatMode!="CSS1Compat"?"selector.IE.css":(
+												jsdk.Browser.Engine.version<=3?"selector.IE6.css":"selector.css"
+											)
+										))
+							},
+							function(vReturnValue){
+								if(vReturnValue!=undefined){
+									_this.setDataValue(!allowMultiple?vReturnValue.join(sep):vReturnValue);
+								}
+								//alert('return ok!');
+								callBack(0);
+							}
+						)
+					}
+				}
+			});
+		}
+		with(editor.addColumn("音乐代表作","colMSC_Reprtwork","Text","",0)){
+			bindDataFields(jsdk.dom('#F_MSC_Reprtwork#')[0]);
+			setInputOptions({
+				allowEmpty: true,
+				unfilledPrompt: "请输入明星的音乐代表作！"
+			});
+		}
+		with(editor.addColumn("影视代表作","colMOV_Reprtwork:","Text","",0)){
+			bindDataFields(jsdk.dom('#F_MOV_Reprtwork#')[0]);
+			setInputOptions({
+				allowEmpty: true,
+				allowMultipleLine: true,
+				isAutoHeight: true,
+				unfilledPrompt: "请输入明星的影视代表作！"
+			});
+		}
+		editor.load();
+		editor.show();
+		</script>
+	</div>
+		</td>
+	</tr>
+	<tr>
+		<td>备注信息</td>
+	</tr>
+	</table>
+	
+	</div>
+	<div style="height:100px"></div>
+	</form>
+ </body>
+</html>

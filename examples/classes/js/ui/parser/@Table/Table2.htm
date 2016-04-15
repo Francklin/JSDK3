@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.parser.Table </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.ui.parser.Table");
+  </script>
+  <script src="../../../../example.js"></script>
+
+  <style>
+  .table td{
+	text-align: center;
+  }
+  </style>
+  <script>
+	var date=new Date();
+	date.setMonth(date.getMonth()+1);
+	date.setDate(1);
+	date.setDate(0);
+	var count=date.getDate();
+	var data=jsdk.get("tabledata2.json","",true,"","json");
+  </script>
+ </head>
+
+ <body>
+	<h3><script>document.write(example.title)</script></h3>
+	<hr>
+	<div style="width:100%;margin: 15px 0px;text-align: center;font-size: 19pt;font-weight: bold">工作日志&周报</div>
+	<script>
+	var db=new jsdk.TableData(0,0,jsdk.get("./table2.json","",false,"","json"));
+	var table=new jsdk.Table(db.fix());
+	document.write(table.parse());
+	</script>
+	<hr>
+	<div style="text-align:center">
+	<script>
+	document.write("行数："+db.getActualRowCount()+"，列数："+db.getActualColumnCount());
+	</script>
+	</div>
+ </body>
+</html>

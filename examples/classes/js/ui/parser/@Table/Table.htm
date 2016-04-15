@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.parser.Table </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.ui.parser.Table");
+  </script>
+  <script src="../../../../example.js"></script>
+
+  <style>
+  .table td{
+	text-align: center;
+  }
+  .table-header{
+	background-color: #D6EEFB;
+  }
+  .interlace{
+	background-color: #F3F3F3;
+  }
+  .adv_mng_2{
+	background-color: #F3F3F3;
+  }
+  .adv_mng_3{
+	background-color: #E3E3E3;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<div style="width:100%;margin: 15px 0px;text-align: center;font-size: 18pt;font-weight: bold">人力资源地图</div>
+	<script>
+	var db=new jsdk.TableData(0,0,jsdk.get("./data3.json","",false,"","json"));
+	var table=new jsdk.Table(db.fix());
+	document.write(table.parse());
+	</script>
+	<hr>
+	<div style="text-align:center">
+	<script>
+	document.write("行数："+db.getActualRowCount()+"，列数："+db.getActualColumnCount());
+	</script>
+	</div>
+ </body>
+</html>

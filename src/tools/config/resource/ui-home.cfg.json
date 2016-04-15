@@ -1,0 +1,15 @@
+{
+manifest : {
+"name" : "ui-home",
+"file" : "ui-home.js",
+"version" : "1.0",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013-12-09",
+"modified": "2013-12-09"
+},
+entity : [
+	"lib/classes/ui-home.json"
+],
+output : "lib\\resources\\ui-home.1.0.js"
+}

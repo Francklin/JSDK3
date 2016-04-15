@@ -1,0 +1,12 @@
+<div class="horizon-notice-bar">
+   <marquee behavior="scroll" direction="up" scrollamount="2" scrolldelay="35" onmouseover="this.stop()" onmouseout="this.start()">
+		<div class="horizon-notice-bar-content">
+		<% for(var i=0,iLen=items.length;i<iLen;i++){ %>
+		<div class="horizon-notice-bar-item">
+			<div class="icon">&nbsp;</div>
+			<div class="title"><%= jsdk.obj(items[i]||"(无标题)").truncate(56,0,"...") %></div>
+		</div>
+		<% } %>
+		</div>
+   </marquee>
+</div>

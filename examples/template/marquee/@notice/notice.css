@@ -1,0 +1,47 @@
+.horizon-notice-bar{
+	font-size: 12px;
+	height: 28px;
+	background-color: #DFDFDF;
+}
+.horizon-notice-bar-content{
+  	display:inline-block;
+	display:block\0;		/* for IE8(S) */
+	margin-top: 8px\9;		/* for all IE */
+	margin-top: 0px\0;		/* for IE8(S) */
+}
+.horizon-notice-bar-item {
+  	text-align: left;
+	white-space: nowrap;
+	word-break: keep-all;
+  	padding-right: 5px;
+	margin-right: 7px;
+	line-height: 2em;
+	line-height: 1.6em\9;	/* for all IE */
+	float:left;
+	float: none\9;		/* for all IE */	
+	display: inline\9;		/* for all IE */
+	margin-rgiht: 12px\9;	/* for all IE */
+	
+}
+.horizon-notice-bar-item .icon{
+	width: 5px;
+	height: 28px;
+	background: url(xjt.png) center no-repeat;
+  	float:left;
+	float: none\9;	/* for all IE */
+  	margin: 0px 3px;
+	margin-top: 6px\9;	/* for all IE */
+  	display:inline-block;
+	display:inline\9;	/* for all IE */
+  	vertical-align:middle;
+}
+.horizon-notice-bar-item .title{
+  	float:left;
+	float: none\9;	/* for all IE */
+  	margin: 0px;
+  	padding-top: 2px;
+  	padding-top: 5px\9;	/* for all IE */
+  	display:inline-block;
+	display:inline\9; 	/* for all IE */
+  	vertical-align:middle;
+}

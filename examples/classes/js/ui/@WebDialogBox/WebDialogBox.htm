@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.ui.WebDialogBox</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTML");
+  $import("js.dom.HTMLForm");
+  $import("js.ui.WebDialogBox");
+  </script>
+  <script src="../../../example.js"></script>
+  <style>
+	html,body{
+		font-size: 9pt;
+		font-family: arial;
+	}
+	.label{
+		width: 120px;
+		display: inline-block;
+		vertical-align: top;
+		line-height: 1.3em;
+	}
+	.field{
+		width: 379px;
+	}
+	.button{
+		width: ;
+	}
+	.titlebar{
+		margin-top: 20px;
+		margin-bottom: 4px;
+		width: 300px;
+		padding-bottom: 3px;
+		border-bottom: solid 1px gray;
+	}
+	.title{
+		background-color: #DEDEDE;
+		padding: 0px 3px;
+		font-weight: bold;
+	}
+	.options{
+		margin: 3px 0px;
+	}
+	.options_item_data{
+		margin-left: 19px;
+	}
+	.options_item_data input{
+		width: 500px;
+	}
+	.options_item_data textarea{
+		width: 500px;
+		height: 100px;
+	}
+	.sepline{
+		width: 360px;
+		height: 1px;
+		overflow:hidden;
+		margin: 3px 0px;
+		border-bottom: solid 1px gray;
+	}
+  </style>
+  <script>
+  </script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<form>
+	<script>
+		var thisform=document.forms[0];
+		jsdk.HTMLForm.applyInstance(thisform,"copy");
+		jsdk.WebDialogBox.setStyleSkin("std");
+		function showModalDialog(){
+			jsdk.WebDialogBox.show(
+				"MessageBox/MessageBox.tpl.htm",
+				{
+					para: {
+						title: jsdk.dom("#F_MsgTitle#")[0].value,
+						/*titleBgColor: "#6784B3",*/
+						body: jsdk.dom("#F_MsgContent#")[0].value,
+						/*bodyBgColor: "#CDEEF7",*/
+						dspActionBar: false
+					},
+					init: function(oDialog,oContainer){
+						var thisform=jsdk.dom("form",oContainer)[0];
+						jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+						jsdk.dom("#s_btnClose",oContainer)[0].attachEvent("onclick",function(){
+							oDialog.close();
+						});
+						jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+							oDialog.close();
+						});
+					}
+				},
+				{
+					driver: "template",
+					mode: 0
+				},
+				{
+					width: parseInt(jsdk.dom("#F_Width#")[0].value||"350"),
+					height: parseInt(jsdk.dom("#F_Height#")[0].value||"230"),
+					left: parseInt(jsdk.dom("#F_Left#")[0].value||"300"),
+					top: parseInt(jsdk.dom("#F_Top#")[0].value||"180"),
+					style: (jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?
+							"MessageBox/MessageBox.IE.css":"MessageBox/MessageBox.css")
+				},
+				function(vReturnValue){
+					//alert('return ok!');
+				}
+			);
+		}
+		function showModelessDialog(){
+
+		}
+		function showModalDialog1(){
+			//jsdk.WebDialogBox.show();
+			//(new jsdk.WebDialogBox())
+		}
+		function showModelessDialog1(){
+
+		}
+	</script>
+	<span class="label">width: </span><INPUT TYPE="text" NAME="F_Width" id="F_Width" value="350"><br>
+	<span class="label">height: </span><INPUT TYPE="text" NAME="F_Height" id="F_Height" value="230"><br>
+	<span class="label">left: </span><INPUT TYPE="text" NAME="F_Left" id="F_Left" value="300"><br>
+	<span class="label">top: </span><INPUT TYPE="text" NAME="F_Top" id="F_Top" value="180"><br>
+	<span class="label">Message Title: </span>
+	<INPUT TYPE="text" NAME="F_MsgTitle" id="F_MsgTitle" style="width: 400px;" value=""><br>
+	<span class="label">Message Content: </span>
+	<TEXTAREA NAME="F_MsgContent" ROWS="" COLS="" style="width: 400px;height: 200px"></TEXTAREA><br>
+	<span class="label"></span>
+	<INPUT TYPE="button" value="show modal dialog" onclick="showModalDialog()">
+	<INPUT TYPE="button" value="show modeless dialog" onclick="showModelessDialog()"><br>
+	<span class="label"></span>
+	<INPUT TYPE="button" value="show modal dialog 1" onclick="showModalDialog1()">
+	<INPUT TYPE="button" value="show modeless dialog 1" onclick="showModelessDialog1()"><br>
+	<span class="label"></span>
+		
+	</form>
+
+ </body>
+</html>

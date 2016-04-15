@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<HTML>
+
+ <HEAD>
+  <title> test - Class: js.ui.menu.Outline </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../../../../../common/loader.js">
+  $import("js.ui.menu.Outline");
+  </script>
+ </HEAD>
+
+
+<body style=font-size:9pt>
+	<div>
+		<a href=javascript:outline.expandAll(true); target=_self>
+			全部展开
+		</a>
+		<a href=javascript:outline.expandAll(false); target=_self>
+			全部折叠
+		</a>
+		<a href=javascript:outline.refresh(); target=_self>刷新</a>
+	</div>
+	<br>
+	<script type="text/javascript">
+	var outline=new jsdk.Outline("");
+	outline.setPathSeparator("/");
+	outline.setTarget("main");
+	outline.setUseIcon(true);
+	//outline.setIsSelectMode(true);
+	//outline.setUseCheckbox(true);
+	outline.addItem("网址大全","","","","");
+	outline.addItem("网址大全/常用","","","","");
+	outline.addItem("网址大全/常用/百度","","","","http://www.baidu.com");
+	outline.addItem("网址大全/常用/新浪","","","","http://www.sina.com","_blank");
+	outline.addItem("网址大全/常用/腾讯","","","","http://www.qq.com");
+	outline.addItem("网址大全/常用/网易","","","","http://www.163.com");
+	outline.addItem("网址大全/常用/谷歌","","","","http://www.google.com.hk");
+	outline.addItem("网址大全/常用/淘宝","","","","http://www.taobao.com");
+	outline.addItem("网址大全/银行","","","","");
+	outline.addItem("网址大全/银行/工商银行","","","","http://www.icbc.com.cn/");
+	outline.addItem("网址大全/银行/建设银行","","","","http://www.ccb.com/");
+	outline.addItem("网址大全/银行/农业银行","","","","http://www.abchina.com/");
+	outline.addItem("网址大全/银行/招商银行","","","","http://www.cmbchina.com/");
+	outline.addItem("网址大全/银行/交通银行","","","","http://www.bankcomm.com/");
+	outline.addItem("网址大全/电脑","","","","");
+	outline.addItem("网址大全/电脑/中关村在线","","","","http://www.zol.com.cn/");
+	outline.addItem("网址大全/电脑/太平洋电脑","","","","http://www.pconline.com.cn/");
+	outline.addItem("网址大全/电脑/天空软件","","","","http://www.skycn.com/");
+	outline.expandAll(true);
+	</script>
+</body>
+
+</HTML>

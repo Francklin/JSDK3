@@ -1,0 +1,47 @@
+{
+	arrangeMode: "column",
+	attribs: {
+		table: {
+			className: "table",
+			width: "",
+			border: "1",
+			bordercolor: "#D2D2D2",
+			cellpadding: "3",
+			style: "font-size: 12pt;margin: 0px auto;border-collapse:collapse"
+		},
+		column: {
+			style: "background-color:red"
+		}
+	},
+	data: [
+		["","日期"].concat([].fill("",date.getDate()).map(function(item,index){
+				return (date.getMonth()+1)+"月"+(index+1)+"日";
+		})),
+		{
+			arrangeMode: "column",
+			data: data.data.map(function(person,index){
+				return {
+					arrangeMode: "row",
+					data: [
+						[{text:person.name,colspan: -1,style: "font-weight:bold"}],
+						["当日工作","明日安排","本周小结","下周计划"]
+					].concat(person.work.map(function(group,groupindex){
+						return {
+							arrangeMode: "column",
+							data: [
+								{
+									arrangeMode: "row",
+									data: group.map(function(workitem,workindex){
+										return [workitem.summary,workitem.plan];
+									})
+								},
+								[{text:groupindex<person.week.length&&person.week[groupindex].summary||"",rowspan:-1}],
+								[{text:groupindex<person.week.length&&person.week[groupindex].plan||"",rowspan:-1}]
+							]
+						}
+					}))
+				}
+			})
+		}
+	]
+}

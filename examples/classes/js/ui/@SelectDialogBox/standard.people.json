@@ -1,0 +1,20 @@
+{
+	items:[
+		{ 
+			text: "海外",
+			data: ["乔丹|qiaodan","贝克汉姆|beikehanmu","布兰妮|bulanni","金喜善|jinxishan","施瓦辛格|shiwaxinge"]
+		},
+		{
+			text: "香港",
+			data: ["成龙|chenglong","周润发|zhourunfa","周星驰|zhouxingchi","郑少秋|zhengshaoqiu","赵雅芝|zhaoyazhi"]
+		},
+		{	
+			text: "台湾",
+			data: ["齐秦|qiqin","周华健|zhouhuajian","任贤齐|renxianqi","吴奇隆|wuqilong","高胜美|gaoshengmei"]
+		},
+		{
+			text: "大陆",
+			data: ["王菲|wangfei","赵薇|zhaowei","范冰冰|fanbingbing","陆毅|luyi","孙楠|sunnan"]
+		}
+	]
+}

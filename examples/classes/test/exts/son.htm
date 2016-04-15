@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> test </TITLE>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <script>var startDate=new Date();</script>
+  <script src="../../../common/loader.js">
+  $import("test.exts.Son");
+  </script>
+  <script>var endDate=new Date();</script>
+ </HEAD>
+
+ <BODY>
+  <script>
+	//document.write("<center>共耗时"+Date.computeTime(endDate-startDate,"ms",3)+"毫秒</center>");
+  </script>
+  <p>四个期望的alert窗口是：</p>
+  <div style="border:solid 1px gray;background-color: #DDDDDD">
+	No.1 alert: <br>
+    grandpa's name: Michael <br>
+	<br>
+    No.2 alert: <br>
+    grandpa's name: John <br>
+    father's name: John <br>
+	<br>
+    No.3 alert: <br>
+    grandpa's name: Tom <br>
+    father's name: Tom <br>
+    son's name: Tom <br>
+	<br>
+	No.4 alert: <br>
+    grandpa's family name: William <br>
+    son's family name: William <br>
+  </div>
+  <hr>
+  <script>
+	var g = new jsdk.Grandpa('Michael', 'William');
+    alert(g.getName()); 
+    var f = new jsdk.Father('John', 'William');
+    alert(f.getName());
+    var s = new jsdk.Son('Tom', 'William');
+    alert(s.getName());
+    alert(s.getFamilyName());
+  </script>
+ </BODY>
+</HTML>

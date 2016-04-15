@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Test - fire event</TITLE>
+  <META NAME="Content-Type" CONTENT="text/html; charset=gb2312">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+	<script debug="false" src="../../src/loader.js"></script>
+ </HEAD>
+
+ <BODY>
+	<script>
+	function fireEvent0(obj,cancelBubble){
+		if(cancelBubble==undefined){
+			obj.fireEvent('onclick');
+		}else{
+			event.cancelBubble=cancelBubble;
+			obj.fireEvent('onclick');
+		}
+	}
+	function fireEvent1(obj,cancelBubble){
+		if(cancelBubble==undefined){
+			obj.fireEvent('onclick');
+		}else{
+			//此方法无预期效果
+			var evt=document.createEventObject();
+			evt.cancelBubble=cancelBubble;
+			obj.fireEvent('onclick',evt);
+		}
+	}
+	function fireEvent2(obj,cancelBubble){
+		if(cancelBubble==undefined){
+			document.$fireEvent(obj,'onclick');
+		}else{
+			event.cancelBubble=cancelBubble;
+			document.$fireEvent(obj,'onclick',event);
+		}
+	}
+	function fireEvent3(obj,cancelBubble){
+		if(cancelBubble==undefined){
+			document.$fireEvent(obj,'onclick');
+		}else{
+			//此方法无预期效果
+			var evt=document.createEventObject();
+			evt.cancelBubble=cancelBubble;
+			document.$fireEvent(obj,'onclick',evt);
+		}
+	}
+	</script>
+	<form>
+	<div style="width:300;height:200;background-color:menu;padding:3" onclick="alert('outer div');">
+	<span id="span1" onclick="alert('span')">aaa</span>
+	<hr>
+	<INPUT name="a" TYPE="button" VALUE="触发" ONCLICK="fireEvent0(document.all.span1);">
+	<INPUT name="b" TYPE="button" VALUE="触发(冒泡)" ONCLICK="fireEvent0(document.all.span1,false);">
+	<INPUT name="c" TYPE="button" VALUE="触发(不冒泡)" ONCLICK="fireEvent0(document.all.span1,true);">
+	<hr>
+	<INPUT name="d" TYPE="button" VALUE="触发" ONCLICK="fireEvent1(document.all.span1);">
+	<INPUT name="e" TYPE="button" VALUE="触发(冒泡)" ONCLICK="fireEvent1(document.all.span1,false);">
+	<INPUT name="f" TYPE="button" VALUE="触发(不冒泡)" style="color:red" ONCLICK="fireEvent1(document.all.span1,true);">
+	<hr>
+	<INPUT name="g" TYPE="button" VALUE="触发" ONCLICK="fireEvent2(document.all.span1);">
+	<INPUT name="h" TYPE="button" VALUE="触发(冒泡)" ONCLICK="fireEvent2(document.all.span1,false);">
+	<INPUT name="i" TYPE="button" VALUE="触发(不冒泡)" ONCLICK="fireEvent2(document.all.span1,true);">
+	</div>
+	<a href="javascript:fireEvent1(document.all.span1);void(0)">触发</a>
+	<a href="javascript:fireEvent1(document.all.span1,false);void(0)">触发(冒泡)</a>
+	<a href="javascript:fireEvent1(document.all.span1,true);void(0)">触发(不冒泡)</a>
+	<hr>
+	<a href="javascript:fireEvent3(document.all.span1);void(0)">触发</a>
+	<a href="javascript:fireEvent3(document.all.span1,false);void(0)">触发(冒泡)</a>
+	<a href="javascript:fireEvent3(document.all.span1,true);void(0)">触发(不冒泡)</a>
+	</form>
+ </BODY>
+</HTML>

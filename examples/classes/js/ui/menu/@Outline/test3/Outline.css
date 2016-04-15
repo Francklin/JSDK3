@@ -1,0 +1,56 @@
+.jk-outline{
+
+}
+.jk-outlineItem-outer{
+
+}
+.jk-outlineitem{
+	height:20px;
+	font-size:0;
+	white-space: nowrap;
+	overflow:hidden;
+}
+.jk-outlineitem a,
+.jk-outlineitem a:link,
+.jk-outlineitem a:visited{
+	color: black;
+	font-size: 12px;
+	text-decoration: none;
+}
+.jk-outlineitem #button{
+	height: 16px;
+	vertical-align:top;
+	display:inline-block;
+	overflow:hidden;
+}
+.jk-outlineitem #checkbox{
+	height: 16px;
+	vertical-align:top;
+	display:inline-block;
+	overflow:hidden;
+}
+.jk-outlineitem #icon{
+	height: 16px;
+	vertical-align:top;
+	display:inline-block;
+	overflow:hidden;
+}
+.jk-outlineitem #icon img{
+
+}
+.jk-outlineitem #link{
+	margin-left: 1px;
+	border: dotted 1px transparent;
+	padding: 0 2;
+	line-height: 14px;
+	vertical-align:top;
+	display:inline-block;
+	overflow:hidden;
+}
+.jk-outlineitem .jk--active{
+
+}
+.jk-outlineitem .jk--active #link{
+	/*color: white;*/
+	/*background-color: blue;*/
+}

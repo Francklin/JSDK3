@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Global.get </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  </style>
+ </head>
+
+ <body>
+	<h3>Examples - Global.parse(<span class="FunPara">
+	<script>document.write(["sUrl","vData","isCache","fpCallBack","sFormat","sCharset","fpConvert"].join("</span>,<span class=\"FunPara\">"));</script>
+	</span>)</h3>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div style="width:100%;height:">
+		字符串：
+		<TEXTAREA id="output" NAME="output" style="width:100%;height:350px" wrap="off"></TEXTAREA>
+	</div>
+	<div style="padding:2px">
+		<INPUT TYPE="button" VALUE="清空" ONCLICK="document.getElementById('output').value='';">
+		<INPUT TYPE="button" VALUE="解析JSON" ONCLICK="alert(jsdk.parseJSON(jsdk('#output').getFirst().value))">
+		<INPUT TYPE="button" VALUE="解析XML" ONCLICK="alert(jsdk.parseXML(jsdk('#output').getFirst().value).xml)">
+	</div>
+ </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script src="../../../../common/loader.js"></script>
+  <script src="../../../example.js"></script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  var jsdk_path=jsdk.Engine.runtimeEnvironment.getRootPath().replace(/^[/\\][a-z]:/i,"");
+  </script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	  <div>
+    <script>
+	document.write("加载JSDK共耗时"+Date.computeTime(endDate-startDate,"ms",3)+"毫秒<br>");
+	</script>
+  </div>
+	<script>
+	if(isLoaded){
+		var Browser=jsdk.js.detect.shell.Browser;
+		document.write("<table border=\"1\">");
+		document.write("<tr><td colspan=\"2\" style=\"font-weight:bold\">Browser</td></tr>");
+		document.write("<tr><td>name</td><td>"+Browser.name+"</td></tr>");
+		document.write("<tr><td>"+Browser.name+Browser.version+"</td><td>"+Browser[Browser.name+Browser.version]+"</td></tr>");
+		document.write("<tr><td>version</td><td>"+Browser.version+"</td></tr>");
+		document.write("<tr><td>full version</td><td>"+Browser.fullVersion+"</td></tr>");
+		document.write("<tr><td colspan=\"2\" style=\"font-weight:bold\">Platform</td></tr>");
+		document.write("<tr><td>name</td><td>"+Browser.Platform.name+"</td></tr>");
+		document.write("<tr><td colspan=\"2\" style=\"font-weight:bold\">Engine</td></tr>");
+		document.write("<tr><td>name</td><td>"+Browser.Engine.name+"</td></tr>");
+		document.write("<tr><td>"+Browser.Engine.name+Browser.Engine.version+"</td><td>"+Browser.Engine[Browser.Engine.name+Browser.Engine.version]+"</td></tr>");
+		document.write("<tr><td>version</td><td>"+Browser.Engine.version+"</td></tr>");
+		document.write("<tr><td>full version</td><td>"+Browser.Engine.fullVersion+"</td></tr>");
+		document.write("<tr><td colspan=\"2\" style=\"font-weight:bold\">Features</td></tr>");
+		document.write("<tr><td>XMLHttpRequest</td><td>"+Browser.Features.xhr+"</td></tr>");
+		document.write("<tr><td>xpath</td><td>"+Browser.Features.xpath+"</td></tr>");
+		document.write("<tr><td>air</td><td>"+Browser.Features.air+"</td></tr>");
+		document.write("<tr><td>query</td><td>"+Browser.Features.query+"</td></tr>");
+		document.write("<tr><td colspan=\"2\" style=\"font-weight:bold\">Supports</td></tr>");
+		document.write("<tr><td>modalDialog</td><td>"+Browser.Supports.modalDialog+"</td></tr>");
+		document.write("<tr><td>modelessDialog</td><td>"+Browser.Supports.modelessDialog+"</td></tr>");
+		document.write("<tr><td colspan=\"2\" style=\"font-weight:bold\">Plugins</td></tr>");
+		document.write("<tr><td colspan=\"2\">Flash</td></tr>");
+		document.write("<tr><td align=\"right\">version</td><td>"+Browser.Plugins.Flash.version+"</td></tr>");
+		document.write("<tr><td align=\"right\">build</td><td>"+Browser.Plugins.Flash.build+"</td></tr>");
+		document.write("</table>");
+	}
+	</script>
+	</div>
+ </body>
+</html>

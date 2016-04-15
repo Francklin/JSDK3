@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<HTML>
+
+ <HEAD>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../../../../../common/loader.js">
+  $import("js.ui.menu.Outline");
+  </script>
+ </HEAD>
+
+
+<body style=font-size:9pt>
+	<div>
+		<a href=javascript:outline.expandAll(true); target=_self>
+			全部展开
+		</a>
+		<a href=javascript:outline.expandAll(false); target=_self>
+			全部折叠
+		</a>
+		<a href=javascript:outline.refresh(); target=_self>刷新</a>
+	</div>
+	<br>
+	<script type="text/javascript">
+	var StartTime=new Date();
+	</script>
+	<script type="text/javascript">
+	try{
+	var outline=new jsdk.Outline("");
+	outline.setPathSeparator("/");
+	outline.setUseIcon(true);
+	//outline.setIsSelectMode(true);
+	outline.addItem("简介","","","","");
+	outline.addItem("API参考","");
+	outline.addItem("API参考/版本信息","");
+	outline.addItem("API参考/类","","","","","",function(relPath){
+		if(relPath==""){
+			return [
+				["Outline","",""],
+				["OutlineItem","",""],
+				["OutlineItemChildren","",""]
+			];	
+		}else if(relPath=="Outline"){
+			return [
+				["构造",""],
+				["属性",""],
+				["方法",""]
+			];
+		}else if(relPath=="OutlineItem"){
+			return [
+				["构造",""],
+				["属性",""],
+				["方法",""]
+			];
+		}else if(relPath=="Outline/方法"){
+			return [
+				["about()",""],
+				["addItem(fullPath,value,icon,openedIcon,url,target)",""],
+				["getItem(index)",""]
+			];
+		}else{
+			return [];
+		}
+	});
+	outline.addItem("演示实例","");
+	outline.addItem("演示实例/单选菜单1","");
+	outline.addItem("演示实例/单选菜单2","");
+	outline.addItem("演示实例/链接目录1","");
+	outline.addItem("演示实例/链接目录2","");
+	outline.addItem("常见问题","","");
+	}catch(e){
+		alert(e.description);
+	}
+	</script>
+</body>
+
+</HTML>

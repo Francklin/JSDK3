@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Global.query </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  .category{width:150px;font-weight:bold}
+  .item{width:150px;}
+  </style>
+  <script>
+  var v1="div";
+  var v2=".class1";
+  var v3=".class1.class2.class3";
+  var v4="#id";
+  var v5="div.class1";
+  var v6="div.class1.class2.class3";
+  var v7="div#id";
+  var v8="div.class1.class2.class3#id";
+  var v9=".class1#id";
+  var v10=".class1.class2.class3#id";
+  var v="div.class1.class2.class3#id";
+  </script>
+ </head>
+
+ <body>
+	<h3>Examples - Global.query(<span class="FunPara">
+	<script>document.write(["selector","context"].join("</span>,<span class=\"FunPara\">"));</script>
+	</span>)</h3>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<TABLE width="100%" border="1">
+	<TR bgcolor="#EFEFEF">
+		<TD width="150">项目</TD>
+		<TD width="">说明</TD>
+	</TR>
+	<TR>
+		<TD class="category">元素选择器</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">*</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag.class</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag.class1.class2</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag.class1.class2#id</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag.#id</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag.#id#</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">.class</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">.class#id</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">.class#id#</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">#id</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">#id#</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD colspan="2">
+			1.
+			<div>
+				<div>
+				alert(jsdk.query("#F_MailAddress#").length);<br>
+				alert(jsdk.query("#F_MailAddress#")[1].value);<br>
+				alert(jsdk("#F_MailAddress#")[1].value);
+				</div>
+				<hr>
+				<INPUT TYPE="button" value="do" onclick="eval((this.parentNode.$firstChild||this.parentNode.firstChild).innerText);">
+			</div>
+			<br><br>
+			2.
+			<div>
+				<pre>
+				alert(jsdk.query("#diva#").length);
+				try{ 
+					alert(jsdk.query("#diva#")[1].value); 
+				}catch(e){alert(e.descripion)}; 
+				</pre>
+				<hr>
+				<INPUT TYPE="button" value="do" onclick="eval((this.parentNode.$firstChild||this.parentNode.firstChild).innerText);">
+			</div>
+		</TD>
+	</TR>
+	<TR>
+		<TD class="category">属性选择器</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag[attrib]</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag[attrib=value]</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag[attrib!=value]</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag[attrib*=value]</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag[attrib^=value]</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD class="item">tag[attrib$=value]</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	</TABLE>
+	<hr>
+  <div id="div1">111
+	<div>111.1</div>
+  </div>
+  <div id="div2">222<br>
+	<INPUT TYPE="text" NAME="F_MailAddress" value="francklin.liu@gmail.com">
+	<INPUT TYPE="text" NAME="F_MailAddress" value="francklin.liu@live.com">
+  </div>
+  <div class="TreeView">
+	<div>aaa</div>
+	<div class="TreeItem">bbb</div>
+	<div class="TreeItem">
+		<div id="title" class="title ff">ccc</div><div id="title" class="title ff">ccc</div>
+	</div>
+	<div><div id="title">ddd</div></div>
+  </div>
+  <div name="diva">a1</div>
+  <div name="diva">a2</div>
+  <div name="diva">a3</div>
+
+  <script>
+  function test(){
+  var start1=new Date();
+   var dd=jsdk(".title",jsdk("body .TreeView .TreeItem")[1]);
+   var end1=new Date();
+   alert(end1-start1);alert(dd.length);
+   }
+  </script>
+  <hr>
+  <INPUT type="button" value="test" onclick="test()">
+ </body>
+</html>

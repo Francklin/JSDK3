@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Test - JSDK </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../src/helper/webloader.js"></script>
+  <script>
+  webloader.loadData("config","../lib/resources/config.js","",false);
+  webloader.loadData("core","../lib/resources/core.js","",false);
+  webloader.loadData("dom","../lib/resources/dom.js","",false);
+  webloader.loadData("ui","../lib/resources/ui.js","",false);
+  webloader.loadData("ui-home","../lib/resources/ui-home.js","",false);
+  </script>
+ </head>
+
+ <body>
+	<h2>Test - webloader</h2>
+	<hr>
+	<div id="output"></div>
+	<script>
+		var outer=document.getElementById("output");
+		webloader.addHandler("core",function(name,data){
+			outer.appendChild(document.createElement("div")).innerHTML="1.Resource '"+name+"' loaded!";
+		});
+		webloader.addHandler("config",function(name,data){
+			outer.appendChild(document.createElement("div")).innerHTML="2.Resource '"+name+"' loaded!";
+		});
+		webloader.addHandler("dom",function(name,data){
+			outer.appendChild(document.createElement("div")).innerHTML="3.Resource '"+name+"' loaded!";
+		});
+		webloader.addHandler("ui",function(name,data){
+			outer.appendChild(document.createElement("div")).innerHTML="4.Resource '"+name+"' loaded!";
+		});
+		webloader.addHandler("ui-home",function(name,data){
+			outer.appendChild(document.createElement("div")).innerHTML="5.Resource '"+name+"' loaded!";
+		});
+	</script>
+	</div>
+ </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Global.exec </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  .category{width:150px;font-weight:bold}
+  .item{width:150px;}
+  </style>
+ </head>
+
+ <body>
+	<h2>Examples - Global.exec(<span class="FunPara">
+	<script>document.write(["func(items,start,count,seq,data)","driver=\"while\"","para"].join("</span>,<span class=\"FunPara\">"));</script>
+	</span>)</h2>
+	(2013.05.31)<br><br>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<form>
+	<div>
+	<div>status: <span id="status" style=""></span></div>
+	<div style="float:left">
+		<SELECT name="F_Values" style="width: 300px;height:400px;vertical-align:top" multiple></SELECT>
+	</div>
+	<div style="float:left">
+		<INPUT type="button" value="添加1000条记录" onclick="addItems(1000);"><br>
+		<INPUT type="button" value="添加3000条记录" onclick="addItems(3000);"><br>
+		<INPUT type="button" value="添加10000条记录" onclick="addItems(10000);"><br>
+		<br>
+		<INPUT type="button" value="添加1000条记录1" onclick="addItems1(1000);"><br>
+		<INPUT type="button" value="添加3000条记录1" onclick="addItems1(3000);"><br>
+		<INPUT type="button" value="添加10000条记录1" onclick="addItems1(10000);"><br>
+		<br>
+		<INPUT type="button" value="添加1000条记录2" onclick="addItems2(1000);"><br>
+		<INPUT type="button" value="添加3000条记录2" onclick="addItems2(3000);"><br>
+		<INPUT type="button" value="添加3000条记录2(在2000时中断)" onclick="addItems2(3000,2000);"><br>
+		<INPUT type="button" value="添加10000条记录2" onclick="addItems2(10000);">
+	</div>
+	</div>
+	<script>
+	function addItems(count){
+		var el=document.forms[0].F_Values;
+		var len=el.options.length;
+		for(var i=0;i<count;i++){
+			el.options[len+i]=new Option(i,i);
+		}
+	}
+	function addItems1(count){
+		var el=document.forms[0].F_Values;
+		for(var i=1,len1=count/100;i<=len1;i++){
+			jsdk(function(){
+				var len=el.options.length;
+				for(var j=1;j<=100;j++){
+					el.options[len+j-1]=new Option(len+j,len+j);
+				}
+				jsdk.dom("#status")[0].innerHTML=len+100;
+			});
+		}
+		jsdk(function(){
+			alert("added "+count+" items.");
+		});
+	}
+	function addItems2(count,count1){
+		var el=document.forms[0].F_Values;
+		jsdk.exec(function(items,start,count,seq,data){
+			var flag=0;
+			for(var j=1;j<=count;j++){
+				items[start+j-1]=new Option(start+j,start+j);
+				if((seq*count+j)>=count1) {
+					flag=1;break;
+				}
+			}
+			jsdk.dom("#status")[0].innerHTML=start+count;
+			if(flag) return false;
+		},"while",{
+			items: el.options,
+			size: 100,
+			start: el.options.length,
+			count: count,
+			onFinished: function(end,count,data){
+				alert("added "+count+" items. current length is "+end);
+			}
+		});
+		jsdk(function(){
+			alert("OK!");
+		});
+	}
+	</script>
+	</form>
+ </body>
+</html>

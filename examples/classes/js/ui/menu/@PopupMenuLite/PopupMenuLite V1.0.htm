@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title> Examples - Class: js.ui.menu.PopupMenuLite </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.dom.HTML");
+  $import("js.ui.menu.PopupMenuLite","1.0");
+  </script>
+  <script src="../../../../example.js"></script>
+  <style>
+	.MainMenu{
+		line-height: 14px;
+		margin: 3px 3px;
+	}
+	.MainMenu a, .MainMenu a:link{
+		font-size: 9pt;
+		font-size: 宋体;
+		padding: 3px 5px;
+	}
+  </style>
+ </head>
+
+ <body>
+	<h3><script>document.write(example.title)</script></h3>
+	<hr>
+	<div style="height: 50px"></div>
+	<div style="width:600px;">
+		<div class="MainMenu">
+			<a id="itmFile" href="javascript:void(0)" onclick="mnuFile.show()">文件</a> | 
+			<a id="itmEdit" href="javascript:void(0)" onmouseover="mnuEdit.show()">编辑</a> | 
+			<a id="itmView" href="javascript:void(0)" onmouseover="mnuView.show()">查看</a> | 
+			<a id="itmHelp" href="javascript:void(0)" onclick="mnuHelp.show(200)">帮助</a>
+		</div>
+		<div id="MainBody" style="border:solid 1px gray;width:100%;height:300px;" oncontextmenu="menu.show();return false;"></div>
+	</div>
+	<script>
+	var mnuFile=new jsdk.PopupMenuLite(document.getElementById("itmFile"),1);
+	mnuFile.addItem("新建");
+	mnuFile.addItem("打开...");
+	mnuFile.addItem("关闭");
+	mnuFile.addItem("-");
+	mnuFile.addItem("保存");
+	mnuFile.addItem("另存为...");
+	mnuFile.addItem("-");
+	mnuFile.addItem("保存并退出");
+	mnuFile.addItem("退出");
+	var mnuEdit=new jsdk.PopupMenuLite(document.getElementById("itmEdit"),1);
+	mnuEdit.setIsHideOnMouseLeave(true);
+	mnuEdit.addItem("撤销");
+	mnuEdit.addItem("重做");
+	mnuEdit.addItem("-");
+	mnuEdit.addItem("剪切");
+	mnuEdit.addItem("复制");
+	mnuEdit.addItem("粘贴");
+	var mnuView=new jsdk.PopupMenuLite(document.getElementById("itmView"),1);
+	mnuView.setIsHideOnMouseLeave(true);
+	mnuView.addItem("全屏");
+	mnuView.addItem("在IE浏览器中查看");
+	mnuView.addItem("在Firefox浏览器中查看");
+	var mnuHelp=new jsdk.PopupMenuLite(document.getElementById("itmHelp"),1);
+	mnuHelp.addItem("帮助主题");
+	mnuHelp.addItem("检查更新...");
+	mnuHelp.addItem("关于...",function(){
+		alert("PopupMenu Lite V"+this.getParentApp().getVersion());
+	});
+	var menu=new jsdk.PopupMenuLite(document.getElementById("MainBody"),0);
+	menu.addItem("复制",function(){
+		alert("复制");
+	});
+	menu.addItem("剪切",function(){
+		alert("剪切");
+	});
+	menu.addItem("粘贴",function(){
+		alert("粘贴");
+	});
+	menu.addItem("-");
+	menu.addItem("上一页");
+	menu.addItem("下一页");
+	</script>
+
+ </body>
+</html>

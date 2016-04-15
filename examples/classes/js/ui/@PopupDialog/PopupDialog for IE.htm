@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title> Examples - Class: js.ui.PopupDialog (按IE兼容样式) </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTML");
+  $import("js.dom.HTMLForm");
+  $import("js.ui.PopupDialog");
+  </script>
+  <script src="../../../example.js"></script>
+  <style>
+	.label{
+		width: 100px;
+		display: inline-block;
+		vertical-align: top;
+	}
+  </style>
+  <script>
+	jsdk.PopupDialog.setStyleSkin("std");
+	function showFromHtml(){
+		jsdk.PopupDialog.show(
+			jsdk.dom("#F_DialogCode")[0].value,"",
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				mode: 1
+			},
+			{
+				width: 300,
+				height: 100
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+	function showFromHtmlId(){
+		jsdk.PopupDialog.show(
+			"#F_DialogCode","",
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				mode: 1
+			},
+			{
+				width: 300,
+				height: 100
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+	function showFromPage(){
+		jsdk.PopupDialog.show(
+			jsdk.dom("#F_DialogCode")[0].value,"",
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				driver: "page",
+				mode: 1
+			},
+			{
+				height: 300
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+	function showFromTemplate(){
+		jsdk.PopupDialog.show(
+			"books.tpl.htm",
+			{
+				books:[
+					{name:"hibernate实战教程", author:"李永胜", plsh:"李永胜出版社", price: "50.00"},
+					{name:"ajax and jtle文档", author:"李永胜", plsh:"李永胜出版社", price: "0.00"},
+					{name:"spring webflow教程", author:"李永胜", plsh:"李永胜出版社", price: "60.00"},
+					{name:"dwr应用", author:"李永胜", plsh:"李永胜出版社", price: "30.00"}
+				]
+			},
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				driver: "template",
+				mode: 1
+			},
+			{
+				height: 300
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+	function showFromTemplId(){
+		jsdk.PopupDialog.show(
+			jsdk.dom("#F_DialogCode")[0].value,
+			{
+				books:[
+					{name:"hibernate实战教程", author:"李永胜", plsh:"李永胜出版社", price: "50.00"},
+					{name:"ajax and jtle文档", author:"李永胜", plsh:"李永胜出版社", price: "0.00"},
+					{name:"spring webflow教程", author:"李永胜", plsh:"李永胜出版社", price: "60.00"},
+					{name:"dwr应用", author:"李永胜", plsh:"李永胜出版社", price: "30.00"}
+				]
+			},
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				driver: "template",
+				mode: 1
+			},
+			{
+				height: 300
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+	function selectFromArr(){
+
+	}
+	function selectFromFun(){
+
+	}
+	function selectFromUrlXML(){
+
+	}
+	function selectFromUrlJSON(){
+		var owner=jsdk.dom("#F_Value#")[0];
+		var sep=sep||",";
+		var allowMultiple=true;
+		var values=owner.value==""?[]:owner.value.split(sep);
+		jsdk.PopupDialog.show(
+			"selector.tpl.htm",
+			{
+				para: {
+					isMulti: allowMultiple,
+					optionalValues: ["你","是","我","的"]
+				},
+				init: function(oDialog,oContainer){
+					var thisform=jsdk.dom("form",oContainer)[0];
+					jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+					jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+						var value=thisform.getItemValue("F_Value");
+						if(allowMultiple.isMulti&&!(value instanceof Array)){
+							oDialog.returnValue=[value];
+						}else{
+							oDialog.returnValue=value;
+						}
+						oDialog.hide();
+					});
+					jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+						oDialog.hide();
+					});
+				}
+			},
+			{
+				owner: owner,
+				event: event||window.event,
+				driver: "template",
+				mode: 1
+			},
+			{
+				width: 200,
+				height: 200,
+				style: (jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"selector.IE.css":"selector.css")
+			},
+			function(vReturnValue){
+				if(vReturnValue!=undefined){
+					owner.value=allowMultiple?vReturnValue.join(sep):vReturnValue;
+				}
+				//alert('return ok!');
+			}
+		)
+	}
+	function selectFromXML(){
+
+	}
+	function selectFromJSON(){
+
+	}
+	function showMessage(){
+		jsdk.PopupDialog.show(
+			jsdk.dom("#F_DialogCode")[0].value,"",
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				driver: "html",
+				mode: jsdk.PopupDialog.DISPLAY_MODE_POSITION
+			},
+			{
+				width: 500,
+				height: 300
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+	function previewPhoto(photo){
+		jsdk.PopupDialog.show(
+			"<img width=\"100%\" src=\"photo/"+photo+"\">","",
+			{
+				owner: jsdk.dom("#F_Value#")[0],
+				event: event||window.event,
+				driver: "html",
+				mode: jsdk.PopupDialog.DISPLAY_MODE_POSITION
+			},
+			{
+				width: 800,
+				height: 500
+			},
+			function(vReturnValue){
+				alert('return ok!');
+			}
+		)
+	}
+  </script>
+ </head>
+
+ <body>
+    <h3><script>document.write(example.title)</script> (按IE兼容样式)</h3>
+	<hr>
+	<span class="label">Value: </span><input type="text" name="F_Value" style="width: 85%"><br>
+	<span class="label">Dialog Code: </span><textarea type="text" id="F_DialogCode" name="F_DialogCode" style="width: 85%;height: 200px"></textarea><br>
+	<span class="label"></span>
+	<input type="button" value="show(html)" onclick="showFromHtml();">
+	<input type="button" value="show(htmlById)" onclick="showFromHtmlId();">
+	<input type="button" value="show(page)" onclick="showFromPage();">
+	<input type="button" value="show(template)" onclick="showFromTemplate();">
+	<input type="button" value="show(templateById)" onclick="showFromTemplId();">
+	<br>
+	<span class="label"></span>
+	<input type="button" value="select(array)" onclick="selectFromArr();">
+	<input type="button" value="select(function)" onclick="selectFromFun();">
+	<input type="button" value="select(url(xml))" onclick="selectFromUrlXML();">
+	<input type="button" value="select(url(json))" onclick="selectFromUrlJSON();">
+	<input type="button" value="select(xml)" onclick="selectFromXML();">
+	<input type="button" value="select(json)" onclick="selectFromJSON();">
+	<br><br>
+	<span class="label"></span>
+	<input type="button" value="show message" onclick="showMessage();">
+	<a href="javascript:void(0)" onclick="previewPhoto('天堂.jpg');">天堂</a> 
+	<a href="javascript:previewPhoto('晴朗的大海.jpg');void(0)">晴朗的大海</a>
+	<div align=center><select name="" multiple size="30">
+		<option value="" selected>-----遮罩-----
+		<option value="">
+	</select></div>
+	<script id="tplBooks" type="text/html">
+	   <table width="80%">
+		 <tr bgcolor="#DEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+		 <% for(var n = 0; n < books.length; n++) {
+			  var book = books[n];
+			  if(n % 2 != 0) { 
+		  %>
+		  <tr bgcolor="#DCDCDC"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% }else{   %>
+		   <tr bgcolor="#FFFFE0"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% } }  %>
+	   </table>
+	</script>
+	<div style="height: 500px"></div>
+ </body>
+</html>

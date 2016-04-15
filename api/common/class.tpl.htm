@@ -1,0 +1,97 @@
+<h3><%=jsdk.getURIPrmt(location,"class")%></h3>
+<div>
+version: ${data.version}<br>
+updated: ${data.updated}<br>
+</div>
+<br>
+<table class="table" width="100%" border="1" bordercolor="gray">
+<tr><td class=label>Package: </td><td>${data.package}</td></tr>
+<tr><td class=label>Import: </td><td>${data.import}</td></tr>
+<tr><td class=label colspan=2>Class: </td></tr>
+<%
+for(var i=0;i<data["class"].length;i++){
+	var oClass=data["class"][i];
+%>
+<tr><td align=right valign=top class="label">${oClass.name}</td><td>
+	<table class="class" width="100%" border="1" bordercolor="gray" frame="void" rules="rows">
+	<tr><td class=label>Constructor</td></tr>
+	<tr><td>
+	<%
+	for(var j=0;j<oClass["constructor"].length;j++){
+		var vConstructor=oClass["constructor"][j];
+	%>
+	<%if(!jsdk.isArray(vConstructor)){%>
+		<div>${vConstructor}</div>
+	<%}else{
+		var paras=[];
+		for(var j=0;j<vConstructor.length;j++){
+			var arg=vConstructor[j];
+			if(typeof(arg)=="string"){
+				paras.push(arg);
+			}else{
+				var html=[];
+				html.push(arg.name+": {<br><div style=\"margin-left: 24px;\">");
+				html.push(arg.para.join(", <br>"));
+				html.push("</div>}");
+				paras.push(html.join(""));
+			}
+		}
+	%>
+		<div>${oClass.name}(<%=paras.length?("<div style=\"margin-left: 24px\">"+paras.join(", <br>")+"<br></div>"):""%>)</div>
+	<%}%>
+	<%if(oClass["const"]){%>
+		<br></td></tr>
+		<tr><td class=label>Const</td></tr>
+		<tr><td>
+		<%for(var j=0;j<oClass["const"].length;j++){
+			var oConst=oClass["const"][j];
+		%>
+			<div><div>${oConst.name} = ${oConst.value}</div>
+		<%}%>
+		<br></td></tr>
+	<%}%>
+	<%if(oClass["enum"]){%>
+		<tr><td class=label>Enum</td></tr>
+		<tr><td>
+		<%for(var j=0;j<oClass["enum"].length;j++){
+			var oConst=oClass["enum"][j];
+		%>
+			<div><div>${oConst.name}{</div><div style="padding-left: 24px"><%=oConst.members.join(", <br>")%></div><div>}</div>
+		<%}%>
+		<br></td></tr>
+	<%}%>
+	<tr><td class=label>Property</td></tr>
+	<tr><td>
+	<%for(var j=0;j<oClass.property.length;j++){
+		var oProperty=oClass.property[j];
+	%>
+		<div><%=oProperty.slice(0,3).join(" ")%> [<%=oProperty[4].join("|")%>] ${oProperty[3]}</div>
+	<%}%>
+	<br></td></tr>
+	<tr><td class=label>Method</td></tr>
+	<tr><td>
+	<%for(var j=0;j<oClass.method.length;j++){
+		var oMethod=oClass.method[j];
+	%>
+		<div><%=oMethod.slice(0,4).join(" ")%>(${oMethod[4]})</div>
+	<%}%>
+	
+	<%if(oClass.event){%>
+		<br></td></tr>
+		<tr><td class=label>Event</td></tr>
+		<tr><td>
+		<%for(var j=0;j<oClass.event.length;j++){
+			var oEvent=oClass.event[j];
+		%>
+		<div><%=oEvent.slice(0,4).join(" ")%>(${oEvent[4]})</div>
+		<%}%>
+		<br>
+		</td></tr>
+	<%}%>
+	<%}%>
+	</table>
+</td></tr>
+<%
+}
+%>
+</table>

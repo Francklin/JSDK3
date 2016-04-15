@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<public:component xmlns:public="urn:HTMLComponent" lightweight="true">
+<!-- sample cross-browser behavior, works on IE5+ and Mozilla 1.5+ -->
+
+<public:event name="onsay" id="eOnSay" />
+<public:property name="enabledSmart" get="get_enabledSmart" put="set_enabledSmart" />
+<public:property name="tester" get="get_tester" />
+<public:property name="message" />
+<public:method name="say" />
+<public:attach event="oncontentready" handler="init" />
+<public:attach for="window" event="onload" handler="initAfter" />
+<!-- support IE and Firefox
+<public:attach for="window" event="onload" handler="initAfter" />
+<public:attach for="window" event="onload" onevent="initAfter()" />
+-->
+
+<SCRIPT type="text/javascript">
+//<![CDATA[
+var _enabled=true;
+
+function init(){
+	//alert("inited");
+}
+function initAfter(){ 
+	//alert("loaded.");
+}
+function get_enabledSmart(){
+	return _enabled;
+}
+function set_enabledSmart(vValue){
+	_enabled=(/^(true|1)$/i).test(vValue); 
+}
+function get_tester(){
+	return "mestime@tom.com";
+}
+function say(msg){
+	alert(msg||element.message||"not found");
+	var oEvent = createEventObject();
+	eOnSay.fire(oEvent);
+}
+
+//]]>
+</SCRIPT>
+</public:component>

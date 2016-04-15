@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Test </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script src="../../src/lite/base.js"></script>
+  <script src="../../src/lite/jsdk.js"></script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+ </head>
+
+ <body>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+    <script>
+	document.write("加载JSDK共耗时"+Date.computeTime(endDate-startDate,"ms",3)+"毫秒<br>");
+	</script>
+	</div>
+ </body>
+</html>

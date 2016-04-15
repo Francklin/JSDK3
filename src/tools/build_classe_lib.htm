@@ -1,0 +1,163 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> build - classes lib </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" include="build" src="../../src/loader.js">
+  $import("js.build.Packager");
+  $import("js.ui.menu.PopupMenuLite");
+  </script>
+  <style>
+  .label{
+	width:80px;
+	display: inline-block;
+  }
+  .field{
+	width: 350px;
+  }
+  table th{
+	text-align: left;
+  }
+  </style>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  function setLang(lang){
+	thisform.F_Lang.value=lang;
+	thisform.F_SavePath.value=thisform.F_SavePath.value.replace(/((_[a-zA-Z-]+)?\.json)$/,(lang?("_"+lang):"")+".json");
+  }
+  function onLangChange(){
+	var lang=thisform.F_Lang.value;
+	thisform.F_SavePath.value=thisform.F_SavePath.value.replace(/((_[a-zA-Z-]+)?\.json)$/,(lang?("_"+lang):"")+".json");
+  }
+  </script>
+
+ </head>
+
+ <body>
+	<h4>Build - Classes Lib<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<form>
+	<script>
+	var thisform=document.forms[0];
+	</script>
+	<div class="options" style="line-height: 1.8em">
+	<span class="label">Config: </span><INPUT class="field" TYPE="text" NAME="F_ConfigFile" value="config\lib\"><input type="button" value="Load" 
+		onclick="loadConfig()"><br>
+	<span class="label">Version: </span><INPUT class="field" TYPE="text" NAME="F_Version"><br>
+	<span class="label">Lanugage: </span>
+		<span>	
+			<label><INPUT TYPE="radio" NAME="F_SetLang" value="" onclick="setLang(this.value)" checked>Default</label>
+			<label><INPUT TYPE="radio" NAME="F_SetLang" value="en" onclick="setLang(this.value)">English (en)</label>
+			<label><INPUT TYPE="radio" NAME="F_SetLang" value="zh-CN" onclick="setLang(this.value)">Simplified Chinese (zh-CN)</label>
+			<label><INPUT TYPE="radio" NAME="F_SetLang" value="zh-HK" onclick="setLang(this.value)">Traditional Chinese (zh-HK)</label>
+			<label><INPUT TYPE="radio" NAME="F_SetLang" value="">Other Language</label>
+		</span><br>
+	<span class="label"></span><INPUT class="field" TYPE="text" NAME="F_Lang" onchange="onLangChange()"><br>
+	<span class="label">SavePath: </span><INPUT class="field" TYPE="text" NAME="F_SavePath"><input type="button" value="Start" 
+		onclick="startBuild()"><br>
+	</form>
+	</div>
+	<hr>
+	<table id="result" class="result" width="100%" border="1">
+		<thead>
+		<tr>
+			<th width="70" style="text-align:center">Status</th>
+			<th width="100">Language</th>
+			<th>Class</th>
+		</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<hr>
+	<div id="out"></div>
+    <script>
+	var packager=new JSDK.Packager(1);
+	packager.attachEvent("onPackagingClass",function(oEvent){
+		var fullName=oEvent.result.fullName;
+		document.all['out'].appendChild(document.createElement("div")).innerText="正在打包类\""+fullName+"\"...";
+	});
+	packager.attachEvent("onPackagingClassFile",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		document.all['out'].appendChild(document.createElement("div")).innerText="正在打包类文件\""+sFilePath+"\"...";
+	});
+	packager.attachEvent("onPackageClassFileFail",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		var error=oEvent.result.error;
+		document.all['out'].appendChild(document.createElement("div")).innerText="打包类文件\""+sFilePath+"\"失败！\n错误为：\n";
+		document.all['out'].appendChild(document.createElement("div")).innerText=error.description;
+	});
+	packager.attachEvent("onPackageClassError",function(oEvent){
+		var fullName=oEvent.result.fullName;
+		var errors=oEvent.result.errors;
+		document.all['out'].appendChild(document.createElement("div")).innerText="打包类\""+fullName+"\"时产生部分错误！\n错误为：\n";
+		for(var i=0;i<errors.length;i++){
+			document.all['out'].appendChild(document.createElement("div")).innerText=errors[i].description;
+		}
+	});
+	packager.attachEvent("onPackageClassFail",function(oEvent){
+		var fullName=oEvent.result.fullName;
+		var errors=oEvent.result.errors;
+		with(table.insertRow()){
+			insertCell().innerHTML="<img src=\"../res/icons/error.gif\">";
+			insertCell();
+			insertCell().innerHTML=fullName;
+		}
+		document.all['out'].appendChild(document.createElement("div")).innerText="打包类\""+fullName+"\"失败！\n错误为：\n";
+		for(var i=0;i<errors.length;i++){
+			document.all['out'].appendChild(document.createElement("div")).innerText=errors[i].description;
+		}
+	});
+	packager.attachEvent("onPackageClassSuccess",function(oEvent){
+		var fullName=oEvent.result.fullName;
+		var table=document.all['result'];
+		with(table.insertRow()){
+			with(insertCell()){
+				style.textAlign="center";
+				innerHTML="<img src=\"../res/icons/ok.gif\">";
+			}
+			insertCell().innerHTML=oEvent.result.lang;
+			insertCell().innerHTML=fullName;
+		}
+	});
+	packager.attachEvent("onCompleted",function(oEvent){
+		document.all['out'].appendChild(document.createElement("div")).innerText="";
+		document.all['out'].appendChild(document.createElement("div")).innerText="已输出所有类文件内容到目标库文件\""+oEvent.result.output+"\"上!";
+	});
+	var config;
+	function loadConfig(){
+		var sCfgFile=document.getElementsByName("F_ConfigFile")[0].value;
+		if(!sCfgFile){
+			alert("Please input config file path!");
+			return;
+		}
+		config=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()+"/"+sCfgFile,"",false,"","JSON");
+		document.getElementsByName("F_Version")[0].value=config.manifest.version;
+		document.getElementsByName("F_SavePath")[0].value=config.output;
+	}
+	function startBuild(){
+		if(!config) {
+			alert("Please first load config data!");
+			return;
+		}else if(!document.getElementsByName("F_SavePath")[0].value){
+			alert("Please input save path!");
+			return;
+		}
+		config.manifest.version=document.getElementsByName("F_Version")[0].value;
+		packager.clearEmpty();
+		packager.setLocaleLang(thisform.F_Lang.value);
+		document.all['result'].tBodies[0].innerHTML="";
+		document.all['out'].innerHTML="";
+		for(var i=0,iLen=config.entity.length;i<iLen;i++){
+			packager.addClasses(config.entity[i]);
+		}
+		packager.build('/* @created: '+Date().toString()+'*/',config.manifest,"",document.getElementsByName("F_SavePath")[0].value)
+	}
+	</script>
+	</div>
+ </body>
+</html>

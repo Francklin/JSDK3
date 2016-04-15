@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../../../../../common/loader.js">
+  $import("js.ui.menu.Outline");
+  </script>
+ </HEAD>
+
+ <BODY>
+ 
+  <script>
+	var outline=new jsdk.Outline("");
+	outline.setPathSeparator("/");
+	outline.setTarget("main");
+	outline.setUseIcon(true);
+	outline.setIsSelectMode(true);
+	outline.setUseCheckbox(true);
+	for(var i=0;i<10;i++){
+		with(outline.addItem("Item"+i)){
+			for(var j=0;j<10;j++){
+				addItem("Item"+i+"."+j);
+			}
+		}
+	}
+  </script>
+ </BODY>
+</HTML>

@@ -1,0 +1,11 @@
+{
+manifest : {
+"name" : "kernel",
+"file" : "kernel.js",
+"version" : "1.11",
+"description" : "",
+"author" : "liu denggao"
+},
+source : "config\\template\\kernel.tpl.xml",
+output : "bin\\kernel.js"
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/jsdk_loader.js">
+  $import("js.dom.DOMTemplate");
+  </script>
+  <script src="../../../example.js"></script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	 <script id="tmpl" type="text/html">
+	   <table width="80%">
+		 <tr bgcolor="#DEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+		 <% for(var n = 0; n < books.length; n++) {
+			  var book = books[n];
+			  if(n % 2 != 0) { 
+		  %>
+		  <tr bgcolor="#DCDCDC"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% }else{   %>
+		   <tr bgcolor="#FFFFE0"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% } }  %>
+	   </table>
+	</script>
+	<script language="javascript" type="text/javascript">
+	var tpl=jsdk.DOMTemplate.newInstanceWithId("tmpl");
+	tpl.setIsOnsiteOutput(true);
+	tpl.parse({
+		books:[
+			{name:"hibernate实战教程", author:"李永胜", plsh:"李永胜出版社", price: "50.00"},
+			{name:"ajax and jtle文档", author:"李永胜", plsh:"李永胜出版社", price: "0.00"},
+			{name:"spring webflow教程", author:"李永胜", plsh:"李永胜出版社", price: "60.00"},
+			{name:"dwr应用", author:"李永胜", plsh:"李永胜出版社", price: "30.00"}
+		]
+	});
+	</script>
+	<hr>
+	<script template="template/books.tpl.htm" data="data/books1.json" src="parse.js"></script>
+	<script template="template/books.tpl.htm" data="data/books2.json" src="parse.js"></script>
+	<script template="template/books.tpl.htm" data="data/books2.json" src="parse.js"></script>
+	<script template="template/books.tpl.htm" data="data/books2.json" src="parse.js"></script>
+	<script template="template/books.tpl.htm" data="data/books2.json" src="parse.js"></script>
+
+ </body>
+</html>

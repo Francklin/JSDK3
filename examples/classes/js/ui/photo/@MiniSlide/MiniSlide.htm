@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.ui.photo.MiniSlide (按CSS1标准样式) </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script src="../../../../../common/loader.js">
+  $import("js.ui.photo.MiniSlide");
+  </script>
+  <script src="../../../../example.js"></script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<div id="wrapper" style="width:960px;margin: auto">
+	<div style="float:left">
+	<script>
+	jsdk.MiniSlide.addStyleSkin("my",{
+		url: (jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"my.IE.css":"my.css"),
+		".MiniSlide .box": {
+			borderWidth: 1
+		},
+		".MiniSlideTabBar img": {
+			url: "images/bckgrd_gray.jpg"
+		}
+	});
+	jsdk.MiniSlide.setStyleSkin("my");
+	var slide1=new jsdk.MiniSlide("",335,238,16);
+	slide1.setIsAloneDisplayTabBar(false);
+	slide1.setIsStretchPhoto(false);
+	slide1.setInterval(2000);
+	slide1.setIsCircle(true);
+	slide1.addPhoto("","","photo/01.jpg");
+	slide1.addPhoto("","","photo/YM.jpg");
+	slide1.addPhoto("","","photo/02.jpg");
+	slide1.addPhoto("","","photo/winxp.jpg");
+	slide1.addPhoto("","","photo/03.jpg");
+	slide1.startPlay();
+	</script>
+	</div>
+	<div style="width: 402px;height:318px;float:left;margin: 0px 5px">
+	<script>
+	var slide1=new jsdk.MiniSlide("","100%","100%");
+	slide1.setIsAloneDisplayTabBar(true);
+	slide1.setIsStretchPhoto(false);
+	slide1.setInterval(2000);
+	slide1.setIsCircle(true);
+	slide1.setIsPauseOnEntering(true);
+	slide1.addPhoto("","","photo/01.jpg","http://www.tringsoft.com");
+	slide1.addPhoto("","","photo/YM.jpg","http://www.wunmei.com.cn");
+	slide1.addPhoto("","","photo/02.jpg");
+	slide1.addPhoto("","","photo/winxp.jpg");
+	slide1.addPhoto("","","photo/03.jpg");
+	slide1.startPlay();
+	</script>
+	</div>
+	<div style="width: 200px;height:318px;float:right;margin: 0px 5px">
+	<script>
+	var slide1=new jsdk.MiniSlide("","100%","100%");
+	slide1.setIsAloneDisplayTabBar(true);
+	slide1.setIsStretchPhoto(true);
+	slide1.setInterval(2000);
+	slide1.setIsCircle(false);
+	slide1.addPhoto("","","photo/01.jpg");
+	slide1.addPhoto("","","photo/YM.jpg");
+	slide1.addPhoto("","","photo/02.jpg");
+	slide1.addPhoto("","","photo/winxp.jpg");
+	slide1.addPhoto("","","photo/03.jpg");
+	slide1.startPlay();
+	</script>
+	</div>
+	<div style="clear: both;height: 0px"></div>
+	<div style="clear: both;margin-top: 20px">
+	<script>
+	jsdk.MiniSlide.addStyleSkin("my",{
+		url: (jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"my.IE.css":"my.css"),
+		".MiniSlide .box": {
+			borderWidth: 1
+		},
+		".MiniSlideTabBar img": {
+			url: "images/bckgrd_gray.jpg"
+		}
+	});
+	jsdk.MiniSlide.setStyleSkin("my");
+	var slide1=new jsdk.MiniSlide("","100%",450,16);
+	slide1.setIsAloneDisplayTabBar(true);
+	slide1.setIsStretchPhoto(false);
+	slide1.setInterval(2000);
+	slide1.setIsCircle(true);
+	slide1.setIsPauseOnEntering(true);
+	slide1.addPhoto("","","photo/menu01.jpg");
+	slide1.addPhoto("","","photo/tree01.jpg");
+	slide1.addPhoto("","","photo/select01.png");
+	slide1.addPhoto("","","photo/table01.jpg");
+	slide1.addPhoto("","","photo/table03.jpg");
+	slide1.startPlay();
+	</script>
+	</div>
+	<br>
+	</div>
+ </body>
+</html>

@@ -1,0 +1,8 @@
+{
+	books:[
+		{name:"hibernate实战教程", author:"李永胜", plsh:"李永胜出版社", price: "50.00"},
+		{name:"ajax and jtle文档", author:"李永胜", plsh:"李永胜出版社", price: "0.00"},
+		{name:"spring webflow教程", author:"李永胜", plsh:"李永胜出版社", price: "60.00"},
+		{name:"dwr应用", author:"李永胜", plsh:"李永胜出版社", price: "30.00"}
+	]
+}

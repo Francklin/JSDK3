@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.ui.SelectDialogBox </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script include="ui" src="../../../../common/loader.js">
+  $import("js.dom.HTMLForm");
+  $import("js.ui.menu.PopupMenuLite");
+  $import("js.ui.SelectDialogBox");
+  </script>
+  <script src="../../../example.js"></script>
+  <style>
+	html,body{
+		font-size: 9pt;
+		font-family: arial;
+	}
+	.label{
+		width: 140px;
+		display: inline-block;
+		vertical-align: top;
+		line-height: 1.3em;
+	}
+	.field{
+		width: 379px;
+	}
+	.button{
+		width: ;
+	}
+	.titlebar{
+		margin-top: 20px;
+		margin-bottom: 4px;
+		width: 300px;
+		padding-bottom: 3px;
+		border-bottom: solid 1px gray;
+	}
+	.title{
+		background-color: #DEDEDE;
+		padding: 0px 3px;
+		font-weight: bold;
+	}
+	.options{
+		margin: 3px 0px;
+	}
+	.options_item_data{
+		margin-left: 19px;
+	}
+	.options_item_data input{
+		width: 500px;
+	}
+	.options_item_data textarea{
+		width: 500px;
+		height: 100px;
+	}
+	.sepline{
+		width: 360px;
+		height: 1px;
+		overflow:hidden;
+		margin: 3px 0px;
+		border-bottom: solid 1px gray;
+	}
+  </style>
+  <script>
+  window.onload=function(){
+	var menuSmp=new jsdk.PopupMenuLite(document.getElementById("F_SMP_ExampleName"),1);
+	with(menuSmp){
+		addItem("selectpeople","",function(){
+			this.getParentApp().getOwner().value="selectpeople";
+		});
+	}
+	document.getElementById("F_SMP_ExampleName").ondblclick=function(event){
+		menuSmp.show(event||window.event);
+	}
+	var menuStd=new jsdk.PopupMenuLite(document.getElementById("F_STD_ExampleName"),1);
+	with(menuStd){
+		addItem("selectpeople","",function(){
+			this.getParentApp().getOwner().value="selectpeople";
+		});
+		addItem("selectpeople-big","",function(){
+			this.getParentApp().getOwner().value="selectpeople-big";
+		});
+	}
+	document.getElementById("F_STD_ExampleName").ondblclick=function(event){
+		menuStd.show(event||window.event);
+	}
+	var menuAdv=new jsdk.PopupMenuLite(document.getElementById("F_ADV_ExampleName"),1);
+	with(menuAdv){
+		addItem("selectpeople","",function(){
+			this.getParentApp().getOwner().value="selectpeople";
+		});
+		addItem("selectpeoplebytree","",function(){
+			this.getParentApp().getOwner().value="selectpeoplebytree";
+		});
+		addItem("selectpeoplebytree1","",function(){
+			this.getParentApp().getOwner().value="selectpeoplebytree1";
+		});
+	}
+	document.getElementById("F_ADV_ExampleName").ondblclick=function(event){
+		menuAdv.show(event||window.event);
+	}
+  }
+  </script>
+ </head>
+
+ <body>
+	<div style="border-bottom: solid 1px gray;margin-bottom: 12px;padding-bottom: 12px">
+		<div style="height: 260px">
+			<div style="float:left">
+				<h3><script>document.write(example.title)</script></h3>
+				选择对话框 V7.2
+				<ul>
+					<li>支持IE6、IE7、IE8+、Firefox4+、Chrome13+、Safari5+、Opera11+、iPad Safari
+					<li>支持简单、普通、高级等至少三种选择模式
+					<li>支持普通单层结构和树型结构显示
+					<li>支持对结果列表进行顺序调整
+					<li>支持搜索功能
+					<li>灵活的调用接口，适用面更广泛
+				</ul>
+				<div>搜索语法：<br>　　　关键字：“|”、“(空格)”	<br>　　　优先级：“|” > “(空格)”<br>　　　说明：“|”代表或，“(空格)”代表与<br>
+				　　　例子：“王菲 | 成 龙 | 金喜 善”, 此例表示查找含有“王菲”或者(含有“成”和“龙”)或者(含有“金喜”和“善”)
+				</div>
+				
+			</div>
+			<div style="float:right"><a href="demo/tree.png" target="_blank" title="点击查看原始图片"><img src="demo/tree.png" width="320"></a></div>
+		</div>
+	</div>
+	<form>
+	<script>
+	var thisform=document.forms[0];
+	jsdk.HTMLForm.applyInstance(thisform,"copy");
+	jsdk.PopupMenuLite.setStyleSkin("xp");
+	var samplesData={
+		"simple": null,
+		"standard": null,
+		"advanced": null
+	}
+	function loadSimpleExample(sName){
+		sName=sName||thisform.getItemValue("F_SMP_ExampleName");
+		if(!sName) {
+			alert("Please input simple example name!");
+			return false;
+		}
+		samplesData.simple=jsdk.get("simple."+sName+".json","",false,"","JSON");
+		thisform.F_SMP_isMultiple.checked=samplesData.simple.dialogbox.oPara.isMultiple;
+		thisform.F_SMP_dspResult.checked=samplesData.simple.dialogbox.oPara.dspResult;
+		thisform.F_SMP_useDataFormat[0].checked=true;
+		thisform.F_SMP_ArrayData.value=samplesData.simple.dialogbox.oViewData["array"];
+		thisform.F_SMP_UrlJsonData.value=samplesData.simple.dialogbox.oViewData["url(json)"];
+		thisform.F_SMP_UrlXmlData.value=samplesData.simple.dialogbox.oViewData["url(xml)"];
+		thisform.F_SMP_FuncData.value=samplesData.simple.dialogbox.oViewData["function"];
+	}
+	function loadStandardExample(sName){
+		sName=sName||thisform.getItemValue("F_STD_ExampleName");
+		if(!sName) {
+			alert("Please input standard example name!");
+			return false;
+		}
+		samplesData.standard=jsdk.get("standard."+sName+".json","",false,"","JSON");
+		thisform.F_STD_isMultiple.checked=samplesData.standard.dialogbox.oPara.isMultiple;
+		thisform.F_STD_dspResult.checked=samplesData.standard.dialogbox.oPara.dspResult;
+		thisform.F_STD_useDataFormat[0].checked=true;
+		thisform.F_STD_ArrayData.value=samplesData.standard.dialogbox.oViewData["array"];
+		thisform.F_STD_UrlJsonData.value=samplesData.standard.dialogbox.oViewData["url(json)"];
+		thisform.F_STD_UrlXmlData.value=samplesData.standard.dialogbox.oViewData["url(xml)"];
+		thisform.F_STD_FuncData.value=samplesData.standard.dialogbox.oViewData["function"];
+		thisform.F_STD_fnGetItemData.value=samplesData.standard.dialogbox.fnGetItemData;
+	}
+	function loadAdvancedExample(sName){
+		sName=sName||thisform.getItemValue("F_ADV_ExampleName");
+		if(!sName) {
+			alert("Please input advanced example name!");
+			return false;
+		}
+		samplesData.advanced=jsdk.get("advanced."+sName+".json","",false,"","JSON");
+		thisform.F_ADV_isMultiple.checked=samplesData.advanced.dialogbox.oPara.isMultiple;
+		thisform.F_ADV_hasChildItem.checked=samplesData.advanced.dialogbox.oPara.hasChildItem;
+		thisform.F_ADV_hasChildData.checked=samplesData.advanced.dialogbox.oPara.hasChildData;
+		thisform.F_ADV_viewDisplayMode.checked=samplesData.advanced.dialogbox.oPara.viewDspMode==1;
+		thisform.F_ADV_dspData.checked=samplesData.advanced.dialogbox.oPara.dspData;
+		thisform.F_ADV_dspResult.checked=samplesData.advanced.dialogbox.oPara.dspResult;
+		thisform.F_ADV_useDataFormat[0].checked=true;
+		thisform.F_ADV_ArrayData.value=samplesData.advanced.dialogbox.oViewData["array"];
+		thisform.F_ADV_UrlJsonData.value=samplesData.advanced.dialogbox.oViewData["url(json)"];
+		thisform.F_ADV_UrlXmlData.value=samplesData.advanced.dialogbox.oViewData["url(xml)"];
+		thisform.F_ADV_FuncData.value=samplesData.advanced.dialogbox.oViewData["function"];
+		thisform.F_ADV_defaultCategory.value=samplesData.advanced.dialogbox.oPara.defaultCategory;
+		thisform.F_ADV_fnGetItemData.value=samplesData.advanced.dialogbox.fnGetItemData;
+	}
+	function selectSMPValues(id){
+		var sep=";";
+		if(!samplesData.simple) {
+			alert("Please first load example!");
+			return;
+		}
+		try{
+		jsdk.SelectDialogBox.show(
+			samplesData.simple.dialogbox.oDspTexts,
+			{
+				isMultiple: !!thisform.getItemValue("F_SMP_isMultiple"),
+				hasCategory: false,
+				hasChildData: false,
+				defaultCategory: "",
+				dspData: false,
+				dspResult: !!thisform.getItemValue("F_SMP_dspResult")		
+			},
+			function(){
+				switch(thisform.getItemValue("F_SMP_useDataFormat")){
+					case "array":
+						return eval(thisform.F_SMP_ArrayData.value);
+						break;
+					case "url(json)":
+						//return jsdk.get(thisform.F_SMP_UrlJsonData.value,"",false,"","JSON");
+						return "url(json):"+thisform.F_SMP_UrlJsonData.value;
+						break;
+					case "url(xml)":
+						//return jsdk.get(thisform.F_SMP_UrlXmlData.value,"",false,"","XML");
+						return "url(xml):"+thisform.F_SMP_UrlXmlData.value;
+						break;
+					case "function":
+						return new Function(thisform.F_SMP_FuncData.value);
+						break;
+				}
+			}(),
+			thisform.F_SMP_Value.value.split(","),
+			"",
+			function(wDialog,vReturnValue){
+				if(vReturnValue){
+					var values=[];
+					for(var i=0;i<vReturnValue.length;i++){
+						values.push(vReturnValue[i].value);
+					}
+					document.getElementById(id).value=values.join(",");
+				}
+			}
+		);}catch(e){alert(e.description);}
+	}
+	function selectSTDValues(id){
+		var sep=";";
+		if(!samplesData.standard) {
+			alert("Please first load example!");
+			return;
+		}
+		jsdk.SelectDialogBox.show(
+			samplesData.standard.dialogbox.oDspTexts,
+			{
+				isMultiple: !!thisform.getItemValue("F_STD_isMultiple"),
+				hasCategory: false,
+				hasChildData: true,
+				defaultCategory: "",
+				dspData: true,
+				dspResult: !!thisform.getItemValue("F_STD_dspResult")			
+			},
+			function(){
+				switch(thisform.getItemValue("F_STD_useDataFormat")){
+					case "array":
+						return eval(thisform.F_STD_ArrayData.value);
+						break;
+					case "url(json)":
+						//return jsdk.get(thisform.F_STD_UrlJsonData.value,"",false,"","JSON");
+						return "url(json):"+thisform.F_STD_UrlJsonData.value;
+						break;
+					case "url(xml)":
+						//return jsdk.get(thisform.F_STD_UrlXmlData.value,"",false,"","XML");
+						return "url(xml):"+thisform.F_STD_UrlXmlData.value;
+						break;
+					case "function":
+						return new Function(thisform.F_STD_FuncData.value);
+						break;
+				}
+			}(),
+			thisform.F_STD_Value.value.split(","),
+			!!thisform.getItemValue("F_STD_fnGetItemData")?
+				(new Function("category","path","item","index",thisform.getItemValue("F_STD_fnGetItemData"))):"",
+			function(wDialog,vReturnValue){
+				if(vReturnValue){
+					var values=[];
+					for(var i=0;i<vReturnValue.length;i++){
+						values.push(vReturnValue[i].text);
+					}
+					document.getElementById(id).value=values.join(",");
+				}
+			}
+		);
+	}
+	function selectADVValues(id){
+		var sep=";";
+		if(!samplesData.advanced) {
+			alert("Please first load example!");
+			return;
+		}
+		jsdk.SelectDialogBox.show(
+			samplesData.advanced.dialogbox.oDspTexts,
+			{
+				icon: samplesData.advanced.dialogbox.oPara.icon,
+				isMultiple: !!thisform.getItemValue("F_ADV_isMultiple"),
+				hasCategory: true,
+				hasChildItem: !!thisform.getItemValue("F_ADV_hasChildItem"),
+				hasChildData: !!thisform.getItemValue("F_ADV_hasChildData"),
+				defaultCategory: thisform.getItemValue("F_ADV_defaultCategory"),
+				viewDspMode: parseInt(thisform.getItemValue("F_ADV_viewDisplayMode")||"0"),
+				dspData: !!thisform.getItemValue("F_ADV_dspData"),
+				dspResult: !!thisform.getItemValue("F_ADV_dspResult")		
+			},
+			function(){
+				switch(thisform.getItemValue("F_ADV_useDataFormat")){
+					case "array":
+						return eval(thisform.F_ADV_ArrayData.value);
+						break;
+					case "url(json)":
+						//return jsdk.get(thisform.F_ADV_UrlJsonData.value,"",false,"","JSON");
+						return "url(json):"+thisform.F_ADV_UrlJsonData.value;
+						break;
+					case "url(xml)":
+						//return jsdk.get(thisform.F_ADV_UrlXmlData.value,"",false,"","XML");
+						return "url(xml):"+thisform.F_ADV_UrlXmlData.value;
+						break;
+					case "function":
+						return new Function(thisform.F_ADV_FuncData.value);
+						break;
+				}
+			}(),
+			thisform.F_ADV_Value.value.split(","),
+			(!!thisform.getItemValue("F_ADV_hasChildItem")||!!thisform.getItemValue("F_ADV_hasChildData"))
+				&&!!thisform.getItemValue("F_ADV_fnGetItemData")?
+				(new Function("category","path","item","index",thisform.getItemValue("F_ADV_fnGetItemData"))):"",
+			function(wDialog,vReturnValue){
+				if(vReturnValue){
+					var values=[];
+					for(var i=0;i<vReturnValue.length;i++){
+						values.push(vReturnValue[i].text);
+					}
+					document.getElementById(id).value=values.join(",");
+				}
+			}
+		);
+	}
+	</script>
+	<div class="titlebar"><span class="title">Simple Select</span> (no category, no childdata)</div>
+	<span class="label">Example Name: </span><INPUT TYPE="text" id="F_SMP_ExampleName" NAME="F_SMP_ExampleName" value="selectpeople"><INPUT TYPE="button" value="load" onclick="loadSimpleExample()">
+	<div class="sepline"></div>
+	<div class="options">
+		<label><INPUT TYPE="checkbox" id="F_SMP_isMultiple" NAME="F_SMP_isMultiple" value="1">is multiple</label>
+		<label><INPUT TYPE="checkbox" id="F_SMP_dspResult" NAME="F_SMP_dspResult" value="1">display result area</label><br>
+		<label><INPUT TYPE="radio" NAME="F_SMP_useDataFormat" value="array">use data from array</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_SMP_ArrayData" NAME="F_SMP_ArrayData"></div>
+		<label><INPUT TYPE="radio" NAME="F_SMP_useDataFormat" value="url(json)">use data from url return json format</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_SMP_UrlJsonData" NAME="F_SMP_UrlJsonData"></div>
+		<label><INPUT TYPE="radio" NAME="F_SMP_useDataFormat" value="url(xml)">use data from url return xml format</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_SMP_UrlXmlData" NAME="F_SMP_UrlXmlData"></div>
+		<label><INPUT TYPE="radio" NAME="F_SMP_useDataFormat" value="function">use data from function return array format</label><br>
+		<div class="options_item_data"><textarea TYPE="text" id="F_SMP_FuncData" NAME="F_SMP_FuncData"></textarea></div>
+	</div>
+	<INPUT TYPE="text" id="F_SMP_Value" NAME="F_SMP_Value" style="width: 550px">
+	<INPUT class="button" TYPE="button" value="select" onclick="selectSMPValues('F_SMP_Value')"><br>
+	
+	<div class="titlebar"><span class="title">Standard Select</span> (no category, has childdata)</div>
+	<span class="label">Example Name: </span><INPUT TYPE="text" id="F_STD_ExampleName" NAME="F_STD_ExampleName" value="selectpeople"><INPUT TYPE="button" value="load" onclick="loadStandardExample()">
+	<div class="sepline"></div>
+	<div class="options">
+		<label><INPUT TYPE="checkbox" id="F_STD_isMultiple" NAME="F_STD_isMultiple" value="1">is multiple</label>
+		<label><INPUT TYPE="checkbox" id="F_STD_dspResult" NAME="F_STD_dspResult" value="1">display result area</label><br>
+		<label><INPUT TYPE="radio" NAME="F_STD_useDataFormat" value="array">use data from array</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_STD_ArrayData" NAME="F_STD_ArrayData"></div>
+		<label><INPUT TYPE="radio" NAME="F_STD_useDataFormat" value="url(json)">use data from url return json format</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_STD_UrlJsonData" NAME="F_STD_UrlJsonData"></div>
+		<label><INPUT TYPE="radio" NAME="F_STD_useDataFormat" value="url(xml)">use data from url return xml format</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_STD_UrlXmlData" NAME="F_STD_UrlXmlData"></div>
+		<label><INPUT TYPE="radio" NAME="F_STD_useDataFormat" value="function">use data from function return array format</label><br>
+		<div class="options_item_data"><textarea TYPE="text" id="F_STD_FuncData" NAME="F_STD_FuncData"></textarea></div>
+		<div><span class="label">function GetItemData<br>(item,index): </span><textarea class="field" TYPE="text" id="F_STD_fnGetItemData" NAME="F_STD_fnGetItemData" style="height: 100px"></textarea></div>
+	</div>
+	<INPUT TYPE="text" id="F_STD_Value" NAME="F_STD_Value" style="width: 550px">
+	<INPUT class="button" TYPE="button" value="select" onclick="selectSTDValues('F_STD_Value')"><br>
+	
+	<div class="titlebar"><span class="title">Advanced Select</span> (has category)</div>
+	<span class="label">Example Name: </span><INPUT TYPE="text" id="F_ADV_ExampleName" NAME="F_ADV_ExampleName" value="selectpeoplebytree1"><INPUT TYPE="button" value="load" onclick="loadAdvancedExample()">
+	<div class="sepline"></div>
+	<div class="options">
+		<label><INPUT TYPE="checkbox" id="F_ADV_isMultiple" NAME="F_ADV_isMultiple" value="1">is multiple</label>
+		<label><INPUT TYPE="checkbox" id="F_ADV_hasChildItem" NAME="F_ADV_hasChildItem" value="0" onclick="return false;" disabled>has child item</label>
+		<label><INPUT TYPE="checkbox" id="F_ADV_hasChildData" NAME="F_ADV_hasChildData" value="1">has child data</label>
+		<label><INPUT TYPE="checkbox" id="F_ADV_viewDisplayMode" NAME="F_ADV_viewDisplayMode" value="1">display view by tree mode</label>
+		<label><INPUT TYPE="checkbox" id="F_ADV_dspData" NAME="F_ADV_dspData" value="1">display data area</label>
+		<label><INPUT TYPE="checkbox" id="F_ADV_dspResult" NAME="F_ADV_dspResult" value="1">display result area</label><br>
+		<label><INPUT TYPE="radio" NAME="F_ADV_useDataFormat" value="array">use data from array</label><br>		
+		<div class="options_item_data"><INPUT TYPE="text" id="F_ADV_ArrayData" NAME="F_ADV_ArrayData"></div>
+		<label><INPUT TYPE="radio" NAME="F_ADV_useDataFormat" value="url(json)">use data from url return json format</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_ADV_UrlJsonData" NAME="F_ADV_UrlJsonData"></div>
+		<label><INPUT TYPE="radio" NAME="F_ADV_useDataFormat" value="url(xml)">use data from url return xml format</label><br>
+		<div class="options_item_data"><INPUT TYPE="text" id="F_ADV_UrlXmlData" NAME="F_ADV_UrlXmlData"></div>
+		<label><INPUT TYPE="radio" NAME="F_ADV_useDataFormat" value="function">use data from function return array format</label><br>
+		<div class="options_item_data"><textarea TYPE="text" id="F_ADV_FuncData" NAME="F_ADV_FuncData"></textarea></div>
+		<div><span class="label">default category: </span><INPUT class="field" TYPE="text" id="F_ADV_defaultCategory" NAME="F_ADV_defaultCategory"></div>
+		<div><span class="label">function GetItemData<br>(category,path,item,index): </span><textarea class="field" TYPE="text" id="F_ADV_fnGetItemData" NAME="F_ADV_fnGetItemData" style="height: 100px"></textarea></div>
+		
+	</div>
+	<INPUT TYPE="text" id="F_ADV_Value" NAME="F_ADV_Value" style="width: 550px">
+	<INPUT class="button" TYPE="button" value="select" onclick="selectADVValues('F_ADV_Value')"><br>
+	<br><br>
+	</form>
+ </body>
+</html>

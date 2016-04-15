@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> compile class </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" src="../../src/loader.js">
+  $import("js.dom.HTMLForm");
+  $import("js.build.Compressor");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  .label{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 4px;
+	vertical-align: top;
+  }
+  .field{
+	width: 290px;
+  }
+  .index{
+	width: 32px;
+	color: blue;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Compress Class<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<form>
+	<div style="line-height: 1.3em">
+	<span class="label">Class: </span><INPUT class="field" TYPE="text" NAME="F_ClassFullName">
+	<input type="button" value="Get Class Code" onclick="getClassCode()"><br>
+	<span class="label">Compress Options: </span>
+	<label><input type="radio" name="F_Options" value="0">none</label>
+	<label><input type="radio" name="F_Options" value="1" checked>safe</label>
+	<label><input type="radio" name="F_Options" value="2">full</label><br>
+	<span class="label">Class Input: </span><textarea id="F_Input" name="F_Input" rows="7" cols="100"></textarea><br>
+	<span class="label"></span><input type="button" value="Start Compress" onclick="startCompress()"><br>
+	<span class="label">Class Output: </span><textarea id="F_Output" name="F_Output" rows="15" cols="100"></textarea>
+	</form>
+    <script>
+	JSDK.HTMLForm.applyInstance(document.forms[0],"copy");
+	var jsre=JSDK.Engine.runtimeEnvironment;
+	function getClassCode(){
+		var sClassFullName=JSDK.dom("#F_ClassFullName#")[0].value;
+		JSDK.dom("#F_Input")[0].value=JSDK.get("../../src/classes/"
+				+sClassFullName.replace(/\./g,"/")+jsre._fileExtension["class"]["source"]
+			,"",false,"","Text");
+	}
+	function startCompress(){
+		if(!document.getElementsByName("F_Input")[0].value){
+			alert("Please input code!");
+			return;
+		}
+		var compressor=new JSDK.Compressor(parseInt(document.forms[0].getItemValue("F_Options")));
+		JSDK.dom("#F_Output")[0].value=compressor.compress(JSDK.dom("#F_Input")[0].value);
+	}
+	</script>
+	</div>
+ </body>
+</html>

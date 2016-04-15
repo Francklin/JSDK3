@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+ <head>
+  <title> menu </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Cache-Control" Content="no-cache">
+  <meta http-equiv="Pragma" Content="no-cache">
+  <base target="main">
+  <script appMode="sub" include="dom;ui-menu" src="common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTML");
+  $import("js.dom.HTMLForm");
+  $import("js.ui.menu.Outline");
+  </script>
+  <style>
+  *{ margin:0; padding:0; font-size:100%; }
+  html, body{ width:100%;height:100%;overflow:hidden}
+  body,table{
+	font-size: 9pt;
+  }
+  a,a:link,a:visited{
+	color: blue;
+  }
+  #wrapper{
+	width:100%;
+	height: 100%;
+	overflow: auto;
+  }
+  #content{
+	margin: 7px 5px;
+	display: block;
+  }
+  hr{
+	margin: 7px 0px;
+	*margin: auto;
+  }
+  .category{
+	font-weight: bold;
+  }
+  .taskmenu{
+
+  }
+  .taskmenu-category{
+	margin-bottom: 10px;
+	border: solid 1px #2783DE;
+  }
+  .taskmenu-title{
+	line-height: 24px;
+	padding: 0px 5px;
+	font-weight: bold;
+	color: white;
+	background-color: #2783DE;
+  }
+  .taskmenu-content{
+	min-height: 30px;
+	padding: 3px;
+  }
+  .taskmenu-item{
+	line-height: 1.5em;
+  }
+  .taskmenu-item a, .taskmenu-item a:link, .taskmenu-item a:visited{
+	color: black;
+	text-decoration:none;
+	padding-left: 15px;
+	background: url(common/icons/icon01.gif) 1px 1px no-repeat;
+  }
+  .taskmenu-item a:hover{
+	color: blue;
+	text-decoration:underline;
+  }
+  </style>
+  <script>
+  var jsdk_path=jsdk.Engine.runtimeEnvironment.getRootPath().replace(/^[/\\][a-z]:/i,"");
+  </script>
+ </head>
+
+ <body>
+  <div id="wrapper">
+	  <div id="content" class="content">
+		  <div style="display:none;font-weight:bold;font-size: 12pt"><span style="color: blue;font-family:verdana"><span style="color:#71A43E">JS</span>DK3</span><span style="vertical-align:text-top;font-size: 8px;font-family:arial;color:blue">TM</span> Examples <div style="margin-left: 2px;font-family:arial;font-weight:normal;font-size:10pt;margin-top: 4px;"></div></div>
+		  <div style="font-weight:bold;font-size: 12pt"><img src="../src/res/logo/jsdk3-tm-text.png" style="margin-bottom:-3px"> API</div>
+		  <hr>
+		  <div style="text-align:left;margin-left:20px">
+			<a href="main.htm">首页</a>
+			<a href="javascript:outline.expandAll(true);" style="display:none" target=_self>全部展开</a>
+			<a href="javascript:outline.expandAll(false);" style="display:none" target=_self>全部折叠</a>
+			<a href="javascript:window.location.reload();" target=_self>刷新</a>
+		  </div>
+		  <hr>
+		  <div class="taskmenu">
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">基本类型扩展</div>
+				<div class="taskmenu-content">
+					<div class="taskmenu-item"><a href="class.htm?class=String">String</a></div>
+					<div class="taskmenu-item"><a href="class.htm?class=Number">Number</a></div>
+					<div class="taskmenu-item"><a href="class.htm?class=Date">Date</a></div>
+					<div class="taskmenu-item"><a href="class.htm?class=Array">Array</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">增强类型扩展</div>
+				<div class="taskmenu-content">
+					<div class="taskmenu-item"><a href="class.htm?class=js.lang.String">String</a></div>
+					<div class="taskmenu-item"><a href="class.htm?class=js.lang.Number">Number</a></div>
+					<div class="taskmenu-item"><a href="class.htm?class=js.lang.Date">Date</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">常用功能</div>
+				<div class="taskmenu-content">
+				<div class="taskmenu-item"><a href="class.htm?class=js.dom.DOMTemplate">DOM模版</a></div>
+				<div class="taskmenu-item"><a href="class.htm?class=js.dom.HTMLForm">HTML表单</a></div>
+				</div>
+			</div>
+			<div class="taskmenu-category">
+				<div class="taskmenu-title">典型组件</div>
+				<div class="taskmenu-content">
+				<div class="taskmenu-item"><a href="class.htm?class=js.ui.PopupDialog">弹出对话框</a></div>
+				<div class="taskmenu-item"><a href="class.htm?class=js.ui.SelectDialogBox">选择对话框</a></div>
+				<div class="taskmenu-item"><a href="class.htm?class=js.ui.WebReminderDialogBox">提醒对话框</a></div>
+				<div class="taskmenu-item"><a href="class.htm?class=js.ui.menu.PopupMenuLite">弹出菜单</a></div>
+				<div class="taskmenu-item"><a href="class.htm?class=js.ui.menu.Outline">树型菜单</a></div>
+				<div class="taskmenu-item"><a href="class.htm?class=js.ui.table.TableDataEditor">动态表格编辑器</a></div>
+				</div>
+			</div>
+		  </div>
+	  </div>
+   </div>
+ </body>
+</html>

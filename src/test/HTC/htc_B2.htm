@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Test -  HTC on IE or Firefox </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <script debug=false src="../../../src/jsre.js"></script>
+  <script>
+	document.$importBehavior(".tester","./widgets/test/tester1.htc");
+	//document.$importBehavior("#tester","./widgets/test/tester1.htc");
+  </script>
+ </HEAD>
+
+ <BODY>
+	<h3>Test HTC (HTML Component) on IE or Firefox</h3>
+  <form>
+	<script>var thisform=document.forms[0];</script>
+	<TABLE width="100%" height="" border="1">
+	<TR><TD>Gloabl</TD><TD>Element tester</TD></TR>
+	<TR>
+		<TD valign="top">
+			<INPUT TYPE="button" VALUE="createEventObject" ONCLICK="alert(document.createEventObject)"><br>
+			<INPUT TYPE="button" VALUE="innerText" ONCLICK="alert(document.all['output'].innerText)"><br>
+		</TD>
+		<TD>
+			<INPUT class="tester" TYPE="text" id="tester1" NAME="tester1" value="">
+			<INPUT class="tester" TYPE="text" id="tester2" NAME="tester2" value="">
+			<INPUT class="tester" TYPE="text" id="tester3" NAME="tester3" value="">
+			<script>
+			var oTest=thisform.tester1;
+			</script>
+			<hr>
+			---property--------------------<br><br>
+			<INPUT TYPE="button" VALUE="Get enabledSmart" ONCLICK="alert(oTest.enabledSmart);">
+			<br>
+			<INPUT TYPE="button" VALUE="Set enabledSmart" ONCLICK="oTest.enabledSmart=thisform.itmValue1.value;">
+			<INPUT TYPE="text" NAME="itmValue1" value="">
+			<br>
+			<INPUT TYPE="button" VALUE="Set message" ONCLICK="oTest.message=thisform.itmValue2.value;">
+			<INPUT TYPE="text" NAME="itmValue2" value="">
+			<br>
+			<INPUT TYPE="button" VALUE="Get tester" ONCLICK="alert(oTest.tester)"><br>
+			<INPUT TYPE="button" VALUE="Set tester" ONCLICK="oTest.tester=thisform.itmValue3.value;">
+			<INPUT TYPE="text" NAME="itmValue3" value="">
+			<br><br>
+			---method--------------------<br><br>
+			<INPUT TYPE="button" VALUE="say" ONCLICK="oTest.say(thisform.itmSayValue.value)">
+			<INPUT TYPE="text" NAME="itmSayValue" value="">
+			<br><br>
+			---event--------------------<br><br>
+			<INPUT TYPE="button" VALUE="Set event" ONCLICK="oTest.onsay=new Function(thisform.itmValue4.value);">
+			<INPUT TYPE="text" NAME="itmValue4" value="">
+		</TD>
+	</TR>
+	</TABLE>
+	<div id="output" onclick="alert(this.innerText);">temp data</div>
+  </form>
+ </BODY>
+</HTML>

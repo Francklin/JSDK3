@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<items>
+	<item text="海外">
+		<item text="乔丹" value="qiaodan"></item>
+		<item text="贝克汉姆" value="beikehanmu"></item>
+		<item text="布兰妮" value="bulanni"></item>
+		<item text="金喜善" value="jinxishan"></item>
+		<item text="施瓦辛格" value="shiwaxinge"></item>
+	</item>
+	<item text="香港">
+		<item text="成龙" value="chenglong"></item>
+		<item text="周润发" value="zhourunfa"></item>
+		<item text="周星驰" value="zhouxingchi"></item>
+		<item text="郑少秋" value="zhengshaoqiu"></item>
+		<item text="赵雅芝" value="zhaoyazhi"></item>
+	</item>
+	<item text="台湾">
+		<item text="齐秦" value="qiqin"></item>
+		<item text="周华健" value="zhouhuajian"></item>
+		<item text="任贤齐" value="renxianqi"></item>
+		<item text="吴奇隆" value="wuqilong"></item>
+		<item text="高胜美" value="gaoshengmei"></item>
+	</item>
+	<item text="大陆">
+		<item text="王菲" value="wangfei"></item>
+		<item text="赵薇" value="zhaowei"></item>
+		<item text="范冰冰" value="fanbingbing"></item>
+		<item text="陆毅" value="luyi"></item>
+		<item text="孙楠" value="sunnan"></item>
+	</item>
+</items>

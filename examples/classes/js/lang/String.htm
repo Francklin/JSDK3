@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" type="text/css" href="../../../common/common.css"/>
+  <script src="../../../common/loader.js"></script>
+  <script src="../../example.js"></script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<script>
+	//alert(jsdk.obj("") instanceof String);
+	//alert("["+jsdk.obj("mestime@tom.com").left("@").padLeft(10,"_").repeat(3)+"]");
+	//alert("mestime@tom.com".left("@").padLeft(10,"_"));
+	document.write(jsdk.obj("我被截断了多少字！").truncate(10,0,"..."));
+	</script>
+ </body>
+</html>

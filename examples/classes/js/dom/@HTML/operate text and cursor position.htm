@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/loader.js">
+  $import("js.dom.HTML");
+  </script>
+  <script src="../../../example.js"></script>
+  <script>
+	var thisform;
+	function savePos(el){
+		var cursors=jsdk.HTML.getSelectionPositions(el);
+		if(cursors){
+			thisform.start.value=cursors[0];
+			thisform.end.value=cursors[1];
+		}else{
+			thisform.start.value="";
+			thisform.end.value="";
+		}
+	}
+	function savePos1(el){
+		var cursors=jsdk.HTML.getSelectionPositions(el,true);
+		if(cursors){
+			thisform.start1.value=cursors[0];
+			thisform.end1.value=cursors[1];
+		}else{
+			thisform.start1.value="";
+			thisform.end1.value="";
+		}
+	}
+	function getPosition(){
+		thisform.F_Pos.value=jsdk.HTML.getTextCursorPosition(thisform.F_Content);
+	}
+	function getPosition1(){
+		thisform.F_Pos1.value=jsdk.HTML.getTextCursorPosition(jsdk("#F_Content1")[0],true);
+	}
+	function setPosition(){
+		jsdk.HTML.setTextCursorPosition(thisform.F_Content,false,thisform.F_Pos.value);
+	}
+	function setPosition1(){
+		jsdk.HTML.setTextCursorPosition(jsdk("#F_Content1")[0],true,thisform.F_Pos1.value);
+	}
+	function insertText(){
+		jsdk.HTML.insertText(thisform.F_Content,thisform.F_Text.value);
+	}
+	function insertHTML(){
+		jsdk.HTML.insertHTML(jsdk("#F_Content1")[0],thisform.F_HTML.value);
+	}
+	function copyText(){
+		jsdk.HTML.copyToClipboard(thisform.F_Text.value);
+		alert("copy success!");
+	}
+	function copyText1(){
+		jsdk.HTML.copyToClipboard(thisform.F_HTML.value);
+		alert("copy success!");
+	}
+	function pasteText(){
+		alert("to do...");		
+	}
+	function pasteText1(){
+		alert("to do...");	
+	}
+	window.onload=function(){
+		thisform=document.forms[0];
+		document.getElementById("F_Content").attachEvent("onpaste",function(event){
+			jsdk.HTML.pasteText(event||window.event,function(data){
+				return "{[("+data+")]}";
+			},function(newData,oldData){
+				alert("paste success!");
+			});
+		});
+		document.getElementById("F_Content1").attachEvent("onpaste",function(event){
+			jsdk.HTML.pasteText(event||window.event,function(data){
+				return "{[("+data+")]}";
+			},function(newData,oldData){
+				alert("paste success!");
+			});
+		});
+	}
+  </script>
+ </head>
+
+ <body>
+    <h2><script>document.write(example.title)</script></h2>
+	<hr>
+	<h3 align=center>operate text and cursor position</h3>
+	<Form>
+		<table border="0" cellspacing="10" cellpadding="0" align=center>
+		<tr>
+			<td>
+				<div align="center">Text Area</div>
+				<table border="1" cellspacing="0" cellpadding="0">
+					<tr>
+					<td>start:<input name="start" id="start" type="text" size="3"/></td>
+					<td>end:<input name="end" id="end" type="text" size="3"/></td>
+					</tr>
+					<tr>
+					<td colspan="2">
+					<textarea name="F_Content" id="F_Content" onKeyup="savePos(this)" onclick="savePos(this)" style="width:370px;height:230px">Please write some integer in the textbox given below and press "Set Position" button. Press "Get Position" button to get the position of cursor.</textarea>
+					</td>
+					</tr>
+					<tr>
+					<td><input name="F_Pos" id="F_Pos" type="text"/></td>
+					<td><input type="button" value="Get Position" onclick="getPosition()"><input type="button" value="Set Position" onclick="setPosition()"></td>
+					</tr>
+					<tr>
+					<td><input name="F_Text" id="F_Text" type="text"/></td>
+					<td>
+						<input type="button" value="Insert Text" onclick="insertText()"><input type="button" value="copy Text" onclick="copyText()"><input type="button" value="paste Text" onclick="pasteText()">
+					</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<div align="center">RichText Area</div>
+				<table border="1" cellspacing="0" cellpadding="0">
+					<tr>
+					<td>start:<input name="start1" id="start1" type="text" size="3"/></td>
+					<td>end:<input name="end1" id="end1" type="text" size="3"/></td>
+					</tr>
+					<tr>
+					<td colspan="2">
+					<div id="F_Content1" contenteditable="true" onkeyup="savePos1(this)" onclick="savePos1(this)" style="width:370px;height:230px">Please write some integer in the textbox given below and press "Set Position" button. Press "Get Position" button to get the position of cursor.</div>
+					</td>
+					</tr>
+					<tr>
+					<td><input name="F_Pos1" id="F_Pos1" type="text"/></td>
+					<td><input type="button" value="Get Position" onclick="getPosition1()"><input type="button" value="Set Position" onclick="setPosition1()"></td>
+					</tr>
+					<tr>
+					<td><input name="F_HTML" id="F_HTML" type="text"/></td>
+					<td><input type="button" value="Insert HTML" onclick="insertHTML()"><input type="button" value="copy Text" onclick="copyText()"><input type="button" value="paste Text" onclick="pasteText()"></td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		</table>
+
+	</Form>
+ </body>
+</html>

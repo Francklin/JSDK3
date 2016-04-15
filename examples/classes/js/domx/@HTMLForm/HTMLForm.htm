@@ -1,0 +1,641 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script include="domx2;ui" src="../../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTMLForm");
+  $import("js.domx.DOM");
+  $import("js.domx.DOMObject");
+  $import("js.domx.DOMNode");
+  $import("js.domx.DOMNodeList");
+  $import("js.domx.DOMText");
+  $import("js.domx.DOMComment");
+  $import("js.domx.DOMAttribute");
+  $import("js.domx.DOMElement");
+  $import("js.domx.DOMDocument");
+  $import("js.domx.XML");
+  $import("js.domx.XMLNode");
+  $import("js.domx.XMLNodeList");
+  $import("js.domx.XMLText");
+  $import("js.domx.XMLComment");
+  $import("js.domx.XMLAttribute");
+  $import("js.domx.XMLElement");
+  $import("js.domx.XMLDocument");
+  $import("js.domx.HTML");
+  $import("js.domx.HTMLNode");
+  $import("js.domx.HTMLNodeList");
+  $import("js.domx.HTMLText");
+  $import("js.domx.HTMLComment");
+  $import("js.domx.HTMLAttribute");
+  $import("js.domx.HTMLElement");
+  $import("js.domx.HTMLDocument");
+  $import("js.domx.HTMLForm");
+  $import("js.domx.HTMLFormField");
+  $import("js.domx.HTMLTextField");
+  $import("js.domx.HTMLSelectField");
+  $import("js.domx.HTMLNumberField");
+  $import("js.domx.HTMLDateField");
+  $import("js.text.validator.Validator");
+  $import("js.ui.PopupDialog");
+  </script>
+  <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+  <script src="../../../example.js"></script>
+  <style>
+
+	.label{
+		width: 130px;
+		display: inline-block;
+	}
+	.labelx{
+		width: 130px;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.fields input[type="text"]{
+		width: 250px;
+	}
+	.fields textarea{
+		width: 250px;
+	}
+	.fields input[type="file"]{
+		width: 339px;
+	}
+  </style>
+  <script>
+  var thisform,thatform;
+  jsdk.PopupDialog.setStyleSkin("std");
+  window.onload=function(){
+	thisform=document.forms[0];
+	thatform=jsdk.js.domx.HTMLForm.newInstanceFrom(document.forms[0]);
+	var validator=new jsdk.Validator();
+	validator.addRule("FileExtName","FileExtName",".jpg;.jpeg;.gif;.bmp;.png","Please select image file!");
+	validator.setDefaultRule("FileExtName");
+	thatform.addFieldFrom("F_Subject",{
+		label: "Subject",
+		dataType: "Text",
+		unfilledPrompt: "Please input subject!",
+		allowEmpty: false,
+		isReadOnly: false,
+		maxValue: 30
+	});
+	thatform.addFieldFrom("F_Category",{
+		label: "Category",
+		dataType: "Text",
+		separator: ";",
+		unfilledPrompt: "Please input category!",
+		allowEmpty: true,
+		allowMultiple: false,
+		allowNotInList: true,
+		isReadOnly: false,		//当为只读时，需要配合读状态改变事件把按钮设置为禁用
+		optionalValues: "->#L_Category",
+		onEvents:{
+			onSelect: function(event,optionalValues,callBack){
+				var _this=this;
+				var sep=this.getSeparator();
+				var allowMultiple=this.getAllowMultiple();
+				var owner=this.getOriginal();
+				jsdk.PopupDialog.show(
+					"Selector/selector.tpl.htm",
+					{
+						para: {
+							values: [],
+							isMulti: allowMultiple,
+							optionalValues: this.getOptionalValues()
+						},
+						init: function(oDialog,oContainer){
+							var thisform=jsdk.dom("form",oContainer)[0];
+							jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+							jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+								var value=thisform.getItemValue("F_Value");
+								if(!(value instanceof Array)){
+									oDialog.returnValue=[value];
+								}else{
+									oDialog.returnValue=value;
+								}
+								oDialog.hide();
+							});
+							jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+								oDialog.hide();
+							});
+						}
+					},
+					{
+						owner: this.getOriginal(),
+						event: event||window.event,
+						driver: "template",
+						mode: 1
+					},
+					{
+						width: 200,
+						height: 200,
+						style: "Selector/"+(jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"selector.IE.css":"selector.css")
+					},
+					function(vReturnValue){
+						if(vReturnValue!=undefined){
+							_this.setDataValue(!allowMultiple?vReturnValue.join(sep):vReturnValue);
+						}
+						//alert('return ok!');
+						callBack(0);
+					}
+				)
+			},
+			onValueChanged: function(dataValue){
+				//alert(dataValue);
+			}
+		}
+	});
+	thatform.addFieldFrom("F_Version",{
+		label: "Version",
+		dataType: "Text",
+		unfilledPrompt: "Please input version!",
+		allowEmpty: true
+	});
+	thatform.addFieldFrom("F_Author",{
+		label: "Author",
+		dataType: "Text",
+		dataField: "F__Author",
+		separator: ";",
+		unfilledPrompt: "Please input author!",
+		allowEmpty: false,
+		allowMultiple: true,
+		allowKeywordSyno: true,
+		allowNotInList: false,
+		isReadOnly: false,
+		optionalValues: "刘德华|liudehua;郭富城|guofucheng;赵雅芝|zhaoyazhi;赵薇|zhaowei",
+		onEvents: {
+			onSelect: function(event,optionalValues,callBack){
+				var _this=this;
+				var sep=this.getSeparator();
+				var allowMultiple=this.getAllowMultiple();
+				var owner=this.getOriginal();
+				jsdk.PopupDialog.show(
+					"Selector/selector.tpl.htm",
+					{
+						para: {
+							values: [],
+							isMulti: allowMultiple,
+							allowKeywordSyno: true,
+							optionalValues: this.getOptionalValues()
+						},
+						init: function(oDialog,oContainer){
+							var thisform=jsdk.dom("form",oContainer)[0];
+							jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+							jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+								var value=thisform.getItemValue("F_Value");
+								if(!(value instanceof Array)){
+									oDialog.returnValue=[value];
+								}else{
+									oDialog.returnValue=value;
+								}
+								oDialog.hide();
+							});
+							jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+								oDialog.hide();
+							});
+						}
+					},
+					{
+						owner: this.getOriginal(),
+						event: event||window.event,
+						driver: "template",
+						mode: 1
+					},
+					{
+						width: 200,
+						height: 200,
+						style: "Selector/"+(jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"selector.IE.css":"selector.css")
+					},
+					function(vReturnValue){
+						if(vReturnValue!=undefined){
+							_this.setDataValue(!allowMultiple?vReturnValue.join(sep):vReturnValue);
+						}
+						//alert('return ok!');
+						callBack(0);
+					}
+				)
+			}
+		}
+	});
+	thatform.addFieldFrom("F_Helper",{
+		label: "Helper",
+		dataType: "Text",
+		dataField: "F__Helper",
+		separator: ";",
+		unfilledPrompt: "Please input helper!",
+		allowEmpty: true,
+		allowMultiple: true,
+		allowKeywordSyno: true,
+		allowNotInList: false,
+		optionalValues: function(){
+			var nodes=jsdk.js.domx.XMLDocument.newInstanceFrom(jsdk.get("data/people.xml","",true,"","XML"))
+					.selectNodes("items//item[count(item)=0]").toArray();
+			return nodes.map(function(node){
+				return [node.getAttribute("text"),node.getAttribute("value")];
+			});
+		}(),
+		onEvents: {
+			onSelect: function(event,optionalValues,callBack){
+				var _this=this;
+				var sep=this.getSeparator();
+				var allowMultiple=this.getAllowMultiple();
+				var owner=this.getOriginal();
+				jsdk.PopupDialog.show(
+					"Selector/selector.tpl.htm",
+					{
+						para: {
+							values: [],
+							isMulti: allowMultiple,
+							allowKeywordSyno: true,
+							optionalValues: this.getOptionalValues()
+						},
+						init: function(oDialog,oContainer){
+							var thisform=jsdk.dom("form",oContainer)[0];
+							jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+							jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+								var value=thisform.getItemValue("F_Value");
+								if(!(value instanceof Array)){
+									oDialog.returnValue=[value];
+								}else{
+									oDialog.returnValue=value;
+								}
+								oDialog.hide();
+							});
+							jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+								oDialog.hide();
+							});
+						}
+					},
+					{
+						owner: this.getOriginal(),
+						event: event||window.event,
+						driver: "template",
+						mode: 1
+					},
+					{
+						width: 200,
+						height: 200,
+						style: "Selector/"+(jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"selector.IE.css":"selector.css")
+					},
+					function(vReturnValue){
+						if(vReturnValue!=undefined){
+							_this.setDataValue(!allowMultiple?vReturnValue.join(sep):vReturnValue);
+						}
+						//alert('return ok!');
+						callBack(0);
+					}
+				)
+			},
+			onReadStateChanged: function(isReadOnly){
+				thisform.btnSelectHelper.disabled=isReadOnly;
+			}
+		}
+	});
+	thatform.addFieldFrom("F_Others",{
+		label: "Ohters",
+		dataType: "Text",
+		dataField: "F__Others",
+		separator: ";",
+		unfilledPrompt: "Please select other persons!",
+		allowEmpty: true,
+		allowMultiple: true,
+		allowKeywordSyno: true,
+		allowNotInList: false,
+		optionalValues: "",
+		onEvents: {
+			onSelect: function(event,optionalValues,callBack){
+				var _this=this;
+				var sep=this.getSeparator();
+				var allowMultiple=this.getAllowMultiple();
+				var owner=this.getOriginal();
+				jsdk.PopupDialog.show(
+					"Selector/selector1.tpl.htm",
+					{
+						para: {
+							values: [],
+							isMulti: allowMultiple,
+							allowKeywordSyno: true,
+							optionalValues: function(){
+								var nodes=jsdk.js.domx.XMLDocument.newInstanceFrom(jsdk.get("data/people.xml","",true,"","XML"))
+										.selectNodes("items//item[count(item)=0]").toArray();
+								return nodes.map(function(node){
+									return [node.getAttribute("text"),node.getAttribute("value")];
+								});
+							}()
+						},
+						init: function(oDialog,oContainer){
+							var thisform=jsdk.dom("form",oContainer)[0];
+							jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+							jsdk.dom("#btnOK#",oContainer)[0].attachEvent("onclick",function(){
+								var value=thisform.getItemValue("F_Value");
+								if(!(value instanceof Array)){
+									oDialog.returnValue=[value];
+								}else{
+									oDialog.returnValue=value;
+								}
+								oDialog.hide();
+							});
+							jsdk.dom("#btnCancel#",oContainer)[0].attachEvent("onclick",function(){
+								oDialog.hide();
+							});
+						}
+					},
+					{
+						owner: this.getOriginal(),
+						event: event||window.event,
+						driver: "template",
+						mode: 1
+					},
+					{
+						width: 200,
+						height: 200,
+						style: "Selector/"+(jsdk.Browser.Engine.trident&&document.compatMode!="CSS1Compat"?"selector.IE.css":"selector.css")
+					},
+					function(vReturnValue){
+						if(vReturnValue!=undefined){
+							_this.setStoreValues(
+								vReturnValue.map(function(item){
+									return item.word("|",0);
+								}).join(sep),
+								vReturnValue.map(function(item){
+									return item.word("|",1);
+								}).join(sep)
+							);
+						}
+						//alert('return ok!');
+						callBack(0);
+					}
+				)
+			},
+			onReadStateChanged: function(isReadOnly){
+				thisform.btnSelectOthers.disabled=isReadOnly;
+			}
+		}
+	});
+	thatform.addFieldFrom("F_PhoneNumber",{
+		label: "Phone Number",
+		dataType: "Number",
+		allowEmpty: false,
+		onEvents: {
+			onValidate: function(){
+				if(this.getDataText().length!=11){
+					alert("Please input a length as 11 of the number!");
+					return false;
+				}
+				return true;
+			}
+		}
+	});
+	thatform.addFieldFrom("F_FromDate",{
+		label: "From Date",
+		dataType: "Date",
+		allowEmpty: false,
+		//allowKeyInput: false,
+		isReadOnly: false,
+		onEvents: {
+			onSelect: function(event,dateOptions,callBack){
+				WdatePicker({el: this.getOriginal(), onpicked: function(){
+					callBack(0);
+				}});
+			}
+		}
+	});
+	thatform.addFieldFrom("F_ToDate",{
+		label: "To Date",
+		dataType: "Date",
+		allowEmpty: false,
+		isReadOnly: true,
+		minValue: "->#F_FromDate",
+		onEvents: {
+			onSelect: function(event,dateOptions,callBack){
+				WdatePicker({el: this.getOriginal(), onpicked: function(){
+					callBack(0);
+				}});
+			}
+		}
+	});
+	/*
+	thatform.addFieldFrom("F_isPublic",{
+		label: "Is Public",
+		dataType: "Select",
+		allowEmpty: false
+	});
+	*/
+	thatform.addFieldFrom("F_Reads",{
+		label: "Reads",
+		dataType: "Number",
+		allowEmpty: true,
+		minValue: 5,
+		maxValue: 10
+	});
+	thatform.addFieldFrom("F_Edits",{
+		label: "Edits",
+		dataType: "Number",
+		allowEmpty: true,
+		onEvents: {
+			"onValidate": function(isSubmiting){
+				var thisform=document.forms[0];
+				if(thisform.F_Reads.value!=""){
+					var allowEmpty=this.getAllowEmpty();
+					this.setAllowEmpty(false);
+					var flag=![0,1].some(function(mode){
+						return !this.validate(mode,isSubmiting);
+					},this);
+					this.setAllowEmpty(allowEmpty);
+					return flag;
+				}
+				return true;
+			}
+		},
+		minValue: 0,
+		maxValue: "->#F_Reads"
+	});
+	window.hhhh=thatform.addFieldFrom("F_Number",{
+		label: "Number",
+		dataType: "Number",
+		allowEmpty: true
+	});
+	thatform.addFieldFrom("F_LogoImage",{
+		label: "Logo",
+		dataType: "Text",
+		allowEmpty: false,
+		unfilledPrompt: "Please select logo image!",
+		onEvents: {
+			"onValidate": function(isSubmiting){
+				var thisform=document.forms[0];
+				var fileName=jsdk.obj(">"+this.getDataValue()).xsplit("first",["/","\\",">"]).pop();
+				var vResult=validator.validate("FileExtName",fileName);
+				if(!vResult[0]){
+					alert(vResult[1]);
+					if(isSubmiting) this.getOriginal().focus();
+					return false;
+				}
+				return true;
+			}
+		}
+	});
+	thatform.addFieldFrom("F_Memo",{
+		label: "Memo",
+		dataType: "Text",
+		unfilledPrompt: "Please input memo!",
+		allowEmpty: true,
+		isAutoHeight: true,
+		minRows: 3
+		//maxRows: 10
+	});
+	thatform.addFieldFrom("F_Memo1",{
+		label: "Memo",
+		dataType: "Text",
+		unfilledPrompt: "Please input memo!",
+		allowEmpty: true,
+		isAutoHeight: true
+	});
+	thatform.addFieldFrom("F_Memo2",{
+		label: "Memo",
+		dataType: "Text",
+		unfilledPrompt: "Please input memo!",
+		allowEmpty: true,
+		isAutoHeight: true
+	});
+	thatform.addAdjustHandle("F_Category",function(field){
+		switch(field.getDataValue()){
+			case "软件信息":
+				//var lbl_version=jsdk.dom("#lbl_version")[0];
+				var F_Version=thatform.getFieldByName("F_Version").getOriginal();
+				//F_Version.style.display="";
+				F_Version.parentNode.parentNode.parentNode.style.display="";
+				break;
+			default:
+				//var lbl_version=jsdk.dom("#lbl_version")[0];
+				var F_Version=thatform.getFieldByName("F_Version").getOriginal();
+				//F_Version.style.display="none";
+				F_Version.value="";
+				F_Version.parentNode.parentNode.parentNode.style.display="none";
+		}
+	});
+	thatform.addAdjustHandle("F_Category",function(field){
+		switch(field.getDataValue()){
+			case "软件信息":
+				var F_Helper=thatform.getFieldByName("F_Helper");
+				F_Helper.setIsReadOnly(true);
+				break;
+			default:
+				var F_Helper=thatform.getFieldByName("F_Helper");
+				F_Helper.setIsReadOnly(false);
+		}
+	});
+	thatform.adjust();
+	thisform.btnSubmit.onclick=function(){
+		if(thatform.validate()){
+			alert("OK!");
+		}
+	}
+  }
+  </script>
+ </head>
+
+ <body>
+	<h3><script>document.write(example.title)</script></h3>
+	<div>updated: 2014.6.3</div>
+	<hr>
+	<Form>
+	<input type="hidden" name="L_Category" value="新闻;广告;评论;软件信息;个人日志">
+	<TABLE class="content" width="100%" border="0" bordercolor="gray" cellspacing="0" cellpadding="3" style="border-collapse:collapse">
+	<TR>
+		<TD>
+			<span class="label">Subject: </span><span class="fields"><input type="text" name="F_Subject"></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Category: </span><span class="fields"><input type="text" name="F_Category"><input type="button" value="Select" onclick="thatform.getFieldByName('F_Category').selectValues(event)"></span><br>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span id="lbl_version" class="label">Version: </span><span class="fields"><input type="text" name="F_Version"></span><br>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Author: </span><span class="fields"><input type="text" name="F__Author" title="实际使用时需隐藏" style="background-color: darkgray" readonly><input type="text" name="F_Author"><input type="button" value="Select" onclick="thatform.getFieldByName('F_Author').selectValues(event);"></span><br>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Helper: </span><span class="fields"><input type="text" name="F__Helper" title="实际使用时需隐藏" style="background-color: darkgray" readonly><input type="text" name="F_Helper"><input name="btnSelectHelper" type="button" value="Select" onclick="thatform.getFieldByName('F_Helper').selectValues(event);"></span><br>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Others: </span><span class="fields"><input type="text" name="F__Others" title="实际使用时需隐藏" style="background-color: darkgray" readonly><input type="text" name="F_Others"><input name="btnSelectOthers" type="button" value="Select" onclick="thatform.getFieldByName('F_Others').selectValues(event);"></span><br>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Phone Number: </span><span class="fields"><input type="text" name="F_PhoneNumber"> (长度为11位)</span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">From Date: </span><span class="fields"><input type="text" name="F_FromDate">
+			<input type="button" value="Select" onclick="thatform.getFieldByName('F_FromDate').selectValues(event)"></span><br>
+			<span class="label">To Date: </span><span class="fields"><input type="text" name="F_ToDate">
+			<input type="button" value="Select" onclick="thatform.getFieldByName('F_ToDate').selectValues(event)"></span><br>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Is Public: </span><span class="fields"><label><input type="radio" name="F_isPublic" value="1">Yes</label><label><input type="radio" name="F_isPublic" value="0">No</label></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Reads: </span><span class="fields"><input type="text" name="F_Reads"></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Edits: </span><span class="fields"><input type="text" name="F_Edits"></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Number: </span><span class="fields"><input type="text" name="F_Number"> (可为负数)</span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="label">Logo: </span><span class="fields"><input type="file" id="F_LogoImage"></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="labelx">Memo: </span><span class="fields"><textarea name="F_Memo" rows="3">111&#10;222&#10;333&#10;444&#10;555&#10;666</textarea></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="labelx">Memo1: </span><span class="fields"><textarea name="F_Memo1" rows="3">111&#10;222&#10;333</textarea></span>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<span class="labelx">Memo2: </span><span class="fields"><textarea name="F_Memo2" rows="2">77777&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;77777777&#10;88888&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&amp;nbsp;888888&#10;9999999999</textarea></span>
+		</TD>
+	</TR>
+	</TABLE>
+	<br>
+	<input type=button name="btnSubmit" value="提交" style="margin-right: 20px">
+	<input type="text" name="F_Value1"><input type=button name="btnSetReads" value="设置Reads" onclick="thatform.setFieldDataValue('F_Reads',parseFloat('0'+thisform.F_Value1.value))">
+	<script>
+		//document.forms[0].F_Memo.value="111\n222\n333\n444\n555\n666";
+	</script>
+	<input type="button" value="ssss" onclick="alert(document.forms[0].F_Memo.scrollTop)">
+	</Form>
+ </body>
+</html>

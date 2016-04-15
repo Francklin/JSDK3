@@ -1,0 +1,17 @@
+<div class="Selector">
+<form>
+	<div class="List">
+	  <% for(var n = 0; n < para.optionalValues.length; n++) {
+		  var value = para.optionalValues[n];
+	  %>
+	  <div class="ListItem"><label><input name="F_Value" 
+			type="<%= para.isMulti?"checkbox":"radio" %>" value="${value}"
+			<%= value.equal(para.values)?"checked":"" %>>${value}</label></div>
+	  <% }  %>
+	</div>
+	<div class="ActionBar">
+		<input class="ActionBarItem" id="btnOK" name="btnOK" type="button" value="确定" onclick="">
+		<input class="ActionBarItem" id="btnCancel" name="btnCancel" type="button" value="取消" onclick="">
+	</div>
+</form>
+</div>

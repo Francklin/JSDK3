@@ -1,0 +1,25 @@
+{
+manifest : {
+"name" : "dom",
+"file" : "dom.js",
+"version" : "1.8",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013.12.9",
+"modified": "2014.08.14"
+},
+entity : [
+	"lib/classes/dom.json"
+],
+comment: ""
++"/** \n"
++" * JSDK3 base DOM Classes Library File \n"
++" * @file: dom.js \n"
++" * @version: V1.8 \n"
++" * @author: liu denggao \n"
++" * @modified: 2014.08.14 \n"
++" * @mail: francklin.liu@gmail.com \n"
++" * @homepage: http://www.tringsoft.com \n"
++" ************************************************/ \n\n",
+output : "lib\\resources\\dom.1.8.js"
+}

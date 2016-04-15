@@ -1,0 +1,81 @@
+.MessageBox{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-size: 9pt;
+	text-align: left;
+	overflow: hidden;
+}
+.MessageBox .box{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom:0;
+	width: auto;
+	height: auto;
+	border: solid 1px #0368FA;
+	overflow: hidden;
+}
+.MessageBox .TitleBar{
+	height: 20px;
+	color: white;
+	font-weight: bold;
+	line-height: 20px;
+	background-color: #0368FA;
+}
+.MessageBox .TitleBar .title{
+	float: left;
+	background-color: transparent;
+}
+.MessageBox .TitleBar .SysActionBar{
+	float: right;
+	margin-top: 1px;
+	*margin-top: 0px;
+	margin-right: 3px;
+}
+.MessageBox .TitleBar .SysActionBarItem{
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: normal;
+	color: black;
+	cursor: pointer;
+	overflow: hidden;
+}
+.MessageBox .TitleBar .SysActionBarItem img{
+	vertical-align: top;
+}
+.MessageBox .TitleBar #s_btnClose{
+	color: white;
+	background-color: red;
+}
+.MessageBox .Body{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: auto;
+	height: auto;
+	padding: 1px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	overflow: hidden;
+}
+.MessageBox .ActionBar{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 29px;
+	text-align: center;
+	border-top: solid 1px gray;
+	overflow:hidden;
+}
+.MessageBox .ActionBarItem{
+	width: 70px;
+	margin: 3px 7px;
+	*padding-top: 1px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - classes - js.detect.shell.Browser </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  </style>
+ </head>
+
+ <body>
+	<h2>Examples - Global.newId(<span class="FunPara">iTimelyOptions</span>,<span class="FunPara">iLen</span>)</h2>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div style="font-family:宋体">
+	<script>
+	var values=[];
+	document.write(jsdk.newId()+"<br>");
+	for(var i=0;i<1000;i++){
+		var value=values[values.length]=jsdk.newId(1,11);
+		document.write(value+"<br>");
+	}
+	document.write("<hr>");
+	document.write("重复个数："+(values.length-values.unique().length));
+	</script>
+	</div>
+ </body>
+</html>

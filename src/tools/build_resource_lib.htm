@@ -1,0 +1,139 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> build - resources lib </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" develop="false" include="" src="../../src/loader.js">
+  $import("js.build.Packager");
+  $import("js.ui.menu.PopupMenuLite");
+  </script>
+  <style>
+  .label{
+	width:80px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: -2px;
+  }
+  .field{
+	width: 550px;
+  }
+  table th{
+	text-align: left;
+  }
+  </style>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+
+ </head>
+
+ <body>
+	<h4>Build - Resources Lib<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<form>
+	<script>
+	var thisform=document.forms[0];
+	</script>
+	<div class="options" style="line-height: 1.8em">
+	<span class="label">Config: </span><INPUT class="field" TYPE="text" NAME="F_ConfigFile"><input type="button" value="Load" 
+		onclick="loadConfig()"><br>
+	<span class="label">Version: </span><INPUT class="field" TYPE="text" NAME="F_Version"><br>
+	<span class="label">Comment: </span><TEXTAREA class="field" NAME="F_Comment" ROWS="7" COLS="60"></TEXTAREA><br>
+	<span class="label">Entity: </span><TEXTAREA class="field" NAME="F_Entity" ROWS="7" COLS="60"></TEXTAREA><br>
+	<div style="margin: 10px 0px"><span class="label"></span><input type="checkbox" name="F_isCompress" value="1">Compress</div>
+	<span class="label">SavePath: </span><INPUT class="field" TYPE="text" NAME="F_SavePath"><input type="button" value="Start" 
+		onclick="startBuild()"><br>
+	</form>
+	</div>
+	<hr>
+	<table id="result" class="result" width="100%" border="1">
+		<thead>
+		<tr>
+			<th width="70" style="text-align:center">Status</th>
+			<th>Resource</th>
+		</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<hr>
+	<div id="out"></div>
+    <script>
+	var packager=new JSDK.Packager(JSDK.Packager.MODE.RESOURCE);
+	packager.attachEvent("onPackagingResFile",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		document.all['out'].appendChild(document.createElement("div")).innerText="正在打包资源文件\""+sFilePath+"\"...";
+	});
+	packager.attachEvent("onPackageResFileError",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		var errors=oEvent.result.errors;
+		document.all['out'].appendChild(document.createElement("div")).innerText="打包资源文件\""+sFilePath+"\"时产生部分错误！\n错误为：\n";
+		for(var i=0;i<errors.length;i++){
+			document.all['out'].appendChild(document.createElement("div")).innerText=errors[i].description;
+		}
+	});
+	packager.attachEvent("onPackageResFileFail",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		var error=oEvent.result.error;
+		with(table.insertRow()){
+			insertCell().innerHTML="<img src=\"../res/icons/error.gif\">";
+			insertCell();
+			insertCell().innerHTML=sFilePath;
+		}
+		document.all['out'].appendChild(document.createElement("div")).innerText="打包资源文件\""+sFilePath+"\"失败！\n错误为：\n";
+		document.all['out'].appendChild(document.createElement("div")).innerText=error.description;
+	});
+	packager.attachEvent("onPackageResFileSuccess",function(oEvent){
+		var sFilePath=oEvent.result.filePath;
+		var table=document.all['result'];
+		with(table.insertRow()){
+			with(insertCell()){
+				style.textAlign="center";
+				innerHTML="<img src=\"../res/icons/ok.gif\">";
+			}
+			insertCell().innerHTML=sFilePath;
+		}
+	});
+	packager.attachEvent("onCompleted",function(oEvent){
+		document.all['out'].appendChild(document.createElement("div")).innerText="";
+		document.all['out'].appendChild(document.createElement("div")).innerText="已输出所有资源文件内容到目标库文件\""+oEvent.result.output+"\"上!";
+	});
+	var config;
+	function loadConfig(){
+		var sCfgFile=document.getElementsByName("F_ConfigFile")[0].value;
+		if(!sCfgFile){
+			alert("Please input config file path!");
+			return;
+		}
+		config=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()+"/"+sCfgFile,"",false,"","JSON");
+		document.getElementsByName("F_Version")[0].value=config.manifest.version;
+		document.getElementsByName("F_Comment")[0].value=config.comment||"";
+		document.getElementsByName("F_Entity")[0].value=config.entity.join("\n");
+		document.getElementsByName("F_SavePath")[0].value=config.output;
+	}
+	function startBuild(){
+		if(!config) {
+			alert("Please first load config data!");
+			return;
+		}else if(!document.getElementsByName("F_SavePath")[0].value){
+			alert("Please input save path!");
+			return;
+		}
+		config.manifest.version=document.getElementsByName("F_Version")[0].value;
+		packager.setIsCompress(document.getElementsByName("F_isCompress")[0].checked);
+		packager.clearEmpty();
+		document.all['result'].tBodies[0].innerHTML="";
+		document.all['out'].innerHTML="";
+		for(var i=0,iLen=config.entity.length;i<iLen;i++){
+			packager.addFile(config.entity[i]);
+		}
+		packager.build('/* @created: '+Date().toString()+'*/',config.manifest,"",document.getElementsByName("F_SavePath")[0].value)
+	}
+	</script>
+	</div>
+ </body>
+</html>

@@ -1,0 +1,25 @@
+{
+manifest : {
+"name" : "config",
+"file" : "config.js",
+"version" : "1.0",
+"description" : "",
+"author" : "liu denggao",
+"created": "2013.12.11",
+"modified": "2013.12.11"
+},
+entity : [
+	"config.json",
+],
+comment: ""
++"/** \n"
++" * JSDK3 Config Script File \n"
++" * @file: config.js \n"
++" * @version: V1.0 \n"
++" * @author: liu denggao \n"
++" * @modified: 2013.12.11 \n"
++" * @mail: francklin.liu@gmail.com \n"
++" * @homepage: http://www.tringsoft.com \n"
++" ************************************************/ \n\n",
+output : "lib\\resources\\config.js"
+}

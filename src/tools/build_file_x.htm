@@ -1,0 +1,81 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> build - file </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>var startDate=new Date();</script>
+  <script appName="JSDK" debug="false" src="../../src/loader.js">
+  $import("js.build.Compressor");
+  $import("js.build.JSTemplate");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+  var isLoaded=typeof(JSDK)!="undefined";
+  </script>
+  <style>
+  .label{
+	width:80px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 2px;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h4>Build - File<script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+	<span class="label">Config: </span><INPUT TYPE="text" NAME="F_ConfigFile"><input type="button" value="Load" 
+		onclick="loadConfig()"><br>
+	<span class="label">Comment: </span><TEXTAREA NAME="F_Comment" ROWS="7" COLS="60"></TEXTAREA><br>
+	<span class="label">Entity: </span><TEXTAREA NAME="F_Source" ROWS="7" COLS="60"></TEXTAREA><br>
+	<div style="margin: 10px 0px"><span class="label"></span><input type="checkbox" name="F_isCompress" value="1">Compress</div>
+	<span class="label">SavePath: </span><INPUT TYPE="text" NAME="F_SavePath"><input type="button" value="Start" 
+		onclick="startBuild()">
+	<hr>
+	<div id="out"></div>
+    <script>
+	var config;
+	var compressor=new JSDK.Compressor(1);
+	function loadConfig(){
+		var sCfgFile=document.getElementsByName("F_ConfigFile")[0].value;
+		if(!sCfgFile){
+			alert("Please input config file path!");
+			return;
+		}
+		config=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()+"/"+sCfgFile,"",false,"","JSON");
+		document.getElementsByName("F_Comment")[0].value=config.comment||"";
+		document.getElementsByName("F_Source")[0].value=JSDK.get(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()
+											+"/"+config.source,"",false,"","Text");
+		document.getElementsByName("F_SavePath")[0].value=config.output;
+	}
+	function startBuild(){
+		if(!config) {
+			alert("Please first load config data!");
+			return;
+		}else if(!document.getElementsByName("F_SavePath")[0].value){
+			alert("Please input save path!");
+			return;
+		}
+		document.all['out'].innerHTML="start processing...";
+		var sOutput=JSDK.getURIFullPath(JSDK.Engine.runtimeEnvironment.getRootPath().slice(1).replace(/\//g,"\\"),document.getElementsByName("F_SavePath")[0].value,"\\");
+		var tpl = JSDK.JSTemplate.newInstanceWithUrl(location.protocol+"//"+JSDK.Engine.runtimeEnvironment.getAppFullPath()
+						+"/"+config.source);
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var file = fso.CreateTextFile(sOutput, true,false);
+		if(!document.getElementsByName("F_isCompress")[0].checked){
+			file.WriteLine(document.getElementsByName("F_Comment")[0].value);
+			file.WriteLine(tpl.parse());
+		}else{
+			file.Write(compressor.compress([document.getElementsByName("F_Comment")[0].value,tpl.parse()].join(JSDK.STR_NewLine)));
+		}
+		file.Close();
+		document.all['out'].innerHTML="OK!";
+	}
+	</script>
+	</div>
+ </body>
+</html>

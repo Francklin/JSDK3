@@ -1,0 +1,9 @@
+{
+	items:[
+		"刘德华|liudehua",
+		"梁朝伟|liangchaowei",
+		{ text: "刘嘉玲", value: "liujialing" },	/* 另一中写法 */
+		["谢霆锋","xietingfeng"],					/* 另一中写法 */
+		"周润发|zhourunfa"
+	]
+}

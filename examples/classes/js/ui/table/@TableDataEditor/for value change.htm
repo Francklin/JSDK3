@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples - Class: js.ui.table.TableDataEditor (for value change) </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../../common/common.css"/>
+  <script include="domx2" src="../../../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  $import("js.dom.HTMLForm");
+  $import("js.domx.DOM");
+  $import("js.domx.DOMObject");
+  $import("js.domx.DOMNode");
+  $import("js.domx.DOMNodeList");
+  $import("js.domx.DOMText");
+  $import("js.domx.DOMComment");
+  $import("js.domx.DOMAttribute");
+  $import("js.domx.DOMElement");
+  $import("js.domx.DOMDocument");
+  $import("js.domx.XML");
+  $import("js.domx.XMLNode");
+  $import("js.domx.XMLNodeList");
+  $import("js.domx.XMLText");
+  $import("js.domx.XMLComment");
+  $import("js.domx.XMLAttribute");
+  $import("js.domx.XMLElement");
+  $import("js.domx.XMLDocument");
+  $import("js.domx.HTML");
+  $import("js.domx.HTMLNode");
+  $import("js.domx.HTMLNodeList");
+  $import("js.domx.HTMLText");
+  $import("js.domx.HTMLComment");
+  $import("js.domx.HTMLAttribute");
+  $import("js.domx.HTMLElement");
+  $import("js.domx.HTMLDocument");
+  $import("js.domx.HTMLForm");
+  $import("js.domx.HTMLFormField");
+  $import("js.domx.HTMLTextField");
+  $import("js.domx.HTMLSelectField");
+  $import("js.domx.HTMLNumberField");
+  $import("js.domx.HTMLDateField");
+  $import("js.ui.PopupDialog");
+  $import("js.ui.table.TableDataEditor");
+  </script>
+  <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+  <script src="../../../../example.js"></script>
+
+  <style>
+  .table td{
+	text-align: center;
+  }
+  .table-header{
+	background-color: #D6EEFB;
+  }
+  .interlace{
+	background-color: #F3F3F3;
+  }
+  #data input{
+	width: 350px;
+  }
+  </style>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script> (for value change)</h2>
+	<hr>
+	<form>
+	<table id="data" border=1 style="margin: 0px auto;width:960px">
+	<tr style="background-color: #DEDEDE">
+		<td colspan="4" align="center">hidden fields</td>
+	</tr>
+	<tr>
+		<td>StartDate:</td>
+		<td><input type="text" name="F_StartDate"></td>
+		<td>EndDate:</td>
+		<td><input type="text" name="F_EndDate"></td>
+	</tr>
+	<tr>
+		<td>Purchase Price: </td>
+		<td><input type="text" name="F_PurchasePrice"></td>
+		<td>Purchase Amount: </td>
+		<td><input type="text" name="F_PurchaseAmount"></td>
+	</tr>
+	<tr>
+		<td>Limit Days:</td>
+		<td><input type="text" name="F_LimitDays"></td>
+		<td>Purchase Sum:</td>
+		<td><input type="text" name="F_PurchaseSum"></td>
+	</tr>
+	<tr style="background-color: #DEDEDE">
+		<td>rows count:</td>
+		<td colspan="3"><input type="text" name="F_RowsCount"></td>
+	</tr>
+	</table>
+	<hr>
+	<div style="text-align:center">
+	<input type="button" value="read" onclick="window.location=window.location.href.word('?',0)+'?openmode=0';">
+	<input type="button" value="edit" onclick="window.location=window.location.href.word('?',0)+'?openmode=1';">
+	<input type="button" value="select all" onclick="editor.selectAll();">
+	<input type="button" value="load" onclick="editor.load();">
+	<input type="button" value="validate" onclick="if(editor.validate()){ alert('已全部填写完！');}">
+	<input type="button" value="trim" onclick="editor.trim();alert('整理完毕！');">
+	<input type="button" value="clear data" onclick="editor.clearEmpty();">
+	<input type="button" value="clear all" onclick="editor.removeAll();">
+	<input type="button" value="reset" onclick="editor.reset();">
+	<input type="button" value="reload" onclick="editor.reload();">
+	<input type="button" value="save" onclick="editor.save();">
+	<input type="button" value="reload first row" onclick="if(editor.getRowsCount()>=1) editor.getRow(0).reload();">
+	<input type="button" value="save first row" onclick="if(editor.getRowsCount()>=1) editor.getRow(0).save();">
+	</div>
+	<hr>
+	<script>
+	var thisform=document.forms[0];
+	var thatform=jsdk.js.domx.HTMLForm.newInstanceFrom(document.forms[0]);
+	var data=jsdk.get("data/data.json","",true,"","json");
+	jsdk.PopupDialog.setStyleSkin("std");
+	jsdk.HTMLForm.applyInstance(thisform,"copy",false);
+	</script>
+	<div style="width:960px;margin: 15px auto;">
+		<div style="text-align: center;font-size: 18pt;font-weight: bold;margin: 15px 0px">采购单</div>
+		<script>
+		var editor=new jsdk.TableDataEditor("",{
+			openMode: jsdk.getURIPrmt(location.search,"openmode")||0,		//0, 读取; 1, 编辑模式
+			parentForm: document.forms[0],
+			enabledNoCol: true,
+			enabledSelectCol: true,
+			enabledActionCol: true,
+			minRowsCount: 1,
+			maxRowsCount: 10,
+			columns:{
+				"No": {
+					title: "#",
+					/*width: "80px",*/
+					isHidden: false
+				},
+				"Action": {
+					width: "55px",
+					actions: ["add,insert,moveup,movedown,delete","moveup,movedown,delete"]
+				}
+			}
+		},"");
+		editor.setStoreFieldFor("AllCount",jsdk.dom("#F_RowsCount#")[0]);
+		with(editor.addColumn("开始日期","colStartDate","Date","100",0)){	//0 left,1,2
+			bindDataFields(jsdk.dom('#F_StartDate#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				allowKeyInput: false,
+				unfilledPrompt: "请输入开始日期！",
+				onEvents: {
+					onSelect: function(event,dateOptions,callBack){
+						var _this=this;
+						WdatePicker({el: this.getOriginal(), onpicked: function(){
+							callBack(1,_this.getDataText());
+						}});
+					}
+				}
+			});
+		}
+		with(editor.addColumn("结束日期","colEndDate","Date","100",0)){
+			bindDataFields(jsdk.dom('#F_EndDate#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				allowKeyInput: false,
+				unfilledPrompt: "请输入结束日期！",
+				onEvents: {
+					onSelect: function(event,dateOptions,callBack){
+						var _this=this;
+						WdatePicker({el: this.getOriginal(), onpicked: function(){
+							callBack(1,_this.getDataText());
+						}});
+					}
+				}
+			});
+		}
+		with(editor.addColumn("期限天数","colLimitDays","Number","60",0)){
+			bindDataFields(jsdk.dom('#F_LimitDays#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				unfilledPrompt: "请输入期限天数！"
+			});
+		}
+		with(editor.addColumn("采购单价","colPurchasePrice","Number","60",0)){
+			bindDataFields(jsdk.dom('#F_PurchasePrice#')[0]);
+			setInputOptions({
+				allowEmpty: true,
+				decimalOptions: -1,
+				unfilledPrompt: "请输入采购单价！"
+			});
+		}
+		with(editor.addColumn("采购数量","colPurchaseAmount","Number","60",0)){
+			bindDataFields(jsdk.dom('#F_PurchaseAmount#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				minValue: 0,
+				unfilledPrompt: "请输入采购数量！"
+			});
+		}
+		with(editor.addColumn("采购总价","colPurchaseSum","Number","60",0)){
+			bindDataFields(jsdk.dom('#F_PurchaseSum#')[0]);
+			setInputOptions({
+				allowEmpty: false,
+				unfilledPrompt: "请输入采购总价！"
+			});
+		}
+		editor.addFieldAdjustHandle(["colStartDate","colEndDate"],function(oRow,F_StartDate,F_EndDate){
+			var F_LimitDays=oRow.getColumnFieldByColName("colLimitDays");
+			var V_StartDate=F_StartDate.getDataValue();
+			var V_EndDate=F_EndDate.getDataValue();
+			if(V_StartDate==undefined||V_EndDate==undefined) F_LimitDays.clearEmpty();
+			else if(V_StartDate<=V_EndDate) F_LimitDays.setDataValue(
+				Math.ceil(jsdk.Date.computeTime(V_EndDate-V_StartDate,"ms","h")/24)+1);
+			else F_LimitDays.clearEmpty();
+		});
+		editor.addFieldAdjustHandle(["colPurchasePrice","colPurchaseAmount"],function(oRow,F_PurchasePrice,F_PurchaseAmount){
+			var F_PurchaseSum=oRow.getColumnFieldByColName("colPurchaseSum");
+			var V_PurchasePrice=F_PurchasePrice.getDataValue();
+			var V_PurchaseAmount=F_PurchaseAmount.getDataValue();
+			if(V_PurchasePrice==undefined||V_PurchaseAmount==undefined) ;
+			else F_PurchaseSum.setDataValue(V_PurchasePrice*V_PurchaseAmount);
+		});
+		editor.load();
+		editor.show();
+		</script>
+		<div style="text-align:center;margin: 20px;"><input type="button" value="submit" style="padding:10px 17px;font-size:12pt" onclick="if(editor.validate()) alert('OK!');"></div>
+	</div>
+	</div>
+	<div style="height:100px"></div>
+	</form>
+ </body>
+</html>

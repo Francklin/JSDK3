@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> new document </title>
+  <meta name="generator" content="editplus">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <script version="" debug="false" src="../../src/loader.js"></script>
+ </head>
+
+ <body>
+  <script>
+	if(typeof(JSDK)=="undefined"){
+		document.write("JSDK undefined!");
+	}else{
+		document.write("JSDK initialized!<br>Version: "+JSDK.Engine.getVersion());
+	}
+  </script>
+ </body>
+</html>

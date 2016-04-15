@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE>速度测试 - 测试1000个节点(按双层)</TITLE>
+  <meta HTTP-EQUIV=Content-Type CONTENT="text/html; charset=gb2312">
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <script appName="jsdk" debug="false" src="../../../../../../../src/loader.js">
+  $import("js.ui.menu.Outline");
+  </script>
+ </HEAD>
+
+ <BODY>
+  <script>
+  var StartTime=new Date();
+  var outline=new jsdk.Outline("");
+  outline.setUseIcon(true);
+	with(outline.addItem("Item")){
+		for(var j=0;j<999;j++){
+			addItem("Item"+j);
+		}
+	}
+  </script>
+  <script type="text/javascript">
+	window.status="加载"+outline.getLength()+"个节点耗时"+((new Date())-StartTime)+"毫秒";
+  </script>
+ </BODY>
+</HTML>

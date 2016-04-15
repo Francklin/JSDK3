@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Eamples </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" type="text/css" href="../../../../common/common.css"/>
+  <script src="../../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  </script>
+  <script src="../../../example.js"></script>
+ </head>
+
+ <body>
+	<h2><script>document.write(example.title)</script></h2>
+	<hr>
+	 <script id="tmpl" type="text/html">
+	   <table width="80%">
+		 <tr bgcolor="#FEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+		 <% for(var n = 0; n < books.length; n++) {
+			  var book = books[n];
+			  if(n % 2 != 0) { 
+		  %>
+		  <tr bgcolor="#DCDCDC"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% }else{   %>
+		   <tr bgcolor="#FFFFE0"><td>${book.name}</td><td>${book.author}</td><td>${book.plsh}</td><td>${book.price}</td></tr>
+		 <% } }  %>
+	   </table>
+	</script>
+	<script id="tmpl1" type="text/html">
+	   <table width="80%">
+		 <tr bgcolor="#FEB887"><td>书籍名称</td><td>作者</td><td>出版社</td><td>价格</td></tr>
+		 <% for(var n = 0; n < books.book.length; n++) {
+			  var book = books.book[n];
+			  if(n % 2 != 0) { 
+		  %>
+		  <tr bgcolor="#DCDCDC"><td>${book.name["#text"]}</td><td>${book.author["#text"]}</td><td>${book.plsh["#text"]}</td><td>${book.price["#text"]}</td></tr>
+		 <% }else{   %>
+		   <tr bgcolor="#FFFFE0"><td>${book.name["#text"]}</td><td>${book.author["#text"]}</td><td>${book.plsh["#text"]}</td><td>${book.price["#text"]}</td></tr>
+		 <% } }  %>
+	   </table>
+	</script>
+	<script type="text/x-html-block" template="#tmpl" data="data/books1.json"></script>
+	<script type="text/x-html-block" template="#tmpl1" data="data/books1.xml" dataType="xml"></script>
+	<script type="text/x-html-block" template="template/books.tpl.htm" data="data/books1.json"></script>
+	<script type="text/x-html-block" template="template/books.tpl.htm" data="data/books2.json"></script>
+	<script type="text/x-html-block" template="template/books.tpl.htm" data="data/books2.json"></script>
+	<script type="text/x-html-block" template="template/books.tpl.htm" data="data/books2.json"></script>
+	<script type="text/x-html-block" template="#tmpl" data="data/books2.json"></script>
+	<script>
+	jsdk.DOMTemplate.parse(jsdk.dom("script[type='text/x-html-block']"));
+	</script>
+
+
+ </body>
+</html>

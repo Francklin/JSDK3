@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Test - js.net.AjaxRequest </TITLE>
+  <META NAME="Content-Type" CONTENT="text/html; charset=gb2312">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">  
+  <script>var startDate=new Date();</script>
+  <script debug="false" src="../../src/loader.js">
+	$import("js.net.AjaxRequest");
+  </script>
+  <script>var endDate=new Date();</script>
+  <script>
+	var xml;
+	function getFile(url){
+		xml=JSDK.AjaxRequest.getXML(url);
+		document.getElementById("output").value=xml.documentElement.xml;
+	}
+  </script>
+ </HEAD>
+
+ <BODY>
+  <div>
+    <script>
+	document.write("加载JSDK共耗时"+Date.computeTime("ms",endDate-startDate,3)+"毫秒<br>");
+	</script>
+  </div>
+  <hr>
+  <div style="width:100%;height:350px">
+	<TEXTAREA id="output" NAME="output" style="width:100%;height:100%" wrap="off"></TEXTAREA>
+  </div>
+  <div style="padding:2px">
+    <INPUT TYPE="button" VALUE="清空" ONCLICK="document.getElementById('output').value='';">
+	<INPUT TYPE="button" VALUE="获取文件" ONCLICK="getFile('../res/browser/browser.xml')">
+	<INPUT TYPE="button" VALUE="测试方法 - selectNodes" ONCLICK="alert(window.xml.selectNodes('/Browsers/Browser'));">
+  </div>
+  <table border="1">
+	<tr>
+		<td colspan="7" align="center">Browser</td>
+	</tr>
+	<tr>
+		<td>IE8-</td>
+		<td>IE8</td>
+		<td>Firefox 3.6.17</td>
+		<td>Chrome 13</td>
+		<td>Safari 5.0.5</td>
+		<td>iPad Safari 5.0.2</td>
+		<td>Opera 11.11</td>
+	</tr>
+	<tr>
+		<td>√</td>
+		<td>√</td>
+		<td>√</td>
+		<td>√</td>
+		<td>√</td>
+		<td>√</td>
+		<td>√</td>
+	</tr>
+
+	</table>
+ </BODY>
+</HTML>

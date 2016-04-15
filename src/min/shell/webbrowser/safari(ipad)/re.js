@@ -1,0 +1,1 @@
+function(n,t,i,r){_jsre._ce.addNamespace("global",{STR_NewLine:"\n"},!0);_jsre.globalEval(_jsre.getFileResource(r.right(_jsre._rootHome+"/")+"/patch/patch-IE.js"));js.dom.DOMWindow.applyInstance(i,"copy",!0);js.dom.HTMLDocument.applyInstance(i.document,"copy",!0)}

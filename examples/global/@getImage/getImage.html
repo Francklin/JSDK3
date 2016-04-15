@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples: global - getImage() </title>
+  <meta name="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../common/common.css"/>
+  <script src="../../common/loader.js"></script>
+ </head>
+
+ <body>
+	<h2>Examples - Global.getImage(<span class="FunPara">src</span>,[<span class="FunPara">callback</span>])</h2>
+	<hr>
+  <script>
+	jsdk(function(container,callback){
+		jsdk.getImage("z16.jpg",callback(function(){
+			container.write("<div>z16.jpg - width: "+this.width+";height: "+this.height+"</div>");
+		}));
+		jsdk.getImage("01.jpg",callback(function(){
+			container.write("<div>01.jpg - width: "+this.width+";height: "+this.height+"</div>");
+		}));
+		jsdk.getImage("001.jpg",callback(function(){
+			container.write("<div>001.jpg - width: "+this.width+";height: "+this.height+"</div>");
+		}));
+		jsdk.getImage("zw2.jpg",callback(function(){
+			container.write("<div>zw2.jpg - width: "+this.width+";height: "+this.height+"</div>");
+		}));
+		jsdk.getImage("money.jpg",callback(function(){
+			container.write("<div>money.jpg - width: "+this.width+";height: "+this.height+"</div>");
+		}));
+	});
+  </script>
+ </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 微话题讨论 </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!--<link href="info.css" rel="stylesheet" type="text/css">-->
+  <script appName="jsdk" develop="false" debug="false" src="../../../common/jsdk_loader.js">
+  $import("js.dom.DOMTemplate3");
+  $import("js.dom.HTMLEncoder");
+  </script>
+  <style>
+	body,table{
+		font-size: 9pt;
+	}
+	.header{
+		font-size: 12pt;
+		font-weight: bold;
+	}
+	a,a:link,a:visited{
+		color: blue;
+	}
+	pre{
+		margin:0;
+	}
+	.comment-list{
+		border: solid 1px #FFD2AD;
+		padding: 2px;
+	}
+	.comment-list .comment-list{
+	  margin-left: 16px;
+	}
+	.comment{
+	   margin-top: 2px;
+	}
+	.comment-body{
+	   min-height: 30px;
+	   padding: 2px;
+	   overflow: visible;
+	   background-color: #FFFFD7;
+	   border: solid 1px #FFD2AD;
+	}
+	.comment-bottom{
+	   margin-top: 2px;
+	   height: 20px;
+	}
+  </style>
+  <script>
+  var data=jsdk.get("data.json","",false,"","json");
+  window.onload=function(){
+	//jsdk.DOMTemplate.parse(jsdk.dom("script[type='text/x-html-block']"));
+  }
+  </script>
+ </head>
+
+ <body>
+  <div class="header"><span class="title">本期话题：<script>document.write(data["@topic"]);</script></span>&nbsp;&nbsp; <a href="javascript:void(0)">我要评论</a></div>
+  <hr>
+  <div id="div1">
+	<script type="text/x-html-block" template="discuss.tpl.htm" data="${data}" maxLevels="5"></script>
+  </div>
+  <hr>
+  <div>
+  允许最大答复层次：5，实际最大答复层次：未知
+  </div>
+	<script>
+	var tpl=jsdk.DOMTemplate3.newInstanceFromUrl("discuss.tpl.htm");
+	var date1=new Date();
+	document.write(date1.toSTDString()+"<br>");
+	var code1=tpl.getCompiledCode();
+	var tpl11=jsdk.DOMTemplate3.newInstanceFromCompiled(code1);
+	for(var i=0;i<3000;i++){
+			var tpl11=jsdk.DOMTemplate3.newInstanceFromCompiled(code1);
+			//var tpl11=new jsdk.DOMTemplate3(tpl.getCode());
+	}
+	var date2=new Date();
+	document.write(date2.toSTDString()+ "-" +(date2-date1)+"<br>");
+	var code2=tpl.getCode();
+	for(var i=0;i<10;i++){
+			//var tpl11=jsdk.DOMTemplate3.newInstanceFromCompiled(tpl.getCompiledCode());
+			//var tpl11=new jsdk.DOMTemplate3(tpl.getCode());
+			//jsdk.DOMTemplate3.newInstanceFromUrl("discuss.tpl.htm");
+	}
+	var date3=new Date();
+	document.write(date3.toSTDString()+ "-" +(date3-date2)+"<br>");
+tpl11.parse(data,jsdk.dom("#div1")[0]);
+	</script>
+ </body>
+</html>

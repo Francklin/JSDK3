@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<viewentries toplevelentries="153">
+	<viewentry position="1" unid="6E606F8864BFBD2648257A1500113469">
+		<entrydata columnnumber="0" name="$24">
+			<text>2012-06-06</text> 
+		</entrydata>
+		<entrydata columnnumber="1" name="$25">
+			<number>0</number> 
+		</entrydata>
+		<entrydata columnnumber="2" name="xmmc">
+			<text>20120606test2</text> 
+		</entrydata>
+	</viewentry>
+	<viewentry position="2" unid="6812D6A6BE20F1CB48257A1500006B7B">
+		<entrydata columnnumber="0" name="$24">
+			<text>2012-06-06</text> 
+		</entrydata>
+		<entrydata columnnumber="1" name="$25">
+			<number>0</number> 
+		</entrydata>
+		<entrydata columnnumber="2" name="xmmc">
+			<text>20120606test1</text> 
+		</entrydata>
+	</viewentry>
+</viewentries>

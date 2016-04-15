@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 公告栏 </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link href="info.css" rel="stylesheet" type="text/css">
+  <script src="../../../common/loader.js">
+  $import("js.dom.DOMTemplate");
+  </script>
+  <script>
+  window.onload=function(){
+	jsdk.DOMTemplate.parse(jsdk.dom("script[type='text/x-html-block']"));
+  }
+  </script>
+ </head>
+
+ <body>
+  <div style="background-color: #FEFEFE; margin: 50px auto;width: 220px;height: 300px;">
+	<script type="text/x-html-block" template="info.tpl.htm" data="demo.json"></script>
+  </div>
+ </body>
+</html>

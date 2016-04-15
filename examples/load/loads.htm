@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> load multiple times </title>
+  <meta name="generator" content="editplus">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <script src="../../src/loader.js">
+  $import("js.util.ArrayList");
+  </script>
+  <script src="../../src/loader.js" contentType="import">
+  $import("js.ui.menu.PopupMenuLite");
+  </script>
+ </head>
+
+ <body>
+  <script>
+	if(typeof(JSDK)=="undefined"){
+		document.write("JSDK undefined!");
+	}else{
+		document.write("JSDK initialized version '"+JSDK.Engine.getVersion()+"'.<br>");
+	}
+	try{
+		if(JSDK.js.util.ArrayList){
+			document.write("JSDK loaded class 'js.util.ArrayList'.<br>");
+		}
+		if(JSDK.js.ui.menu.PopupMenuLite){
+			document.write("JSDK loaded class 'js.ui.menu.PopupMenuLite'.<br>");
+		}
+	}catch(e){
+		document.write("JSDK import classes error!<br>");
+	}
+  </script>
+ </body>
+</html>

@@ -1,0 +1,34 @@
+{
+manifest : {
+"name" : "global",
+"file" : "global.js",
+"version" : "4.1",
+"description" : "",
+"author" : "liu denggao",
+"modified": "2014.02.11"
+},
+entity : [
+	"bin\\global.key.js",
+	"bin\\global.base.js",
+	"bin\\global.id.js",
+	"bin\\global.uri.js",
+	"bin\\global.parser.js",
+	"bin\\global.charset.js",
+	"bin\\global.exec.js",
+	"bin\\global.ajax.js",
+	"bin\\global.query.js",
+	"bin\\global.dom.js"
+],
+comment: ""
++"/** \n"
++" * JSDK3 Global Functions and Properties \n"
++" * @file: global.js \n"
++" * @version: V4.1 \n"
++" * @author: liu denggao \n"
++" * @modified: 2014.02.11 \n"
++" * @mail: francklin.liu@gmail.com \n"
++" * @homepage: http://www.tringsoft.com \n"
++" ************************************************/ \n\n",
+separater : ["({",",","})"],
+output : "bin\\global.4.1.js"
+}

@@ -1,0 +1,31 @@
+{
+	author: "liudenggao",
+	date: "2011.10.14",
+	dialogbox: {
+		oDspTexts: {
+			title: "人员选择",
+			tips: "请选择人员：",
+			category: "",
+			view: "选择地区：",
+			data: "候选人员：",
+			result: "已选人员：",
+			memo: "注：候选人员可按“shift”键连选，按“Ctrl”键跳选"
+		},
+		oPara: {
+			isMultiple: true,
+			dspResult: true	
+		},
+		oViewData: {
+			"array": '["海外","香港","台湾","大陆"]',
+			"url(json)": "standard.area.json",
+			"url(xml)": "standard.area.xml",
+			"function": 'return ["海外","香港","台湾","大陆"];'
+		},
+		vValues: "刘德华|liudehua",
+		fnGetItemData:	'var json=jsdk.get("standard.people.json","",false,"","JSON");\n'
+					+	'for(var i=0,objs=json.items;i<objs.length;i++){\n'
+					+		'if(objs[i].text==item.text) return objs[i].data; \n'
+					+	'}\n'
+					+	'return ""; \n'
+	}
+}

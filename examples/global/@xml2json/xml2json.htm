@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Examples: global - xml2json() </title>
+  <meta name="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <link rel="stylesheet" type="text/css" href="../../common/common.css"/>
+  <script src="../../common/loader.js"></script>
+  <script>
+  var isLoaded=typeof(jsdk)!="undefined";
+  </script>
+  <style>
+  .FunPara{font-style:italic;color:darkgray}
+  </style>
+ </head>
+
+ <body>
+	<h2>Examples - Global.xml2json(<span class="FunPara">xml</span>,[<span class="FunPara">tmpl</span>])</h2>
+	<hr>
+	<h4><script>if(!isLoaded) document.write("(JSDK未定义)");</script></h4>
+	<div>
+		<script>
+		var json=jsdk.xml2json(jsdk.get("data2.xml","",false,"","xml"),{
+				viewentries: {
+					viewentry: [{
+						entrydata: [{
+							text: []
+						}]	
+					}]
+				}
+			});
+		document.write("toplevelentries: "+json.viewentries["@toplevelentries"]+"<br>");
+		document.write("isArray: "+jsdk.isArray(json.viewentries["viewentry"])+"<br>");
+		document.write(json.viewentries["viewentry"][0].entrydata[0]["@name"]+"<br>");
+		document.write(json.viewentries["viewentry"][0].entrydata[0].text[0]["#text"]+"<br>");
+		</script>
+	</div>
+ </body>
+</html>

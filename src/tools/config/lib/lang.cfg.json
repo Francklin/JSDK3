@@ -1,0 +1,26 @@
+{
+manifest : {
+"name" : "lang",
+"file" : "lang.json",
+"version" : "2.1",
+"description" : "",
+"author" : "liu denggao"
+},
+entity : [
+	"js.lang.natives.Object",
+	"js.lang.natives.Function",
+	"js.lang.natives.String",
+	"js.lang.natives.Number",
+	"js.lang.natives.Boolean",
+	"js.lang.natives.Date",
+	"js.lang.natives.Math",
+	"js.lang.natives.Array",
+	"js.lang.natives.Error",
+	"js.lang.Object",
+	"js.lang.Exception",
+	"js.lang.String",
+	"js.lang.Number",
+	"js.lang.Date"
+],
+output : "lib\\classes\\lang.2.1.json"
+}
